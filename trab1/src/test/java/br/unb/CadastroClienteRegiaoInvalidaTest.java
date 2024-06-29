@@ -39,11 +39,7 @@ public class CadastroClienteRegiaoInvalidaTest {
         } else {
             Throwable e = assertThrows(excecaoEsperada, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao"));
             assertEquals(e.getMessage(), saidaEsperada);
-
         }
-
-
     }
-
 
 }

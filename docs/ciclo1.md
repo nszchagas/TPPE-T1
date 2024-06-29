@@ -9,6 +9,6 @@ Casos de teste:
 - [x] Inserir tipo inválido (nem padrão, nem especial, nem prime)
     - [x] Deve ser case insensitive na comparacao
 - [x] Inserir estado que não existe
-- Inserir localização inválida (nem capital nem interior)
+- [x] Inserir localização inválida (nem capital nem interior)
 
 

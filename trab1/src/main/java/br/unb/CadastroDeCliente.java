@@ -12,9 +12,12 @@ public class CadastroDeCliente{
             "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
             "RS", "RO", "RR", "SC", "SP", "SE", "TO"
          );
+         List<String> regioesValidas = List.of("interior", "capital");
 
         categoria = categoria.toLowerCase().trim();
         estado = estado.trim().toUpperCase();
+        String regiao_inserida = regiao;
+        regiao = regiao.trim().toLowerCase();
 
         if (! categoriasValidas.contains(categoria) ) {
             throw new IllegalArgumentException(String.format("Categoria inválida: %s.", categoria));
@@ -25,6 +28,10 @@ public class CadastroDeCliente{
         if (! estadosValidos.contains(estado)) {
             throw new IllegalArgumentException(String.format("Estado inválido: %s.", estado));
         }
+        if (! regioesValidas.contains(regiao)) {
+            throw new IllegalArgumentException(String.format("Região inválida: \"%s\".", regiao_inserida));
+        }
+
 
 
         return new Cliente(categoria, estado, regiao);
