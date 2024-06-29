@@ -14,6 +14,7 @@ public class CadastroDeCliente{
          );
 
         categoria = categoria.toLowerCase().trim();
+        estado = estado.trim().toUpperCase();
 
         if (! categoriasValidas.contains(categoria) ) {
             throw new IllegalArgumentException(String.format("Categoria inválida: %s.", categoria));
