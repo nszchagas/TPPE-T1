@@ -7,7 +7,7 @@ Requisito:
 
 Casos de teste: 
 - [x] Inserir tipo inválido (nem padrão, nem especial, nem prime)
-    - Deve ser case insensitive na comparacao
+    - [x] Deve ser case insensitive na comparacao
 - Inserir estado que não existe
 - Inserir localização inválida (nem capital nem interior)
 
