@@ -1,10 +1,8 @@
 package br.unb;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class CadastroDeCliente{
+public class CadastroDeCliente {
     public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria) {
         List<String> categoriasValidas = List.of("PADRAO", "ESPECIAL", "PRIME");
          List<String> estadosValidos = List.of(
@@ -20,8 +18,6 @@ public class CadastroDeCliente{
         estado = estado.trim().toUpperCase();
         regiao = regiao.trim().toUpperCase();
 
-
-
         if (! categoriasValidas.contains(categoria) ) {
             throw new IllegalArgumentException(String.format("Categoria inválida: \"%s\".", categoria_inserida));
         }
@@ -35,8 +31,8 @@ public class CadastroDeCliente{
             throw new IllegalArgumentException(String.format("Região inválida: \"%s\".", regiao_inserida));
         }
 
-
-
-        return new Cliente(categoria, estado, regiao);
+        return new Cliente(nome, categoria, estado, regiao);
     }
+
+    public void insereClienteNoBanco(Cliente cliente) {};
 }

@@ -11,4 +11,7 @@ Casos de teste:
 - [x] Inserir estado que não existe
 - [x] Inserir localização inválida (nem capital nem interior)
 
+Operações de CRUD:
+- [] Testar inserção: verificar qtd
+- [] Testar inserção de repetidos
 
