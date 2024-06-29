@@ -5,6 +5,7 @@ import br.unb.Cliente;
 import br.unb.Database;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CriacaoClienteTest {
@@ -26,7 +27,7 @@ public class CriacaoClienteTest {
         cadastroDeCliente.insereClienteNoBanco(c);
         cadastroDeCliente.insereClienteNoBanco(d);
         cadastroDeCliente.insereClienteNoBanco(e);
-        assertTrue(db.getQtdClientes().equals(5L));
+        assertEquals(db.getQtdClientes(), 5);
     }
 
 

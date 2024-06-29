@@ -3,6 +3,7 @@ package br.unb;
 import java.util.List;
 
 public class CadastroDeCliente {
+    private Database db = Database.getInstance();
     public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria) {
         List<String> categoriasValidas = List.of("PADRAO", "ESPECIAL", "PRIME");
          List<String> estadosValidos = List.of(
@@ -34,5 +35,7 @@ public class CadastroDeCliente {
         return new Cliente(nome, categoria, estado, regiao);
     }
 
-    public void insereClienteNoBanco(Cliente cliente) {};
+    public void insereClienteNoBanco(Cliente cliente) {
+        db.insereCliente(cliente);
+    };
 }

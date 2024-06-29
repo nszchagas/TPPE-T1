@@ -1,10 +1,14 @@
 package br.unb;
 
 
+import java.util.ArrayList;
+
 public final class Database {
     private static Database db;
+    private ArrayList<Cliente> clientes;
 
     private Database() {
+        this.clientes = new ArrayList<>();
     }
 
     public static Database getInstance() {
@@ -14,8 +18,12 @@ public final class Database {
         return  db;
     }
 
-    public Long getQtdClientes(){
-        return 0L;
+    public void insereCliente(Cliente cliente){
+        this.clientes.add(cliente);
+    }
+
+    public int getQtdClientes(){
+        return this.clientes.size();
     }
 
 }
