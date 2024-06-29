@@ -1,5 +1,7 @@
-package br.unb;
+package br.unb.cadastro;
 
+import br.unb.CadastroDeCliente;
+import br.unb.Cliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,11 +13,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 @RunWith(Parameterized.class)
-public class CadastroClienteRegiaoInvalidaTest {
+public class RegiaoTest {
     String entrada,saidaEsperada;
     Class <?extends Throwable> excecaoEsperada;
     CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
-    public CadastroClienteRegiaoInvalidaTest(String entrada, String saidaEsperada, Class <?extends  Throwable> excecaoEsperada) {
+    public RegiaoTest(String entrada, String saidaEsperada, Class <?extends  Throwable> excecaoEsperada) {
         this.entrada = entrada;
         this.saidaEsperada = saidaEsperada;
         this.excecaoEsperada = excecaoEsperada;
@@ -23,8 +25,8 @@ public class CadastroClienteRegiaoInvalidaTest {
     @Parameterized.Parameters(name="{index} Região {0} deve gerar saída/mensagem de erro {1} (Exceção: {2}).")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"CapiTal", "capital", null},
-                {"InTERIOR   ", "interior", null},
+                {"CapiTal", "CAPITAL", null},
+                {"InTERIOR   ", "INTERIOR", null},
                 {"outro canto",   "Região inválida: \"outro canto\"."    , IllegalArgumentException.class},
                 {" minha casa   ", "Região inválida: \" minha casa   \".",  IllegalArgumentException.class}
         });
