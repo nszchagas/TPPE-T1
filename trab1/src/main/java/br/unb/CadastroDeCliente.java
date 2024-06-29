@@ -18,6 +18,9 @@ public class CadastroDeCliente{
         if (! categoriasValidas.contains(categoria) ) {
             throw new IllegalArgumentException(String.format("Categoria inválida: %s.", categoria));
         }
+        if (estado.length() != 2 ) {
+            throw new IllegalArgumentException("Insira a sigla do estado.");
+        }
         if (! estadosValidos.contains(estado)) {
             throw new IllegalArgumentException(String.format("Estado inválido: %s.", estado));
         }
