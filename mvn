@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo docker run -u "$(id -u):$(id -g)" \
+        -e MAVEN_OPTS="-Dmaven.repo.local=/app/.m2" \
+        --entrypoint "" \
+        -v "$PWD/trab1":/app \
+        -w /app maven:3.8.5-openjdk-11 "$@"
