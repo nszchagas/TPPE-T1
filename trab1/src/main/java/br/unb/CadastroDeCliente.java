@@ -27,6 +27,6 @@ public class CadastroDeCliente{
         }
 
 
-        return new Cliente(categoria, estado);
+        return new Cliente(categoria, estado, regiao);
     }
 }
