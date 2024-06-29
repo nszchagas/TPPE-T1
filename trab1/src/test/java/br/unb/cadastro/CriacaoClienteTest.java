@@ -5,8 +5,7 @@ import br.unb.Cliente;
 import br.unb.Database;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CriacaoClienteTest {
     CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
@@ -28,6 +27,13 @@ public class CriacaoClienteTest {
         cadastroDeCliente.insereClienteNoBanco(d);
         cadastroDeCliente.insereClienteNoBanco(e);
         assertEquals(db.getQtdClientes(), 5);
+    }
+
+    @Test
+    public void assertNaoInsereDuplicado(){
+        cadastroDeCliente.insereClienteNoBanco(a);
+        cadastroDeCliente.insereClienteNoBanco(a);
+        assertEquals(db.getQtdClientes(), 1);
     }
 
 
