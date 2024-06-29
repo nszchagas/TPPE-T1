@@ -1,7 +1,7 @@
-package br.unb.cadastro;
+package br.unb.cliente;
 
-import br.unb.CadastroDeCliente;
-import br.unb.Cliente;
+import br.unb.service.CadastroDeCliente;
+import br.unb.model.Cliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,6 +12,7 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
+//@TODO: assert que não existe região com DF.
 @RunWith(Parameterized.class)
 public class RegiaoTest {
     String entrada,saidaEsperada;

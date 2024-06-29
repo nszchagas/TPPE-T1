@@ -1,7 +1,9 @@
-package br.unb;
+package br.unb.service;
+
+import br.unb.model.Cliente;
+import br.unb.model.Database;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class CadastroDeCliente {
     private Database db = Database.getInstance();

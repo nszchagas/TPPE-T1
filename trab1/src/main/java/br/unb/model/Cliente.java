@@ -1,4 +1,4 @@
-package br.unb;
+package br.unb.model;
 
 import java.util.Objects;
 

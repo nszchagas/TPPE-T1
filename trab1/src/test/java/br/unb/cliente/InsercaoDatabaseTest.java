@@ -1,13 +1,13 @@
-package br.unb.cadastro;
+package br.unb.cliente;
 
-import br.unb.CadastroDeCliente;
-import br.unb.Cliente;
-import br.unb.Database;
+import br.unb.service.CadastroDeCliente;
+import br.unb.model.Cliente;
+import br.unb.model.Database;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CriacaoClienteTest {
+public class InsercaoDatabaseTest {
     CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
     Database db = Database.getInstance();
     Cliente a = new Cliente("JOSÉ SILVA", "PADRAO", "SP", "INTERIOR");
@@ -15,8 +15,6 @@ public class CriacaoClienteTest {
         Cliente c = new Cliente("ANA LIMA", "PRIME", "MG", "INTERIOR");
         Cliente d = new Cliente("CARLOS PEREIRA", "PADRAO", "BA", "CAPITAL");
         Cliente e = new Cliente("FERNANDA ALVES", "ESPECIAL", "PR", "INTERIOR");
-        Cliente f = new Cliente("RAFAEL SANTOS", "PRIME", "RS", "CAPITAL");
-        Cliente g = new Cliente("CLAUDIA OLIVEIRA", "PADRAO", "SC", "INTERIOR");
 
 
     @Test

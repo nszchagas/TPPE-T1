@@ -1,9 +1,7 @@
-package br.unb;
+package br.unb.model;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class Database {
     private static Database db;

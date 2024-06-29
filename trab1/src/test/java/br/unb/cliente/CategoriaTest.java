@@ -1,7 +1,7 @@
-package br.unb.cadastro;
+package br.unb.cliente;
 
-import br.unb.CadastroDeCliente;
-import br.unb.Cliente;
+import br.unb.service.CadastroDeCliente;
+import br.unb.model.Cliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,13 +12,13 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class TipoDeClienteTest {
+public class CategoriaTest {
 
     private final String entrada;
     private final String saida;
     private final Class <?extends Throwable> excecaoEsperada;
     CadastroDeCliente c = new CadastroDeCliente();
-    public TipoDeClienteTest(String entrada, String saida, Class <?extends Throwable> excecaoEsperada){
+    public CategoriaTest(String entrada, String saida, Class <?extends Throwable> excecaoEsperada){
         this.entrada = entrada;
         this.saida = saida;
         this.excecaoEsperada = excecaoEsperada;
