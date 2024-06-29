@@ -2,6 +2,8 @@ package br.unb;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class Database {
     private static Database db;
@@ -18,7 +20,11 @@ public final class Database {
         return  db;
     }
 
-    public void insereCliente(Cliente cliente){
+    public void insereCliente(Cliente cliente) throws Exception {
+        if (clientes.contains(cliente))
+        {
+            throw new Exception(String.format("Cliente já inserido no banco de dados. %s", cliente.toString()));
+        }
         this.clientes.add(cliente);
     }
 

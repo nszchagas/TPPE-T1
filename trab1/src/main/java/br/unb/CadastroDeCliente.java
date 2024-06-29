@@ -1,6 +1,7 @@
 package br.unb;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class CadastroDeCliente {
     private Database db = Database.getInstance();
@@ -36,6 +37,11 @@ public class CadastroDeCliente {
     }
 
     public void insereClienteNoBanco(Cliente cliente) {
-        db.insereCliente(cliente);
+        try {
+            db.insereCliente(cliente);
+        }
+         catch (Exception e) {
+             System.out.printf("Cliente já inserido no banco de dados. %s", cliente.toString());
+         }
     };
 }

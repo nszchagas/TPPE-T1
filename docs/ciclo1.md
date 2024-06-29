@@ -12,6 +12,6 @@ Casos de teste:
 - [x] Inserir localização inválida (nem capital nem interior)
 
 Operações de CRUD:
-- [] Testar inserção: verificar qtd
-- [] Testar inserção de repetidos
+- [x] Testar inserção: verificar qtd
+- [x] Testar inserção de repetidos
 
