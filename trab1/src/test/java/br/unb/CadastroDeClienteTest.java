@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 
 public class CadastroDeClienteTest {
 
-
-
     @Test
     public void testCriarClienteComCategoriaInvalidaDeveLancarExcecao() {
         CadastroDeCliente c = new CadastroDeCliente();
@@ -17,6 +15,17 @@ public class CadastroDeClienteTest {
             assertEquals("Categoria inválida: tipoinvalido.", e.getMessage());
         } 
         
+    }
+//    Parametrizar
+    @Test
+    public void testCategoriaValidaCaseInsensitive(){
+        CadastroDeCliente c = new CadastroDeCliente();
+        try {
+            Cliente j = c.cadastraCliente("José", "Capital", "SP", "Padrao");
+            assertEquals(j.categoria, "padrao");
+        } catch (IllegalArgumentException e){
+            fail("Não deveria ter lançado exceção.");
+        }
     }
 
 }
