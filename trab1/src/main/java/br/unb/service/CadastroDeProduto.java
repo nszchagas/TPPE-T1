@@ -3,7 +3,7 @@ import br.unb.model.Produto;
 import br.unb.model.UnidadeValida;
 
 public class CadastroDeProduto {
-    public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade){
+    public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo){
         Float valor;
 
         // Validação de Descrição

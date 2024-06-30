@@ -46,12 +46,12 @@ public class UnidadeTest {
         CadastroDeProduto c = new CadastroDeProduto();
         if (excecaoEsperada != null ){
             Throwable a = assertThrows(excecaoEsperada, () ->
-                c.cadastraProduto("Caderno 96 Folhas", "10", entrada)
+                c.cadastraProduto("Caderno 96 Folhas", "10", entrada,"123456")
             );
             assertEquals(a.getMessage(), saidaEsperada);
         } else
         {
-            Produto p = c.cadastraProduto("Caderno 96 Folhas", "10", entrada);
+            Produto p = c.cadastraProduto("Caderno 96 Folhas", "10", entrada, "123456");
             assertEquals(p.unidade, saidaEsperada);
         }
 

@@ -15,6 +15,7 @@
 - [x] Testar se valor de venda aceita valores negativos
 - [x] Testar validação de ponto/vírgula
 - [x] Testar unidade inválida 
+- [ ] Testar código inválido
 
 ### Operações CRUD: Inserção 
 
