@@ -38,7 +38,7 @@ public class DescricaoTest {
     public void testeValores(){
         CadastroDeProduto c = new CadastroDeProduto();
         Throwable a = assertThrows(excecaoEsperada, () ->
-            c.cadastraProduto(entrada, "100.20")
+            c.cadastraProduto(entrada, "100.20", "UNIDADE")
         );
         assertEquals(a.getMessage(), saidaEsperada);
 

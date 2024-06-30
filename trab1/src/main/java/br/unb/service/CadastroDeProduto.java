@@ -2,7 +2,7 @@ package br.unb.service;
 import br.unb.model.Produto;
 
 public class CadastroDeProduto {
-    public Produto cadastraProduto(String descricao, String valorDeVenda){
+    public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade){
         if (descricao == null || descricao.isEmpty() || descricao.trim().isEmpty()) {
             String msg = descricao == null ? "Descrição não pode ser vazia." : String.format("Descrição inválida: \"%s\".", descricao);
             throw new IllegalArgumentException(msg);
@@ -24,6 +24,6 @@ public class CadastroDeProduto {
         }
 
 
-        return new Produto(descricao, valor);
+        return new Produto(descricao, valor, unidade);
     }
 }

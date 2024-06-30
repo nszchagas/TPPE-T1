@@ -43,12 +43,12 @@ public class ValorDeVendaTest {
         CadastroDeProduto c = new CadastroDeProduto();
         if (excecaoEsperada != null ){
             Throwable a = assertThrows(excecaoEsperada, () ->
-                c.cadastraProduto("Caderno 96 Folhas", entrada)
+                c.cadastraProduto("Caderno 96 Folhas", entrada, "UNIDADE")
             );
             assertEquals(a.getMessage(), saidaEsperada);
         } else
         {
-            Produto p = c.cadastraProduto("Caderno 96 Folhas", entrada);
+            Produto p = c.cadastraProduto("Caderno 96 Folhas", entrada, "UNIDADE");
             assertEquals(p.valorDeVenda, Float.valueOf(saidaEsperada));
         }
 
