@@ -14,11 +14,11 @@
 - [x] Testar se descrição é diferente de "" ou de "   "
 - [x] Testar se valor de venda aceita valores negativos
 - [x] Testar validação de ponto/vírgula
-- [] Testar unidade inválida 
-- [] Testar se código é único no banco
+- [x] Testar unidade inválida 
 
 ### Operações CRUD: Inserção 
 
+- [] Testar se código é único no banco
 - [] Testar inserção: verificar que o produto foi inserido no banco 
 - [] Testar cadastro de produto repetido 
 
