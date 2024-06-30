@@ -24,7 +24,7 @@ public class CategoriaTest {
         this.excecaoEsperada = excecaoEsperada;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name="{index} Entrada: {0}, saída esperada: {1}, exceção esperada: {2}.")
     public static Collection<Object[]> data() {
         return Arrays.asList(
                 new Object[][] {
