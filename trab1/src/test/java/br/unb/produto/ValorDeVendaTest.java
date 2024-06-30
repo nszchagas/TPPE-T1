@@ -30,6 +30,8 @@ public class ValorDeVendaTest {
                 {"-1", "Valor de venda deve ser positivo. Valor inserido: \"-1\".", IllegalArgumentException.class},
                 {"0", "Valor de venda deve ser positivo. Valor inserido: \"0\".", IllegalArgumentException.class},
                 {"Não numérico", "Valor de venda deve ser numérico. Valor inserido: \"Não numérico\".", IllegalArgumentException.class},
+                {"", "Valor de venda deve ser numérico. Valor inserido: \"\".", IllegalArgumentException.class},
+                {" ", "Valor de venda deve ser numérico. Valor inserido: \" \".", IllegalArgumentException.class},
                 {null, "Valor de venda não pode estar vazio.", IllegalArgumentException.class},
                 {"1,2", "Valor inválido. Utilize ponto para separar as casas decimais. Valor inserido: \"1,2\".", IllegalArgumentException.class},
                 {"52.6", "52.6", null},
