@@ -1,0 +1,26 @@
+# Ciclo 2: Implementação do Requisito 2  
+
+
+> Cadastrar diferentes tipos de produtos, contendo:
+>  - Código do item
+>  - Descrição 
+>  - Valor de Venda
+>  - Unidade (peça, unidade, metro, cm3, etc...)
+
+## Casos de Teste para Cadastro de Cliente 
+
+### Validação dos dados 
+
+- [] Testar se descrição é diferente de "" ou de "   "
+- [] Testar se valor de venda aceita valores negativos 
+- [] Testar unidade inválida 
+- [] Testar se código é único no banco
+
+### Operações CRUD: Inserção 
+
+- [] Testar inserção: verificar que o produto foi inserido no banco 
+- [] Testar cadastro de produto repetido 
+
+## Agrupamento dos testes em Suíte 
+
+* Suíte de testes do Requisito 2: [Requisito2Suite](../trab1/src/test/java/br/unb/Requisito2Suite.java).
