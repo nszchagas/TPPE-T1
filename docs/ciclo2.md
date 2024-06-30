@@ -12,7 +12,8 @@
 ### Validação dos dados 
 
 - [x] Testar se descrição é diferente de "" ou de "   "
-- [] Testar se valor de venda aceita valores negativos 
+- [x] Testar se valor de venda aceita valores negativos
+- [x] Testar validação de ponto/vírgula
 - [] Testar unidade inválida 
 - [] Testar se código é único no banco
 
