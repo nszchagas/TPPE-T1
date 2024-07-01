@@ -1,9 +1,6 @@
 package br.unb;
 
-import br.unb.cliente.CategoriaTest;
-import br.unb.cliente.EstadoTest;
-import br.unb.cliente.InsercaoDatabaseTest;
-import br.unb.cliente.RegiaoTest;
+import br.unb.cliente.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -13,6 +10,7 @@ import org.junit.runners.Suite;
         EstadoTest.class,
         RegiaoTest.class,
         InsercaoDatabaseTest.class,
+        EmailTest.class
 })
 public class Requisito1Suite {
 }

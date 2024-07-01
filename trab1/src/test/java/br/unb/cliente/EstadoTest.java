@@ -37,11 +37,11 @@ public class EstadoTest {
     @Test
     public void testaValores(){
         if (excecaoEsperada == null ){
-            Cliente a = c.cadastraCliente("José", "interior", entrada, "padrao");
+            Cliente a = c.cadastraCliente("José", "interior", entrada, "padrao", "jose@gmail.com");
             assertEquals(a.estado, saidaEsperada);
         } else {
             Throwable e = assertThrows(excecaoEsperada,
-                () ->   c.cadastraCliente("José", "interior", entrada, "padrao")
+                () ->   c.cadastraCliente("José", "interior", entrada, "padrao","jose@gmail.com")
         );
         assertEquals(e.getMessage(), saidaEsperada);
         }

@@ -40,11 +40,11 @@ public class CategoriaTest {
     @Test
     public void testaValores(){
         if (excecaoEsperada == null ){
-            Cliente j = c.cadastraCliente("José", "Capital", "SP", entrada);
+            Cliente j = c.cadastraCliente("José", "Capital", "SP", entrada, "jose@gmail.com");
             assertEquals(j.categoria, saida);
 
         } else {
-            Throwable e = assertThrows(excecaoEsperada, () -> c.cadastraCliente("José", "Capital", "SP", entrada));
+            Throwable e = assertThrows(excecaoEsperada, () -> c.cadastraCliente("José", "Capital", "SP", entrada, "jose@gmail.com"));
             assertEquals(e.getMessage(), saida);
 
         }

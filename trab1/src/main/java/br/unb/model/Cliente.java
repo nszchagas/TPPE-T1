@@ -3,13 +3,14 @@ package br.unb.model;
 import java.util.Objects;
 
 public class Cliente {
-    public String nome, categoria, estado, regiao;
+    public String nome, categoria, estado, regiao, email;
 
-    public Cliente(String nome, String categoria, String estado, String regiao){
+    public Cliente(String nome, String categoria, String estado, String regiao, String email){
         this.nome = nome;
         this.categoria = categoria;
         this.estado = estado;
         this.regiao = regiao;
+        this.email = email;
     }
 
     @Override
@@ -17,7 +18,7 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(nome, cliente.nome) && Objects.equals(categoria, cliente.categoria) && Objects.equals(estado, cliente.estado) && Objects.equals(regiao, cliente.regiao);
+        return Objects.equals(email, cliente.email);
     }
 
     @Override

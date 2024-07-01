@@ -2,12 +2,13 @@ package br.unb.service;
 
 import br.unb.model.Cliente;
 import br.unb.model.Database;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.List;
 
 public class CadastroDeCliente {
     private Database db = Database.getInstance();
-    public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria) {
+    public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria, String email) {
         List<String> categoriasValidas = List.of("PADRAO", "ESPECIAL", "PRIME");
          List<String> estadosValidos = List.of(
             "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
@@ -34,8 +35,10 @@ public class CadastroDeCliente {
         if (! regioesValidas.contains(regiao)) {
             throw new IllegalArgumentException(String.format("Região inválida: \"%s\".", regiao_inserida));
         }
-
-        return new Cliente(nome, categoria, estado, regiao);
+        // Validação de email
+        if ( !EmailValidator.getInstance().isValid(email) )
+            throw new IllegalArgumentException(String.format("Email inválido: \"%s\"", email));
+        return new Cliente(nome, categoria, estado, regiao, email);
     }
 
     public void insereClienteNoBanco(Cliente cliente) {

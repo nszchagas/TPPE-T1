@@ -37,10 +37,10 @@ public class RegiaoTest {
     @Test
     public void testaValores(){
         if (excecaoEsperada == null) {
-            Cliente cliente = cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao");
+            Cliente cliente = cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
             assertEquals(cliente.regiao, saidaEsperada);
         } else {
-            Throwable e = assertThrows(excecaoEsperada, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao"));
+            Throwable e = assertThrows(excecaoEsperada, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
             assertEquals(e.getMessage(), saidaEsperada);
         }
     }
