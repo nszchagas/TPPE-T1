@@ -12,6 +12,10 @@ public class CadastroDeProduto {
             String msg = descricao == null ? "Descrição não pode ser vazia." : String.format("Descrição inválida: \"%s\".", descricao);
             throw new IllegalArgumentException(msg);
         }
+        // Validação do Código
+
+        codigo = validaCampoTextual(codigo, "código");
+
 
         // Validação de valor
 
@@ -44,6 +48,16 @@ public class CadastroDeProduto {
             throw  new IllegalArgumentException(String.format("Unidade inválida. Valor inserido: \"%s\".", unidade));
         }
 
-        return new Produto(descricao, valor, unidadeNormalizada);
+
+        return new Produto(descricao, valor, unidadeNormalizada, codigo);
+    }
+
+
+    public String validaCampoTextual(String entrada, String tipo){
+          if (entrada == null || entrada.isEmpty() || entrada.trim().isEmpty()) {
+            String msg = entrada == null ? String.format("O valor de %s não pode ser vazio.", tipo) : String.format("Valor de %s inválido: \"%s\".", tipo ,entrada);
+            throw new IllegalArgumentException(msg);
+        }
+        return entrada.trim();
     }
 }
