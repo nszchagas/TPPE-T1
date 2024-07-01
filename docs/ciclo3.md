@@ -16,8 +16,8 @@
 
 ### Validação dos dados 
 
-- [] Inserir formato de data inválida
-- [] Inserir valor de data inválida
+- [x] Inserir formato de data inválida
+- [x] Inserir valor de data inválida
 - [] Inserir cliente que não existe
 - [] Inserir lista de itens vazia
 - [] Inserir item que não existe
