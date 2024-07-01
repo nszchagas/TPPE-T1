@@ -3,6 +3,7 @@ package br.unb.venda;
 import br.unb.model.Venda;
 import br.unb.service.CadastroDeVenda;
 import br.unb.util.TestUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -22,6 +23,11 @@ public class DataTest {
     Object saidaEsperada;
     Class <? extends  Throwable> excecaoEsperada;
     List<String> itens = TestUtils.getCodigosDeProdutosValidos();
+
+    @Before
+    public void setUp(){
+        TestUtils.populaBanco();
+    }
 
     public DataTest(String entrada, Object saidaEsperada, Class<? extends  Throwable> excecaoEsperada) {
         this.entrada = entrada;

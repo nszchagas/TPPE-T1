@@ -1,7 +1,10 @@
 package br.unb.util;
 
 import br.unb.model.Cliente;
+import br.unb.model.Database;
 import br.unb.model.Produto;
+import br.unb.service.CadastroDeCliente;
+import br.unb.service.CadastroDeProduto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +40,28 @@ public class TestUtils {
         for (Produto p : TestUtils.getProdutosValidos())
             lista.add(p.codigo);
         return lista;
+    }
+
+
+    public static void populaBanco() {
+        // Cadastra os clientes válidos de TestUtils
+        CadastroDeCliente cc = new CadastroDeCliente();
+        Database db = Database.getInstance();
+        //  Cadastra Usuários Válidos
+        // Emails: email1@domain.com, email2@domain.com, ..., email5@domain.com
+
+        for (Cliente c : TestUtils.getClientesValidos())
+            cc.insereClienteNoBanco(c);
+
+        assert db.getQtdClientes() >= TestUtils.getClientesValidos().size();
+
+        // Cadastra os itens válidos
+        CadastroDeProduto cp = new CadastroDeProduto();
+        for (Produto p : TestUtils.getProdutosValidos())
+            cp.insereProdutoNoBanco(p);
+
+        assert db.getQtdProdutos() >= TestUtils.getProdutosValidos().size();
+
     }
 
 }
