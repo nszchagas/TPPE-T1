@@ -18,7 +18,7 @@
 
 - [x] Inserir formato de data inválida
 - [x] Inserir valor de data inválida
-- [] Inserir cliente que não existe
+- [x] Inserir cliente que não existe
 - [] Inserir lista de itens vazia
 - [] Inserir item que não existe
 - [] Inserir método de pagamento inválido

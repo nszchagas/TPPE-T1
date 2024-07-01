@@ -27,19 +27,6 @@ public class ClienteTest {
         this.isValid = isValid;
         this.db = Database.getInstance();
     }
-    @BeforeClass
-    public static void setUp() {
-        CadastroDeCliente cc = new CadastroDeCliente();
-        Database db = Database.getInstance();
-        //  Cadastra Usuários Válidos
-        // Emails: email1@domain.com, email2@domain.com, ..., email5@domain.com
-
-        for (Cliente c : TestUtils.getClientesValidos()) {
-            cc.insereClienteNoBanco(c);
-        }
-        assert db.getQtdClientes() == TestUtils.getClientesValidos().size();
-    }
-
 
 
     @Parameterized.Parameters
@@ -62,7 +49,7 @@ public class ClienteTest {
             );
         } else {
             Venda v = c.criaVenda(entrada, new String[]{"123", "144"} , "BOLETO", "2024-07-01" );
-            assertEquals(v.clienteId, entrada);
+            assertEquals(v.email, entrada);
 
         }
 

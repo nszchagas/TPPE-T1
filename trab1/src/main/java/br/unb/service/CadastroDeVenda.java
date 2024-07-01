@@ -1,10 +1,11 @@
 package br.unb.service;
+import br.unb.model.Database;
 import br.unb.model.Venda;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class CadastroDeVenda {
-    public Venda criaVenda(String clienteId, String[] itensId, String metodoDePagamento, String dataInserida){
+    public Venda criaVenda(String emailCliente, String[] itensId, String metodoDePagamento, String dataInserida){
         LocalDate data;
 
         try {
@@ -18,7 +19,10 @@ public class CadastroDeVenda {
              throw new IllegalArgumentException(msg);
         }
 
+        // Valida cliente
+        if ( Database.getInstance().getClienteByEmail(emailCliente) == null)
+            throw new IllegalArgumentException(String.format("Nenhum cliente com email \"%s\" encontrado.", emailCliente));
 
-        return new Venda(clienteId, itensId, metodoDePagamento, data);
+        return new Venda(emailCliente, itensId, metodoDePagamento, data);
     }
 }

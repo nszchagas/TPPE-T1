@@ -42,6 +42,14 @@ public final class Database {
         return null;
     }
 
+    public Cliente getClienteByEmail(String email){
+        for (Cliente cliente : clientes){
+            if (cliente.email.equals(email))
+                return cliente;
+        }
+        return null;
+    }
+
     public int getQtdClientes(){
         return this.clientes.size();
     }

@@ -45,10 +45,10 @@ public class DataTest {
         CadastroDeVenda c = new CadastroDeVenda();
         if (excecaoEsperada != null) {
             Throwable a = assertThrows(excecaoEsperada, () ->
-                    c.criaVenda("JOSÉ", new String[]{"123456", "345678"}, "PIX",entrada ));
+                    c.criaVenda("email1@domain.com", new String[]{"123456", "345678"}, "PIX",entrada ));
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
-            Venda v = c.criaVenda("JOSÉ", new String[]{"123456", "345678"}, "PIX", entrada);
+            Venda v = c.criaVenda("email1@domain.com", new String[]{"123456", "345678"}, "PIX", entrada);
             assertEquals(v.data, saidaEsperada);
         }
     }
