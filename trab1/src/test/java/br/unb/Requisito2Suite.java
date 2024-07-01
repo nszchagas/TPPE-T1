@@ -1,9 +1,6 @@
 package br.unb;
 
-import br.unb.produto.CodigoTest;
-import br.unb.produto.DescricaoTest;
-import br.unb.produto.UnidadeTest;
-import br.unb.produto.ValorDeVendaTest;
+import br.unb.produto.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -12,7 +9,8 @@ import org.junit.runners.Suite;
         DescricaoTest.class,
         ValorDeVendaTest.class,
         UnidadeTest.class,
-        CodigoTest.class
+        CodigoTest.class,
+        InsercaoDatabaseTest.class
 })
 public class Requisito2Suite {
 }

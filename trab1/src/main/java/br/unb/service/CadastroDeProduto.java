@@ -49,11 +49,16 @@ public class CadastroDeProduto {
     }
 
 
-    public String validaCampoTextual(String entrada, String tipo){
+    private String validaCampoTextual(String entrada, String tipo){
           if (entrada == null || entrada.isEmpty() || entrada.trim().isEmpty()) {
             String msg = entrada == null ? String.format("O valor de %s não pode ser vazio.", tipo) : String.format("Valor de %s inválido: \"%s\".", tipo ,entrada);
             throw new IllegalArgumentException(msg);
         }
         return entrada.trim();
     }
+
+    public void insereProdutoNoBanco(Produto produto){
+
+    }
+
 }

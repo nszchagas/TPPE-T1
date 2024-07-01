@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public final class Database {
     private static Database db;
     private ArrayList<Cliente> clientes;
+    private ArrayList<Produto> produtos;
 
     private Database() {
         this.clientes = new ArrayList<>();
@@ -29,5 +30,7 @@ public final class Database {
     public int getQtdClientes(){
         return this.clientes.size();
     }
-
+    public int getQtdProdutos(){
+        return 0;
+    }
 }
