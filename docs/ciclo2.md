@@ -19,9 +19,9 @@
 
 ### Operações CRUD: Inserção 
 
-- [] Testar se código é único no banco
-- [] Testar inserção: verificar que o produto foi inserido no banco 
-- [] Testar cadastro de produto repetido 
+- [x] Testar se código é único no banco
+- [x] Testar inserção: verificar que o produto foi inserido no banco 
+- [x] Testar cadastro de produto repetido 
 
 ## Agrupamento dos testes em Suíte 
 

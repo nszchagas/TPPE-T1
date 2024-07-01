@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public final class Database {
     private static Database db;
-    private ArrayList<Cliente> clientes;
-    private ArrayList<Produto> produtos;
+    private final ArrayList<Cliente> clientes;
+    private final ArrayList<Produto> produtos;
 
     private Database() {
         this.clientes = new ArrayList<>();
@@ -35,6 +35,10 @@ public final class Database {
     }
 
     public Produto getProdutoByCodigo(String codigo){
+        for (Produto produto : produtos){
+            if (produto.codigo.equals(codigo))
+                return produto;
+        }
         return null;
     }
 
