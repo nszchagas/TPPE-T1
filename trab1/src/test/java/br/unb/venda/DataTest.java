@@ -2,6 +2,7 @@ package br.unb.venda;
 
 import br.unb.model.Venda;
 import br.unb.service.CadastroDeVenda;
+import br.unb.util.TestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,6 +10,7 @@ import org.junit.runners.Parameterized;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -19,6 +21,7 @@ public class DataTest {
     String entrada;
     Object saidaEsperada;
     Class <? extends  Throwable> excecaoEsperada;
+    List<String> itens = TestUtils.getCodigosDeProdutosValidos();
 
     public DataTest(String entrada, Object saidaEsperada, Class<? extends  Throwable> excecaoEsperada) {
         this.entrada = entrada;
@@ -45,10 +48,10 @@ public class DataTest {
         CadastroDeVenda c = new CadastroDeVenda();
         if (excecaoEsperada != null) {
             Throwable a = assertThrows(excecaoEsperada, () ->
-                    c.criaVenda("email1@domain.com", new String[]{"123456", "345678"}, "PIX",entrada ));
+                    c.criaVenda("email1@domain.com", itens, "PIX",entrada ));
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
-            Venda v = c.criaVenda("email1@domain.com", new String[]{"123456", "345678"}, "PIX", entrada);
+            Venda v = c.criaVenda("email1@domain.com", itens, "PIX", entrada);
             assertEquals(v.data, saidaEsperada);
         }
     }

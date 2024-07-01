@@ -1,11 +1,13 @@
 package br.unb.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Venda {
     public LocalDate data;
     public String email;
-    public Venda(String email, String[] itensId, String metodoDePagamento, LocalDate data){
+    public List<String> itensId;
+    public Venda(String email, List<String> itensId, String metodoDePagamento, LocalDate data){
         this.data = data;
         this.email = email;
     }

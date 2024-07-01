@@ -3,9 +3,10 @@ import br.unb.model.Database;
 import br.unb.model.Venda;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class CadastroDeVenda {
-    public Venda criaVenda(String emailCliente, String[] itensId, String metodoDePagamento, String dataInserida){
+    public Venda criaVenda(String emailCliente, List<String> itensId, String metodoDePagamento, String dataInserida){
         LocalDate data;
 
         try {

@@ -1,18 +1,17 @@
 package br.unb.venda;
 
-import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Venda;
-import br.unb.service.CadastroDeCliente;
 import br.unb.service.CadastroDeVenda;
 import br.unb.util.TestUtils;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,12 +21,20 @@ public class ClienteTest {
     String entrada;
     boolean isValid;
     Database db;
+    List<String> itens = TestUtils.getCodigosDeProdutosValidos();
+    CadastroDeVenda c = new CadastroDeVenda();
     public ClienteTest(String entrada, boolean isValid) {
         this.entrada = entrada;
         this.isValid = isValid;
         this.db = Database.getInstance();
     }
 
+    @Before
+    public void verificaConfiguracao(){
+        // Assegura que há cliente cadastrado com o email
+        if (isValid)
+            assertNotNull(db.getClienteByEmail(entrada));
+    }
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
@@ -39,36 +46,26 @@ public class ClienteTest {
 
     @Test
     public void testValoresClienteId(){
-        // Assegura que há clientes cadastrados
-        assertEquals(db.getQtdClientes(), TestUtils.getClientesValidos().size());
-        CadastroDeVenda c = new CadastroDeVenda();
         if (! isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            c.criaVenda(entrada, new String[]{"123", "144"} , "BOLETO", "2024-07-01" )
+                            c.criaVenda(entrada, itens, "BOLETO", "2024-07-01" )
             );
         } else {
-            Venda v = c.criaVenda(entrada, new String[]{"123", "144"} , "BOLETO", "2024-07-01" );
+            Venda v = c.criaVenda(entrada, itens, "BOLETO", "2024-07-01" );
             assertEquals(v.email, entrada);
-
         }
-
     }
 
     @Test
     public void testValoresEmailCliente(){
-        // Assegura que há clientes cadastrados
-        assertEquals(db.getQtdClientes(), TestUtils.getClientesValidos().size());
-
-        CadastroDeVenda c = new CadastroDeVenda();
-
         if (! isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            c.criaVenda(entrada, new String[]{"123", "144"} , "BOLETO", "2024-07-01" )
+                            c.criaVenda(entrada, itens , "BOLETO", "2024-07-01" )
             );
         } else {
-            Venda v = c.criaVenda(entrada, new String[]{"123", "144"} , "BOLETO", "2024-07-01" );
+            Venda v = c.criaVenda(entrada, itens , "BOLETO", "2024-07-01" );
             assertNotNull(v.getCliente());
             assertEquals(v.getCliente().email, entrada);
         }
