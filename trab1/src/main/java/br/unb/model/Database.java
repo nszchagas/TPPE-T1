@@ -10,6 +10,7 @@ public final class Database {
 
     private Database() {
         this.clientes = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
     public static Database getInstance() {
@@ -27,10 +28,16 @@ public final class Database {
         this.clientes.add(cliente);
     }
 
+    public void insereProduto(Produto produto) throws Exception {
+        if (produtos.contains(produto))
+            throw new Exception(String.format("Produto já inserido no banco de dados. %s", produto.toString()));
+        this.produtos.add(produto);
+    }
+
     public int getQtdClientes(){
         return this.clientes.size();
     }
     public int getQtdProdutos(){
-        return 0;
+        return this.produtos.size();
     }
 }

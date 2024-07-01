@@ -1,8 +1,11 @@
 package br.unb.service;
+import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.UnidadeValida;
 
 public class CadastroDeProduto {
+    private Database db = Database.getInstance();
+
     public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo){
         Float valor;
 
@@ -58,7 +61,12 @@ public class CadastroDeProduto {
     }
 
     public void insereProdutoNoBanco(Produto produto){
-
+         try {
+            db.insereProduto(produto);
+        }
+         catch (Exception e) {
+             System.out.printf("Produto já inserido no banco de dados. %s", produto.toString());
+         }
     }
 
 }
