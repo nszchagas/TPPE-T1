@@ -7,7 +7,7 @@
 >  - Valor de Venda
 >  - Unidade (peça, unidade, metro, cm3, etc...)
 
-## Casos de Teste para Cadastro de Cliente 
+## Casos de Teste 
 
 ### Validação dos dados 
 

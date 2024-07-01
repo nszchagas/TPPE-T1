@@ -3,7 +3,7 @@
 > Cadastrar clientes dos três tipos (padrão, especial e prime):
 > - Com endereço contendo o estado e se é na capital ou interior. 
 
-## Casos de Teste para Cadastro de Cliente 
+## Casos de Teste 
 
 ### Validação dos dados 
 
