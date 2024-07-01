@@ -7,13 +7,9 @@ public class CadastroDeProduto {
         Float valor;
 
         // Validação de Descrição
+        descricao = validaCampoTextual(descricao, "descrição");
 
-        if (descricao == null || descricao.isEmpty() || descricao.trim().isEmpty()) {
-            String msg = descricao == null ? "Descrição não pode ser vazia." : String.format("Descrição inválida: \"%s\".", descricao);
-            throw new IllegalArgumentException(msg);
-        }
         // Validação do Código
-
         codigo = validaCampoTextual(codigo, "código");
 
 

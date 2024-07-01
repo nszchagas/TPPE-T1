@@ -26,7 +26,11 @@ public class DescricaoTest {
 
     @Parameterized.Parameters(name = "{index}: descrição {0} deve gerar exceção {2} com mensagem {1}.")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{{"", "Descrição inválida: \"\".", IllegalArgumentException.class}, {" ", "Descrição inválida: \" \".", IllegalArgumentException.class}, {null, "Descrição não pode ser vazia.", IllegalArgumentException.class}, {"Bola de futebol", "Bola de futebol", null}});
+        return Arrays.asList(new Object[][]{
+                {"", "Valor de descrição inválido: \"\".", IllegalArgumentException.class},
+                {" ", "Valor de descrição inválido: \" \".", IllegalArgumentException.class},
+                {null, "O valor de descrição não pode ser vazio.", IllegalArgumentException.class},
+                {"Bola de futebol", "Bola de futebol", null}});
     }
 
     @Test()
