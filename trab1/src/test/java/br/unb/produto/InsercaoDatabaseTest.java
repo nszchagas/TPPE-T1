@@ -28,6 +28,18 @@ public class InsercaoDatabaseTest {
     }
 
     @Test
+    public void assertAtributos(){
+        String codigo = "123456", unidade = "UN", descricao = "BOLA DE FUTEBOL";
+        float valorDeVenda = 12.6F;
+
+        cadastro.insereProdutoNoBanco(new Produto(descricao,valorDeVenda, unidade, codigo));
+        Produto inserido = db.getProdutoByCodigo(codigo);
+        assertEquals(inserido.descricao,descricao);
+        assertEquals(inserido.unidade,unidade);
+        assertEquals(inserido.codigo,codigo);
+        assert inserido.valorDeVenda == valorDeVenda;
+    }
+    @Test
     public void assertNaoInsereDuplicado(){
         cadastro.insereProdutoNoBanco(new Produto("BOLA DE FUTEBOL" ,12.6F, "UN", "123456"));
         cadastro.insereProdutoNoBanco(new Produto("OLEO DE COZINHA", 6.5F, "LITRO", "123456"));

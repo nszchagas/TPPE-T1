@@ -34,6 +34,10 @@ public final class Database {
         this.produtos.add(produto);
     }
 
+    public Produto getProdutoByCodigo(String codigo){
+        return null;
+    }
+
     public int getQtdClientes(){
         return this.clientes.size();
     }

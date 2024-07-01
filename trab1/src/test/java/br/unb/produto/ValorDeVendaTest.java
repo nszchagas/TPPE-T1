@@ -49,7 +49,7 @@ public class ValorDeVendaTest {
         } else
         {
             Produto p = c.cadastraProduto("Caderno 96 Folhas", entrada, "UNIDADE", "123456");
-            assertEquals(p.valorDeVenda, Float.valueOf(saidaEsperada));
+            assert p.valorDeVenda == Float.parseFloat(saidaEsperada);
         }
 
     }
