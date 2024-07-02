@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         DataTest.class,
         ClienteTest.class,
-        ProdutosTest.class
+        ProdutosTest.class,
+        MetodoPagamentoTest.class
 })
 public class Requisito3Suite {
 

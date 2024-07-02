@@ -8,6 +8,7 @@ public class Venda {
     public LocalDate data;
     public String email;
     public List<String> produtosId;
+    public String metodoDePagamento;
     public Venda(String email, List<String> produtosId, String metodoDePagamento, LocalDate data){
         this.data = data;
         this.email = email;
