@@ -21,7 +21,7 @@
 - [x] Inserir cliente que não existe
 - [x] Inserir lista de itens vazia
 - [x] Inserir item que não existe
-- [] Inserir método de pagamento inválido
+- [x] Inserir método de pagamento inválido
 
 ### Cálculos 
 

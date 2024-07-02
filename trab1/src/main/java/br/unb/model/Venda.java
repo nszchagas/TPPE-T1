@@ -13,6 +13,7 @@ public class Venda {
         this.data = data;
         this.email = email;
         this.produtosId = produtosId;
+        this.metodoDePagamento = metodoDePagamento;
     }
     public Cliente getCliente() {
         return Database.getInstance().getClienteByEmail(this.email);

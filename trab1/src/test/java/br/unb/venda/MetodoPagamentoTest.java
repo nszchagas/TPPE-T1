@@ -43,7 +43,7 @@ public class MetodoPagamentoTest {
         idProdutosValidos = TestUtils.getCodigosDeProdutosValidos();
         if (saidaEsperada != null)
             vendaCadastrada = cadastroDeVenda.criaVenda(emailValido,
-                    idProdutosValidos, entrada, dataValida);
+                    idProdutosValidos, entrada, numero, dataValida);
 
 
     }
@@ -81,7 +81,7 @@ public class MetodoPagamentoTest {
     public void testaValores(){
        if (saidaEsperada == null) {
            assertThrows(IllegalArgumentException.class, () ->
-                   cadastroDeVenda.criaVenda(emailValido, idProdutosValidos, entrada, dataValida)
+                   cadastroDeVenda.criaVenda(emailValido, idProdutosValidos, entrada, numero, dataValida)
            );
        } else {
            assertEquals(saidaEsperada, vendaCadastrada.metodoDePagamento);

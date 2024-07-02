@@ -4,6 +4,7 @@ import br.unb.model.Venda;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CadastroDeVenda {
     private final Database db= Database.getInstance();
@@ -34,6 +35,31 @@ public class CadastroDeVenda {
                 throw new IllegalArgumentException(String.format("Nenhum produto com código \"%s\" encontrado.", id ));
 
 
+
+
         return new Venda(emailCliente, produtosId, metodoDePagamento, data);
+    }
+
+    public Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String numeroCartao, String dataInserida){
+        // Valida método de pagamento
+        if (metodoDePagamento == null || metodoDePagamento.isEmpty())
+            throw new IllegalArgumentException("Método de pagamento não pode estar vazio.");
+
+        List<String> metodosValidos = List.of("BOLETO", "PIX", "CARTAO", "CARTÃO", "DINHEIRO");
+        metodoDePagamento = metodoDePagamento.toUpperCase().replace('Ã','A');
+        if (! metodosValidos.contains(metodoDePagamento))
+            throw new IllegalArgumentException(String.format("Método de pagamento inválido: \"%s\"", metodoDePagamento));
+        if (metodoDePagamento.equals("CARTAO")){
+            if (numeroCartao == null)
+                throw new IllegalArgumentException("Número do cartão não pode estar vazio.");
+            if (! Pattern.compile("^(\\d{4} ){3}\\d{4}$").matcher(numeroCartao).matches()){
+                throw new IllegalArgumentException(String.format("Formato inválido para número de cartão: \"%s\"", numeroCartao));
+            }
+            if (Pattern.compile("^4296 13(\\d| ){12}$").matcher(numeroCartao).matches()){
+                metodoDePagamento = "CARTAO_LOJA";
+            } else
+                metodoDePagamento = "CARTAO_EXTERNO";
+        }
+        return this.criaVenda(emailCliente, produtosId, metodoDePagamento, dataInserida);
     }
 }
