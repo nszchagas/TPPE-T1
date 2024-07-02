@@ -29,6 +29,7 @@ replay_pid*
 # IDES
 .vscode
 .idea
+*.iml
 
 # Dependencies
 .m2/

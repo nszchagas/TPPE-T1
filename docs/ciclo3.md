@@ -1,20 +1,25 @@
-# Ciclo 3: Implementação do Requisito 3  
+Tipo de cliente: PADRAO, ESPECIAL, PRIME
+Regioes: INTERIOR, CAPITAL
+Estados: "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
+"MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
+"RS", "RO", "RR", "SC", "SP", "SE", "TO"
 
+# Ciclo 3: Implementação do Requisito 3
 
 > Realizar a venda de itens para os clientes. A venda consiste de:
->     - Data
->     - Cliente
->     - Itens vendidos
->     - Método de pagamento
->     - [Calculado] Frete
->     - [Calculado] Descontos
->     - [Calculado] ICMS
->     - [Calculado] Imposto municipal
->     - Se for um cliente prime, ele pode usar o saldo de cashback para abater na compra.
+> - Data
+> - Cliente
+> - Itens vendidos
+> - Método de pagamento
+> - [Calculado] Frete
+> - [Calculado] Descontos
+> - [Calculado] ICMS
+> - [Calculado] Imposto municipal
+> - Se for um cliente prime, ele pode usar o saldo de cashback para abater na compra.
 
-## Casos de Teste  
+## Casos de Teste
 
-### Validação dos dados 
+### Validação dos dados
 
 - [x] Inserir formato de data inválida
 - [x] Inserir valor de data inválida
@@ -23,38 +28,45 @@
 - [x] Inserir item que não existe
 - [x] Inserir método de pagamento inválido
 
-### Cálculos 
+### Cálculos
 
-#### Frete 
+#### Frete
 
 - [] Calcular frete para cliente padrão na capital
 - [] Calcular frete para cliente padrão no interior
 - [] Calcular frete para cliente especial na capital
-  - Verificar desconto de 30% no valor do frete
+    - Verificar desconto de 30% no valor do frete
 - [] Calcular frete para cliente especial no interior
-  - Verificar desconto de 30% no valor do frete
+    - Verificar desconto de 30% no valor do frete
 - [] Calcular frete para cliente prime na capital
-  - Verificar isenção de frete
+    - Verificar isenção de frete
 - [] Calcular frete para cliente prime no interior
-  - Verificar isenção de frete
+    - Verificar isenção de frete
+
+| Tipo de Cliente | Estado | Região |
+|-----------------|--------|--------|
+| Padrao          |        |        |  
+| Especial        |        |        | 
+| Prime           |        |        |
 
 #### Desconto
 
 - [] Calcular desconto de 10% para cliente especial
-- [] Calcular desconto de 20% para cliente especial utilizando cartão de crédito da empresa
+- [] Calcular desconto de 20% (10%+10%) para cliente especial utilizando cartão de crédito da empresa
+    - Verificar que está discriminado na nota fiscal
 - [] Calcular cashback para cliente prime (R$0,03 por real gasto)
 - [] Calcular cashback para cliente prime utilizando cartão de crédito da empresa (R$0,05 por real gasto)
- 
-#### Impostos 
+
+#### Impostos
 
 - [] Calcular ICMS e imposto municipal para cliente fora do DF
-  - 12% de ICMS e 4% de imposto municipal
+    - 12% de ICMS e 4% de imposto municipal
 - [] Calcular ICMS para cliente no DF
-  - 18% de ICMS e 0% de imposto municipal
+    - 18% de ICMS e 0% de imposto municipal
 
 #### Uso de cashback
 
-- [] Utilizar saldo de cashback para abater na compra para cliente prime
+- [] Utilizar ou não saldo de cashback para abater na compra para cliente prime
 - [] Verificar que o saldo é corretamente reduzido do total
 - [] Verificar que o saldo de cashback é atualizado após a compra
 
@@ -62,8 +74,36 @@
 
 - [] Registrar venda no banco de dados
 - [] Verificar que a venda de fato foi registrada
-- [] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete, descontos, impostos)
+- [] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete,
+  descontos, impostos)
 
-## Agrupamento dos testes em Suíte 
+### Nota Fiscal
+
+- [] Verificar que os valores de impostos, frete e desconto estão corretos nos cenários:
+
+| Cliente             | Região     | Localização | ICMS | Imposto Municipal | Frete    | Desconto/Cashback     |
+|---------------------|------------|-------------|------|-------------------|----------|-----------------------|
+| Padrão              | Fora do DF | Capital     | 12%  | 4%                | Capital  | -                     |
+| Padrão              | Fora do DF | Interior    | 12%  | 4%                | Interior | -                     |
+| Padrão              | No DF      | Capital     | 18%  | 0%                | Capital  | -                     |
+| Padrão              | No DF      | Interior    | 18%  | 0%                | Interior | -                     |
+| Especial            | Fora do DF | Capital     | 12%  | 4%                | Capital  | 10%                   |
+| Especial            | Fora do DF | Interior    | 12%  | 4%                | Interior | 10%                   |
+| Especial            | No DF      | Capital     | 18%  | 0%                | Capital  | 10%                   |
+| Especial            | No DF      | Interior    | 18%  | 0%                | Interior | 10%                   |
+| Especial com Cartão | Fora do DF | Capital     | 12%  | 4%                | Capital  | 20%                   |
+| Especial com Cartão | Fora do DF | Interior    | 12%  | 4%                | Interior | 20%                   |
+| Especial com Cartão | No DF      | Capital     | 18%  | 0%                | Capital  | 20%                   |
+| Especial com Cartão | No DF      | Interior    | 18%  | 0%                | Interior | 20%                   |
+| Prime               | Fora do DF | Capital     | 12%  | 4%                | Capital  | R$0,03 por real gasto |
+| Prime               | Fora do DF | Interior    | 12%  | 4%                | Interior | R$0,03 por real gasto |
+| Prime               | No DF      | Capital     | 18%  | 0%                | Capital  | R$0,03 por real gasto |
+| Prime               | No DF      | Interior    | 18%  | 0%                | Interior | R$0,03 por real gasto |
+| Prime com Cartão    | Fora do DF | Capital     | 12%  | 4%                | Capital  | R$0,05 por real gasto |
+| Prime com Cartão    | Fora do DF | Interior    | 12%  | 4%                | Interior | R$0,05 por real gasto |
+| Prime com Cartão    | No DF      | Capital     | 18%  | 0%                | Capital  | R$0,05 por real gasto |
+| Prime com Cartão    | No DF      | Interior    | 18%  | 0%                | Interior | R$0,05 por real gasto |
+
+## Agrupamento dos testes em Suíte
 
 * Suíte de testes do Requisito 3: [Requisito3Suite](../trab1/src/test/java/br/unb/Requisito3Suite.java).
