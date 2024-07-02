@@ -6,7 +6,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class CadastroDeVenda {
-    public Venda criaVenda(String emailCliente, List<String> itensId, String metodoDePagamento, String dataInserida){
+    private final Database db= Database.getInstance();
+    public Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String dataInserida){
         LocalDate data;
 
         try {
@@ -24,6 +25,15 @@ public class CadastroDeVenda {
         if ( Database.getInstance().getClienteByEmail(emailCliente) == null)
             throw new IllegalArgumentException(String.format("Nenhum cliente com email \"%s\" encontrado.", emailCliente));
 
-        return new Venda(emailCliente, itensId, metodoDePagamento, data);
+        // Valida produtos
+        if (produtosId.isEmpty())
+            throw new IllegalArgumentException("A lista de produtos não pode ser vazia.");
+
+        for (String id : produtosId)
+            if (db.getProdutoByCodigo(id) == null)
+                throw new IllegalArgumentException(String.format("Nenhum produto com código \"%s\" encontrado.", id ));
+
+
+        return new Venda(emailCliente, produtosId, metodoDePagamento, data);
     }
 }

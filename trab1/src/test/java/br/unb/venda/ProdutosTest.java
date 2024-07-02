@@ -1,6 +1,5 @@
 package br.unb.venda;
 
-import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
 import br.unb.service.CadastroDeVenda;

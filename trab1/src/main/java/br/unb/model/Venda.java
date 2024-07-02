@@ -1,6 +1,7 @@
 package br.unb.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Venda {
@@ -17,6 +18,8 @@ public class Venda {
     }
 
     public List<Produto> getProdutos() {
-        return List.of();
+        List<Produto> produtos = new ArrayList<>();
+        this.produtosId.forEach(codigo -> produtos.add(Database.getInstance().getProdutoByCodigo(codigo)));
+        return produtos;
     }
 }
