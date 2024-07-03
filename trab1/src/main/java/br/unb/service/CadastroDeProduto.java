@@ -7,7 +7,7 @@ public class CadastroDeProduto {
     private Database db = Database.getInstance();
 
     public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo){
-        Float valor;
+        float valor;
 
         // Validação de Descrição
         descricao = validaCampoTextual(descricao, "descrição");
