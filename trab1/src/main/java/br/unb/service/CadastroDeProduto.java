@@ -7,7 +7,7 @@ public class CadastroDeProduto {
     private final Database db = Database.getInstance();
 
     public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo){
-        float valor;
+        double valor;
 
         // Validação de Descrição
         descricao = validaCampoTextual(descricao, "descrição");
@@ -22,7 +22,7 @@ public class CadastroDeProduto {
             if (valorDeVenda.contains(",")) {
                 throw new IllegalArgumentException(String.format("Valor inválido. Utilize ponto para separar as casas decimais. Valor inserido: \"%s\".", valorDeVenda));
             }
-            valor = Float.parseFloat(valorDeVenda);
+            valor = Double.parseDouble(valorDeVenda);
             assert valor > 0;
         } catch (NullPointerException e)
         {
