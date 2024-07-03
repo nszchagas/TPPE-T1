@@ -1,7 +1,7 @@
 package br.unb.cliente;
 
-import br.unb.service.CadastroDeCliente;
 import br.unb.model.Cliente;
+import br.unb.service.CadastroDeCliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -16,34 +16,36 @@ import static org.junit.Assert.assertThrows;
 public class EstadoTest {
     String entrada, saidaEsperada;
     CadastroDeCliente c = new CadastroDeCliente();
-    Class <?extends Throwable> excecaoEsperada;
+    Class<? extends Throwable> excecaoEsperada;
 
-    public EstadoTest(String entrada, String saidaEsperada, Class<? extends  Throwable> excecaoEsperada) {
+    public EstadoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;
         this.saidaEsperada = saidaEsperada;
         this.excecaoEsperada = excecaoEsperada;
     }
-    @Parameterized.Parameters(name="{index}: Estado {0} deve sair como {1} (Excecao: {2}).")
+
+    @Parameterized.Parameters(name = "{index}: Estado {0} deve sair como {1} (Excecao: {2}).")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"sp", "SP",null},
-                {"df", "DF",null},
-                {" pr", "PR",null},
-                {"BA ", "BA",null},
-                {"São Paulo",  "Insira a sigla do estado.",IllegalArgumentException.class,},
-                {"ZS", "Estado inválido: ZS.",IllegalArgumentException.class,}
+                {"sp", "SP", null},
+                {"df", "DF", null},
+                {" pr", "PR", null},
+                {"BA ", "BA", null},
+                {"São Paulo", "Insira a sigla do estado.", IllegalArgumentException.class,},
+                {"ZS", "Estado inválido: ZS.", IllegalArgumentException.class,}
         });
     }
+
     @Test
-    public void testaValores(){
-        if (excecaoEsperada == null ){
+    public void testaValores() {
+        if (excecaoEsperada == null) {
             Cliente a = c.cadastraCliente("José", "interior", entrada, "padrao", "jose@gmail.com");
-            assertEquals(a.estado, saidaEsperada);
+            assertEquals(a.getEstado(), saidaEsperada);
         } else {
             Throwable e = assertThrows(excecaoEsperada,
-                () ->   c.cadastraCliente("José", "interior", entrada, "padrao","jose@gmail.com")
-        );
-        assertEquals(e.getMessage(), saidaEsperada);
+                    () -> c.cadastraCliente("José", "interior", entrada, "padrao", "jose@gmail.com")
+            );
+            assertEquals(e.getMessage(), saidaEsperada);
         }
     }
 
