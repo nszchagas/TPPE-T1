@@ -1,6 +1,6 @@
 package br.unb.calculos;
 
-import br.unb.util.TabelaDeFrete;
+import br.unb.util.OperacoesFinanceiras;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -84,7 +84,7 @@ public class TabelaDeFreteTest {
 
     @Test
     public void testaValorCorreto() {
-        double freteCalculado = TabelaDeFrete.calculaFrete(estado, regiao);
+        double freteCalculado = OperacoesFinanceiras.calculaFrete(estado, regiao);
         assert valorEsperado == freteCalculado;
 
     }

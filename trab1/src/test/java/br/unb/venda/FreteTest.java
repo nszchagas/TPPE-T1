@@ -3,7 +3,7 @@ package br.unb.venda;
 
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.RegiaoDoEstado;
-import br.unb.util.TabelaDeFrete;
+import br.unb.util.OperacoesFinanceiras;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -67,7 +67,7 @@ public class FreteTest {
 
     @Test
     public void testeValores() {
-        assertEquals(valorEsperado, TabelaDeFrete.calculaFrete(estado, regiaoDoEstado, categoriaDeCliente), 0.05);
+        assertEquals(valorEsperado, OperacoesFinanceiras.calculaFrete(estado, regiaoDoEstado, categoriaDeCliente), 0.05);
     }
 
 
