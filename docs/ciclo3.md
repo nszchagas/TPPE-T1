@@ -51,8 +51,8 @@ Estados: "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
 
 #### Desconto
 
-- [] Calcular desconto de 10% para cliente especial
-- [] Calcular desconto de 20% (10%+10%) para cliente especial utilizando cartão de crédito da empresa
+- [x] Calcular desconto de 10% para cliente especial
+- [x] Calcular desconto de *10% na compra + 10% em tudo para cliente especial utilizando cartão de crédito da empresa
     - Verificar que está discriminado na nota fiscal
 - [] Calcular cashback para cliente prime (R$0,03 por real gasto)
 - [] Calcular cashback para cliente prime utilizando cartão de crédito da empresa (R$0,05 por real gasto)

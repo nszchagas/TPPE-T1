@@ -1,7 +1,7 @@
 package br.unb.calculos;
 
 import br.unb.model.categorias.CategoriaDeCliente;
-import br.unb.util.TabelaDeDesconto;
+import br.unb.util.OperacoesFinanceiras;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -43,7 +43,7 @@ public class DescontoTest {
     }
     @Test
     public void testDesconto() {
-        assertEquals(descontoEsperado, TabelaDeDesconto.aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento), 0.01);
+        assertEquals(descontoEsperado, OperacoesFinanceiras.aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento), 0.01);
     }
 
 }

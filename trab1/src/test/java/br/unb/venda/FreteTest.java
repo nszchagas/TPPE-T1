@@ -67,7 +67,7 @@ public class FreteTest {
 
     @Test
     public void testeValores() {
-        assertEquals(valorEsperado, TabelaDeFrete.calcula(estado, regiaoDoEstado, categoriaDeCliente), 0.05);
+        assertEquals(valorEsperado, TabelaDeFrete.calculaFrete(estado, regiaoDoEstado, categoriaDeCliente), 0.05);
     }
 
 

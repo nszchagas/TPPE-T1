@@ -4,7 +4,7 @@ import br.unb.model.categorias.CategoriaDeCliente;
 
 import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
 
-public class TabelaDeDesconto {
+public class OperacoesFinanceiras {
 
     public static double aplicaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, String metodoDePagamento){
         if (categoriaDeCliente != ESPECIAL)

@@ -7,7 +7,7 @@ import br.unb.model.categorias.RegiaoDoPais;
 
 public class TabelaDeFrete {
 
-    public static double calcula(String estado, String regiao) {
+    public static double calculaFrete(String estado, String regiao) {
         RegiaoDoPais regiaoDoPais = Endereco.getRegiaoDoPais(estado);
         boolean isCapital = regiao.equalsIgnoreCase("CAPITAL");
         if (regiaoDoPais == null || !isCapital && !regiao.equalsIgnoreCase("INTERIOR"))
@@ -35,14 +35,14 @@ public class TabelaDeFrete {
         }
         return -1;
     }
-    public static double calcula(String estado, RegiaoDoEstado regiao, CategoriaDeCliente categoriaDeCliente) {
+    public static double calculaFrete(String estado, RegiaoDoEstado regiao, CategoriaDeCliente categoriaDeCliente) {
         switch (categoriaDeCliente){
             case PRIME:
                 return 0;
             case ESPECIAL:
-                return 0.7F * calcula(estado, regiao.toString());
+                return 0.7F * calculaFrete(estado, regiao.toString());
             case PADRAO:
-                return calcula(estado, regiao.toString());
+                return calculaFrete(estado, regiao.toString());
             default:
                 return  -1F;
         }

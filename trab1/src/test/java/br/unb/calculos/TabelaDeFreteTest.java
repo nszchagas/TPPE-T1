@@ -84,7 +84,7 @@ public class TabelaDeFreteTest {
 
     @Test
     public void testaValorCorreto() {
-        double freteCalculado = TabelaDeFrete.calcula(estado, regiao);
+        double freteCalculado = TabelaDeFrete.calculaFrete(estado, regiao);
         assert valorEsperado == freteCalculado;
 
     }
