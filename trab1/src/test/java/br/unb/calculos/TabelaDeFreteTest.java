@@ -13,9 +13,9 @@ public class TabelaDeFreteTest {
 
     final String estado;
     final String regiao;
-    final float valorEsperado;
+    final double valorEsperado;
 
-    public TabelaDeFreteTest(String estado, String regiao, float valorEsperado) {
+    public TabelaDeFreteTest(String estado, String regiao, double valorEsperado) {
         this.estado = estado;
         this.regiao = regiao;
         this.valorEsperado = valorEsperado;
@@ -84,7 +84,7 @@ public class TabelaDeFreteTest {
 
     @Test
     public void testaValorCorreto() {
-        float freteCalculado = TabelaDeFrete.calcula(estado, regiao);
+        double freteCalculado = TabelaDeFrete.calcula(estado, regiao);
         assert valorEsperado == freteCalculado;
 
     }

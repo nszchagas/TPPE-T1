@@ -32,15 +32,15 @@ Estados: "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
 
 #### Frete
 
-- [] Calcular frete para cliente padrão na capital
-- [] Calcular frete para cliente padrão no interior
-- [] Calcular frete para cliente especial na capital
+- [x] Calcular frete para cliente padrão na capital
+- [x] Calcular frete para cliente padrão no interior
+- [x] Calcular frete para cliente especial na capital
     - Verificar desconto de 30% no valor do frete
-- [] Calcular frete para cliente especial no interior
+- [x] Calcular frete para cliente especial no interior
     - Verificar desconto de 30% no valor do frete
-- [] Calcular frete para cliente prime na capital
+- [x] Calcular frete para cliente prime na capital
     - Verificar isenção de frete
-- [] Calcular frete para cliente prime no interior
+- [x] Calcular frete para cliente prime no interior
     - Verificar isenção de frete
 
 | Tipo de Cliente | Estado | Região |

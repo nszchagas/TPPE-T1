@@ -55,9 +55,9 @@
                     <reportsDirectory>${project.build.directory}/no-reports</reportsDirectory>
                     <useSystemClassLoader>false</useSystemClassLoader>
 
-                    <includes>
-                        <include>**/*Suite.java</include>
-                    </includes>
+<!--                    <includes>-->
+<!--                        <include>**/*Suite.java</include>-->
+<!--                    </includes>-->
 
                 </configuration>
             </plugin>
