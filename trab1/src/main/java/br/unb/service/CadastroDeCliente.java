@@ -2,20 +2,18 @@ package br.unb.service;
 
 import br.unb.model.Cliente;
 import br.unb.model.Database;
+import br.unb.model.categorias.Endereco;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.List;
 
 public class CadastroDeCliente {
     private Database db = Database.getInstance();
+
     public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria, String email) {
-        List<String> categoriasValidas = List.of("PADRAO", "ESPECIAL", "PRIME");
-         List<String> estadosValidos = List.of(
-            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
-            "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
-            "RS", "RO", "RR", "SC", "SP", "SE", "TO"
-         );
-         List<String> regioesValidas = List.of("INTERIOR", "CAPITAL");
+        List<String> categoriasValidas = Cliente.getCategoriasValidas();
+        List<String> estadosValidos = Endereco.getUfsValidas();
+        List<String> regioesValidas = Endereco.getRegioesValidas();
 
         String regiao_inserida = regiao;
         String categoria_inserida = categoria;
@@ -23,20 +21,20 @@ public class CadastroDeCliente {
         estado = estado.trim().toUpperCase();
         regiao = regiao.trim().toUpperCase();
 
-        if (! categoriasValidas.contains(categoria) ) {
+        if (!categoriasValidas.contains(categoria)) {
             throw new IllegalArgumentException(String.format("Categoria inválida: \"%s\".", categoria_inserida));
         }
-        if (estado.length() != 2 ) {
+        if (estado.length() != 2) {
             throw new IllegalArgumentException("Insira a sigla do estado.");
         }
-        if (! estadosValidos.contains(estado)) {
+        if (!estadosValidos.contains(estado)) {
             throw new IllegalArgumentException(String.format("Estado inválido: %s.", estado));
         }
-        if (! regioesValidas.contains(regiao)) {
+        if (!regioesValidas.contains(regiao)) {
             throw new IllegalArgumentException(String.format("Região inválida: \"%s\".", regiao_inserida));
         }
         // Validação de email
-        if ( !EmailValidator.getInstance().isValid(email) )
+        if (!EmailValidator.getInstance().isValid(email))
             throw new IllegalArgumentException(String.format("Email inválido: \"%s\"", email));
         return new Cliente(nome, categoria, estado, regiao, email);
     }
@@ -44,9 +42,10 @@ public class CadastroDeCliente {
     public void insereClienteNoBanco(Cliente cliente) {
         try {
             db.insereCliente(cliente);
+        } catch (Exception e) {
+            System.out.printf("Cliente já inserido no banco de dados. %s", cliente.toString());
         }
-         catch (Exception e) {
-             System.out.printf("Cliente já inserido no banco de dados. %s", cliente.toString());
-         }
-    };
+    }
+
+    ;
 }
