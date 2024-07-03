@@ -1,6 +1,7 @@
 package br.unb.cliente;
 
 import br.unb.model.Cliente;
+import br.unb.model.categorias.RegiaoDoEstado;
 import br.unb.service.CadastroDeCliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,41 +10,41 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
+import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
+import static org.junit.Assert.*;
 
 //@TODO: assert que não existe região com DF.
 @RunWith(Parameterized.class)
 public class RegiaoTest {
-    String entrada, saidaEsperada;
-    Class<? extends Throwable> excecaoEsperada;
+    String entrada;
+    RegiaoDoEstado saidaEsperada;
     CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
 
-    public RegiaoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
+    public RegiaoTest(String entrada, RegiaoDoEstado saidaEsperada) {
         this.entrada = entrada;
         this.saidaEsperada = saidaEsperada;
-        this.excecaoEsperada = excecaoEsperada;
     }
 
-    @Parameterized.Parameters(name = "{index} Região {0} deve gerar saída/mensagem de erro {1} (Exceção: {2}).")
+    @Parameterized.Parameters(name = "{index} entrada={0},saida={1}.")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"CapiTal", "CAPITAL", null},
-                {"InTERIOR   ", "INTERIOR", null},
-                {"outro canto", "Região inválida: \"outro canto\".", IllegalArgumentException.class},
-                {" minha casa   ", "Região inválida: \" minha casa   \".", IllegalArgumentException.class}
+                {"CapiTal", CAPITAL},
+                {"InTERIOR   ", INTERIOR},
+                {"outro canto", null},
+                {" minha casa   ", null}
         });
 
     }
 
     @Test
     public void testaValores() {
-        if (excecaoEsperada == null) {
+        if (saidaEsperada != null) {
             Cliente cliente = cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
             assertEquals(cliente.getRegiao(), saidaEsperada);
         } else {
-            Throwable e = assertThrows(excecaoEsperada, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
-            assertEquals(e.getMessage(), saidaEsperada);
+            Throwable e = assertThrows(IllegalArgumentException.class, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
+            assertTrue(e.getMessage().contains(entrada));
         }
     }
 

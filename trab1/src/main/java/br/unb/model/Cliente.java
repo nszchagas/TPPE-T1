@@ -2,6 +2,7 @@ package br.unb.model;
 
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.Endereco;
+import br.unb.model.categorias.RegiaoDoEstado;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Cliente {
         return endereco.uf;
     }
 
-    public String getRegiao() {
-        return endereco.regiaoDoEstado.toString();
+    public RegiaoDoEstado getRegiao() {
+        return endereco.regiaoDoEstado;
     }
 }
