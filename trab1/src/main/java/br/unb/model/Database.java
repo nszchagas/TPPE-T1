@@ -23,14 +23,14 @@ public final class Database {
     public void insereCliente(Cliente cliente) throws Exception {
         if (clientes.contains(cliente))
         {
-            throw new Exception(String.format("Cliente já inserido no banco de dados. %s", cliente.toString()));
+            throw new Exception(String.format("Cliente já inserido no banco de dados. %s\n", cliente.toString()));
         }
         this.clientes.add(cliente);
     }
 
     public void insereProduto(Produto produto) throws Exception {
         if (produtos.contains(produto))
-            throw new Exception(String.format("Produto já inserido no banco de dados. %s", produto.toString()));
+            throw new Exception(String.format("Produto já inserido no banco de dados. %s\n", produto.toString()));
         this.produtos.add(produto);
     }
 

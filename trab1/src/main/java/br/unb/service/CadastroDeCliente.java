@@ -43,7 +43,7 @@ public class CadastroDeCliente {
         try {
             db.insereCliente(cliente);
         } catch (Exception e) {
-            System.out.printf("Cliente já inserido no banco de dados. %s", cliente.toString());
+            System.out.printf("Cliente já inserido no banco de dados. %s\n", cliente.toString());
         }
     }
 

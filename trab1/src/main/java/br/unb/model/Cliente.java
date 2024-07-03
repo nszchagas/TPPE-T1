@@ -28,6 +28,14 @@ public class Cliente {
     }
 
 
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public static List<String> getCategoriasValidas() {
         List<String> categorias = new ArrayList<>();
         for (CategoriaDeCliente c : CategoriaDeCliente.values())
