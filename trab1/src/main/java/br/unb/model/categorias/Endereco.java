@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Endereco {
 
-    public String uf;
-    public RegiaoDoEstado regiaoDoEstado;
-    public RegiaoDoPais regiaoDoPais;
+    public final String uf;
+    public final RegiaoDoEstado regiaoDoEstado;
+    public final RegiaoDoPais regiaoDoPais;
 
     public Endereco(String uf, String regiaoDoEstado) {
         this.uf = uf;

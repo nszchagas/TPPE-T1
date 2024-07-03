@@ -4,7 +4,7 @@ import br.unb.model.Produto;
 import br.unb.model.UnidadeValida;
 
 public class CadastroDeProduto {
-    private Database db = Database.getInstance();
+    private final Database db = Database.getInstance();
 
     public Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo){
         float valor;
@@ -22,7 +22,7 @@ public class CadastroDeProduto {
             if (valorDeVenda.contains(",")) {
                 throw new IllegalArgumentException(String.format("Valor inválido. Utilize ponto para separar as casas decimais. Valor inserido: \"%s\".", valorDeVenda));
             }
-            valor = Float.valueOf(valorDeVenda);
+            valor = Float.parseFloat(valorDeVenda);
             assert valor > 0;
         } catch (NullPointerException e)
         {

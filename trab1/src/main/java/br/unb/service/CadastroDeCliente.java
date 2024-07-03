@@ -8,7 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.util.List;
 
 public class CadastroDeCliente {
-    private Database db = Database.getInstance();
+    private final Database db = Database.getInstance();
 
     public Cliente cadastraCliente(String nome, String regiao, String estado, String categoria, String email) {
         List<String> categoriasValidas = Cliente.getCategoriasValidas();
@@ -47,5 +47,4 @@ public class CadastroDeCliente {
         }
     }
 
-    ;
 }

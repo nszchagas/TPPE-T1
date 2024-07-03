@@ -14,8 +14,9 @@ import static org.junit.Assert.assertThrows;
 
 @RunWith(Parameterized.class)
 public class DescricaoTest {
-    private String entrada, saidaEsperada;
-    Class<? extends Throwable> excecaoEsperada;
+    private final String entrada;
+    private final String saidaEsperada;
+    final Class<? extends Throwable> excecaoEsperada;
 
     public DescricaoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;

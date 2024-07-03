@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
-import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -26,8 +25,10 @@ public class MetodoPagamentoTest {
     // Validar verificação loja/externo
         // 4296 13XX XXXX XXXX
 
-    String entrada,numero,saidaEsperada;
-    CadastroDeVenda cadastroDeVenda;
+    final String entrada;
+    final String numero;
+    final String saidaEsperada;
+    final CadastroDeVenda cadastroDeVenda;
     Venda vendaCadastrada;
     String emailValido, dataValida;
     List<String> idProdutosValidos;

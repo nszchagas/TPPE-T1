@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Venda {
-    public LocalDate data;
-    public String email;
-    public List<String> produtosId;
-    public String metodoDePagamento;
+    public final LocalDate data;
+    public final String email;
+    public final List<String> produtosId;
+    public final String metodoDePagamento;
     public Venda(String email, List<String> produtosId, String metodoDePagamento, LocalDate data){
         this.data = data;
         this.email = email;

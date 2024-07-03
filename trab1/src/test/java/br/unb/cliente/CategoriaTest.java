@@ -17,7 +17,7 @@ public class CategoriaTest {
     private final String entrada;
     private final String saida;
     private final Class <?extends Throwable> excecaoEsperada;
-    CadastroDeCliente c = new CadastroDeCliente();
+    final CadastroDeCliente c = new CadastroDeCliente();
     public CategoriaTest(String entrada, String saida, Class <?extends Throwable> excecaoEsperada){
         this.entrada = entrada;
         this.saida = saida;

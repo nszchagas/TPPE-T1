@@ -3,14 +3,13 @@ package br.unb.produto;
 import br.unb.model.Produto;
 import br.unb.model.Database;
 import br.unb.service.CadastroDeProduto;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class InsercaoDatabaseTest {
-    CadastroDeProduto cadastro = new CadastroDeProduto();
-    Database db = Database.getInstance();
+    final CadastroDeProduto cadastro = new CadastroDeProduto();
+    final Database db = Database.getInstance();
 
 
     @Test
@@ -39,6 +38,7 @@ public class InsercaoDatabaseTest {
 
         cadastro.insereProdutoNoBanco(new Produto(descricao,valorDeVenda, unidade, codigo));
         Produto inserido = db.getProdutoByCodigo(codigo);
+        assertNotNull(inserido);
         assertEquals(inserido.descricao,descricao);
         assertEquals(inserido.unidade,unidade);
         assertEquals(inserido.codigo,codigo);
@@ -59,7 +59,7 @@ public class InsercaoDatabaseTest {
         assertEquals(codigoRepetido, produtoInserido.codigo);
         assertEquals(descricoes[0], produtoInserido.descricao);
         assertEquals(unidades[0], produtoInserido.unidade);
-        assertTrue(valores[0]== produtoInserido.valorDeVenda);
+        assertEquals(valores[0], produtoInserido.valorDeVenda, 0.0);
 
 
     }

@@ -14,9 +14,10 @@ import static org.junit.Assert.assertThrows;
 
 @RunWith(Parameterized.class)
 public class EstadoTest {
-    String entrada, saidaEsperada;
-    CadastroDeCliente c = new CadastroDeCliente();
-    Class<? extends Throwable> excecaoEsperada;
+    final String entrada;
+    final String saidaEsperada;
+    final CadastroDeCliente c = new CadastroDeCliente();
+    final Class<? extends Throwable> excecaoEsperada;
 
     public EstadoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;

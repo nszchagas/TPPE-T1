@@ -2,10 +2,10 @@ package br.unb.model;
 
 public class Produto {
 
-    public String descricao;
-    public String codigo;
-    public float valorDeVenda;
-    public String unidade;
+    public final String descricao;
+    public final String codigo;
+    public final float valorDeVenda;
+    public final String unidade;
 
     public Produto(String descricao, float valorDeVenda, String unidade, String codigo) {
         this.descricao = descricao;

@@ -19,10 +19,10 @@ import static org.junit.Assert.assertThrows;
 @RunWith(Parameterized.class)
 public class DataTest {
 
-    String entrada;
-    Object saidaEsperada;
-    Class <? extends  Throwable> excecaoEsperada;
-    List<String> itens = TestUtils.getCodigosDeProdutosValidos();
+    final String entrada;
+    final Object saidaEsperada;
+    final Class <? extends  Throwable> excecaoEsperada;
+    final List<String> itens = TestUtils.getCodigosDeProdutosValidos();
 
     @Before
     public void setUp(){

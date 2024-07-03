@@ -9,8 +9,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class InsercaoDatabaseTest {
-    CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
-    Database db = Database.getInstance();
+    final CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
+    final Database db = Database.getInstance();
 
     @Test
     public void assertNaoInsereDuplicado() {

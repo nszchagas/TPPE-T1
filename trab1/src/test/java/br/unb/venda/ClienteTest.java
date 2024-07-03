@@ -18,11 +18,11 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ClienteTest {
 
-    String entrada;
-    boolean isValid;
-    Database db;
-    List<String> itens = TestUtils.getCodigosDeProdutosValidos();
-    CadastroDeVenda c = new CadastroDeVenda();
+    final String entrada;
+    final boolean isValid;
+    final Database db;
+    final List<String> itens = TestUtils.getCodigosDeProdutosValidos();
+    final CadastroDeVenda c = new CadastroDeVenda();
     public ClienteTest(String entrada, boolean isValid) {
         this.entrada = entrada;
         this.isValid = isValid;

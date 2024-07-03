@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class ValorDeVendaTest {
-    private String entrada;
-    private String saidaEsperada;
-    Class <? extends Throwable> excecaoEsperada;
+    private final String entrada;
+    private final String saidaEsperada;
+    final Class <? extends Throwable> excecaoEsperada;
 
     public ValorDeVendaTest(String entrada, String  saidaEsperada, Class <? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;

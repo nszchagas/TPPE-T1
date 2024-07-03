@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
 //@TODO: assert que não existe região com DF.
 @RunWith(Parameterized.class)
 public class RegiaoTest {
-    String entrada;
-    RegiaoDoEstado saidaEsperada;
-    CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
+    final String entrada;
+    final RegiaoDoEstado saidaEsperada;
+    final CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
 
     public RegiaoTest(String entrada, RegiaoDoEstado saidaEsperada) {
         this.entrada = entrada;

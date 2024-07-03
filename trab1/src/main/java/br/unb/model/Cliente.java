@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cliente {
-    public String nome, categoria, email;
-    public Endereco endereco;
+    public final String nome;
+    public final String categoria;
+    public final String email;
+    public final Endereco endereco;
 
     public Cliente(String nome, String categoria, String estado, String regiao, String email) {
         this.nome = nome;

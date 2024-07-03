@@ -11,8 +11,9 @@ import java.util.Collection;
 @RunWith(Parameterized.class)
 public class TabelaDeFreteTest {
 
-    String estado, regiao;
-    float valorEsperado;
+    final String estado;
+    final String regiao;
+    final float valorEsperado;
 
     public TabelaDeFreteTest(String estado, String regiao, float valorEsperado) {
         this.estado = estado;

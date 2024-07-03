@@ -15,8 +15,9 @@ import static org.junit.Assert.assertThrows;
 @RunWith(Parameterized.class)
 
 public class CodigoTest {
-    private String entrada, saidaEsperada;
-    Class<? extends Throwable> excecaoEsperada;
+    private final String entrada;
+    private final String saidaEsperada;
+    final Class<? extends Throwable> excecaoEsperada;
 
     public CodigoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;

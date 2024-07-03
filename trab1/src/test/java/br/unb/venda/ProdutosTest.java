@@ -20,12 +20,13 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ProdutosTest {
 
-    List<String> entrada;
-    boolean isValid;
+    final List<String> entrada;
+    final boolean isValid;
     Venda vendaRegistrada;
-    CadastroDeVenda cadastroDeVenda;
+    final CadastroDeVenda cadastroDeVenda;
     List<Produto> produtosRegistrados;
-    HashSet<String> idsEntrada, idsFromProdutos;
+    final HashSet<String> idsEntrada;
+    HashSet<String> idsFromProdutos;
     @BeforeClass
     public static void setUpDatabase() {
         TestUtils.populaBanco();

@@ -16,7 +16,7 @@ public class EmailTest {
 
     private final String entrada;
     private final Class <?extends Throwable> excecaoEsperada;
-    CadastroDeCliente c = new CadastroDeCliente();
+    final CadastroDeCliente c = new CadastroDeCliente();
     public EmailTest(String entrada, Class <?extends Throwable> excecaoEsperada){
         this.entrada = entrada;
         this.excecaoEsperada = excecaoEsperada;
