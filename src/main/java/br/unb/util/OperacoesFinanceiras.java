@@ -57,6 +57,15 @@ public class OperacoesFinanceiras {
     }
 
     public static double calculaCashback(CategoriaDeCliente cliente, MetodoDePagamento pagamento,double valorTotal){
+        switch (cliente){
+            case ESPECIAL:
+            case PADRAO:
+                return 0;
+            case PRIME:
+                if (pagamento==MetodoDePagamento.CARTAO_LOJA)
+                    return 0.05 * valorTotal;
+                return 0.03 * valorTotal;
+        }
         return -1;
 
     }

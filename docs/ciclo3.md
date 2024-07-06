@@ -46,8 +46,8 @@
     - Verificar que está discriminado na nota fiscal
 
 #### Cashback
-- [] Calcular cashback para cliente prime (R$0,03 por real gasto)
-- [] Calcular cashback para cliente prime utilizando cartão de crédito da empresa (R$0,05 por real gasto)
+- [x] Calcular cashback para cliente prime (R$0,03 por real gasto)
+- [x] Calcular cashback para cliente prime utilizando cartão de crédito da empresa (R$0,05 por real gasto)
 
 #### Impostos
 
