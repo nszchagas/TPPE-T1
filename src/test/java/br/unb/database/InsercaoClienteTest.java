@@ -1,4 +1,4 @@
-package br.unb.cliente;
+package br.unb.database;
 
 import br.unb.model.Cliente;
 import br.unb.model.Database;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class InsercaoDatabaseTest {
+public class InsercaoClienteTest {
     final CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
     final Database db = Database.getInstance();
 

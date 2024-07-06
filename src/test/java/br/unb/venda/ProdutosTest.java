@@ -22,36 +22,26 @@ public class ProdutosTest {
 
     final List<String> entrada;
     final boolean isValid;
-    Venda vendaRegistrada;
     final CadastroDeVenda cadastroDeVenda;
-    List<Produto> produtosRegistrados;
     final HashSet<String> idsEntrada;
+    Venda vendaRegistrada;
+    List<Produto> produtosRegistrados;
     HashSet<String> idsFromProdutos;
+
+    public ProdutosTest(List<String> entrada, boolean isValid) {
+        this.entrada = entrada;
+        this.isValid = isValid;
+        cadastroDeVenda = new CadastroDeVenda();
+        idsEntrada = new HashSet<>(entrada);
+        // Códigos válidos: 123, 456, 789, 101, 202 (TestUtils)
+    }
+
     @BeforeClass
     public static void setUpDatabase() {
         TestUtils.populaBanco();
     }
 
-    @Before
-    public void setUpTestCase(){
-        if (isValid) {
-            vendaRegistrada = cadastroDeVenda.criaVenda("email1@domain.com", entrada , "BOLETO", "2024-07-01" );
-            produtosRegistrados = vendaRegistrada.getProdutos();
-            idsFromProdutos = new HashSet<>();
-            for (Produto produto : produtosRegistrados) {
-                idsFromProdutos.add(produto.codigo);
-            }
-        }
-
-    }
-    public ProdutosTest(List<String> entrada, boolean isValid) {
-        this.entrada = entrada;
-        this.isValid = isValid;
-        cadastroDeVenda =new CadastroDeVenda();
-        idsEntrada = new HashSet<>(entrada);
-        // Códigos válidos: 123, 456, 789, 101, 202 (TestUtils)
-    }
-    @Parameterized.Parameters(name="{index}:entrada={0},isValid={1}")
+    @Parameterized.Parameters(name = "{index}:entrada={0},isValid={1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {List.of(), false},
@@ -61,14 +51,27 @@ public class ProdutosTest {
                 {List.of("456", "456"), true},
         });
     }
+
+    @Before
+    public void setUpTestCase() {
+        if (isValid) {
+            vendaRegistrada = cadastroDeVenda.criaVenda("email1@domain.com", entrada, "BOLETO", "2024-07-01");
+            produtosRegistrados = vendaRegistrada.getProdutos();
+            idsFromProdutos = new HashSet<>();
+            for (Produto produto : produtosRegistrados) {
+                idsFromProdutos.add(produto.codigo);
+            }
+        }
+
+    }
+
     @Test
-    public void testItensId(){
-         // Assegura que há itens cadastrados
+    public void testItensId() {
         CadastroDeVenda c = new CadastroDeVenda();
-        if (! isValid) {
+        if (!isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            c.criaVenda("email1@domain.com", entrada,  "BOLETO", "2024-07-01" )
+                            c.criaVenda("email1@domain.com", entrada, "BOLETO", "2024-07-01")
             );
         } else {
             assertEquals(new HashSet<>(vendaRegistrada.produtosId), idsEntrada);

@@ -1,4 +1,4 @@
-package br.unb.produto;
+package br.unb.database;
 
 import br.unb.model.Produto;
 import br.unb.model.Database;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class InsercaoDatabaseTest {
+public class InsercaoProdutoTest {
     final CadastroDeProduto cadastro = new CadastroDeProduto();
     final Database db = Database.getInstance();
 

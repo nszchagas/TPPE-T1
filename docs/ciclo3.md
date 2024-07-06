@@ -56,12 +56,6 @@
 - [x] Calcular ICMS para cliente no DF
     - 18% de ICMS e 0% de imposto municipal
 
-#### Uso de cashback
-
-- [] Utilizar ou não saldo de cashback para abater na compra para cliente prime
-- [] Verificar que o saldo é corretamente reduzido do total
-- [] Verificar que o saldo de cashback é atualizado após a compra
-
 ### Operações CRUD: Inserção
 
 - [] Registrar venda no banco de dados
@@ -69,32 +63,17 @@
 - [] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete,
   descontos, impostos)
 
+
+#### Uso de cashback
+
+- [] Utilizar ou não saldo de cashback para abater na compra para cliente prime
+- [] Verificar que o saldo é corretamente reduzido do total
+- [] Verificar que o saldo de cashback é atualizado após a compra
+
+
 ### Nota Fiscal
 
 - [] Verificar que os valores de impostos, frete e desconto estão corretos nos cenários:
-
-| Cliente             | Região     | Localização | ICMS | Imposto Municipal | Frete    | Desconto/Cashback     |
-|---------------------|------------|-------------|------|-------------------|----------|-----------------------|
-| Padrão              | Fora do DF | Capital     | 12%  | 4%                | Capital  | -                     |
-| Padrão              | Fora do DF | Interior    | 12%  | 4%                | Interior | -                     |
-| Padrão              | No DF      | Capital     | 18%  | 0%                | Capital  | -                     |
-| Padrão              | No DF      | Interior    | 18%  | 0%                | Interior | -                     |
-| Especial            | Fora do DF | Capital     | 12%  | 4%                | Capital  | 10%                   |
-| Especial            | Fora do DF | Interior    | 12%  | 4%                | Interior | 10%                   |
-| Especial            | No DF      | Capital     | 18%  | 0%                | Capital  | 10%                   |
-| Especial            | No DF      | Interior    | 18%  | 0%                | Interior | 10%                   |
-| Especial com Cartão | Fora do DF | Capital     | 12%  | 4%                | Capital  | 20%                   |
-| Especial com Cartão | Fora do DF | Interior    | 12%  | 4%                | Interior | 20%                   |
-| Especial com Cartão | No DF      | Capital     | 18%  | 0%                | Capital  | 20%                   |
-| Especial com Cartão | No DF      | Interior    | 18%  | 0%                | Interior | 20%                   |
-| Prime               | Fora do DF | Capital     | 12%  | 4%                | Capital  | R$0,03 por real gasto |
-| Prime               | Fora do DF | Interior    | 12%  | 4%                | Interior | R$0,03 por real gasto |
-| Prime               | No DF      | Capital     | 18%  | 0%                | Capital  | R$0,03 por real gasto |
-| Prime               | No DF      | Interior    | 18%  | 0%                | Interior | R$0,03 por real gasto |
-| Prime com Cartão    | Fora do DF | Capital     | 12%  | 4%                | Capital  | R$0,05 por real gasto |
-| Prime com Cartão    | Fora do DF | Interior    | 12%  | 4%                | Interior | R$0,05 por real gasto |
-| Prime com Cartão    | No DF      | Capital     | 18%  | 0%                | Capital  | R$0,05 por real gasto |
-| Prime com Cartão    | No DF      | Interior    | 18%  | 0%                | Interior | R$0,05 por real gasto |
 
 ## Agrupamento dos testes em Suíte
 
