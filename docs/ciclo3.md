@@ -1,8 +1,4 @@
-Tipo de cliente: PADRAO, ESPECIAL, PRIME
-Regioes: INTERIOR, CAPITAL
-Estados: "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
-"MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
-"RS", "RO", "RR", "SC", "SP", "SE", "TO"
+
 
 # Ciclo 3: Implementação do Requisito 3
 
@@ -43,17 +39,13 @@ Estados: "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
 - [x] Calcular frete para cliente prime no interior
     - Verificar isenção de frete
 
-| Tipo de Cliente | Estado | Região |
-|-----------------|--------|--------|
-| Padrao          |        |        |  
-| Especial        |        |        | 
-| Prime           |        |        |
-
 #### Desconto
 
 - [x] Calcular desconto de 10% para cliente especial
 - [x] Calcular desconto de *10% na compra + 10% em tudo para cliente especial utilizando cartão de crédito da empresa
     - Verificar que está discriminado na nota fiscal
+
+#### Cashback
 - [] Calcular cashback para cliente prime (R$0,03 por real gasto)
 - [] Calcular cashback para cliente prime utilizando cartão de crédito da empresa (R$0,05 por real gasto)
 

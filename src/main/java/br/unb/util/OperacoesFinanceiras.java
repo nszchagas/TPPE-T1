@@ -1,9 +1,6 @@
 package br.unb.util;
 
-import br.unb.model.categorias.CategoriaDeCliente;
-import br.unb.model.categorias.Endereco;
-import br.unb.model.categorias.RegiaoDoEstado;
-import br.unb.model.categorias.RegiaoDoPais;
+import br.unb.model.categorias.*;
 
 import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
 
@@ -56,6 +53,11 @@ public class OperacoesFinanceiras {
         if (! metodoDePagamento.equals("CARTAO_LOJA"))
             return 0.1 * (valorGasto);
         return 0.1 * valorGasto + 0.1 * (0.9 * valorGasto + frete);
+
+    }
+
+    public static double calculaCashback(CategoriaDeCliente cliente, MetodoDePagamento pagamento,double valorTotal){
+        return -1;
 
     }
 
