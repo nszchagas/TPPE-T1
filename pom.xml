@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.unb</groupId>
-    <artifactId>trab1</artifactId>
+    <artifactId>tppe-t1</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
-    <name>trab1</name>
+    <name>tppe-t1</name>
     <url>https://maven.apache.org</url>
 
     <properties>
