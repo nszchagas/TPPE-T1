@@ -1,6 +1,7 @@
 package br.unb.venda;
 
 import br.unb.model.Venda;
+import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.service.CadastroDeVenda;
 import br.unb.util.TestUtils;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.*;
 
+import static br.unb.model.categorias.MetodoDePagamento.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -27,7 +29,7 @@ public class MetodoPagamentoTest {
 
     final String entrada;
     final String numero;
-    final String saidaEsperada;
+    final MetodoDePagamento saidaEsperada;
     final CadastroDeVenda cadastroDeVenda;
     Venda vendaCadastrada;
     String emailValido, dataValida;
@@ -48,7 +50,7 @@ public class MetodoPagamentoTest {
 
 
     }
-    public MetodoPagamentoTest(String entrada, String numero, String saidaEsperada){
+    public MetodoPagamentoTest(String entrada, String numero, MetodoDePagamento saidaEsperada){
         this.entrada = entrada;
         this.numero = numero;
         this.saidaEsperada = saidaEsperada;
@@ -58,8 +60,8 @@ public class MetodoPagamentoTest {
    @Parameterized.Parameters(name = "{index}: entrada={0}, numero={1}, saidaEsperada={2}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"CARTAO", "4296 1370 0000 0000", "CARTAO_LOJA"},
-                {"CARTÃO", "5296 1370 0000 0001", "CARTAO_EXTERNO"},
+                {"CARTAO", "4296 1370 0000 0000", CARTAO_LOJA},
+                {"CARTÃO", "5296 1370 0000 0001", CARTAO_EXTERNO},
                 {"CARTAO", "4296137000000001", null},
                 {"CARTAO", "4296 13XX XXXX XXXX", null},
                 {"CARTAO", "5296 13XX XXXX XXXX", null},
@@ -67,12 +69,12 @@ public class MetodoPagamentoTest {
                 {"CARTAO", "5296.1370.0000.0002", null},
                 {"CARTAO", "4296 1370", null},
                 {"CARTAO", "52@6 1370 0000 0001", null},
-                {"BOLETO", null, "BOLETO"},
-                {"PIX", null, "PIX"},
-                {"DINHEIRO", null, "DINHEIRO"},
-                {"boleto", "", "BOLETO"},
-                {"pix", "", "PIX"},
-                {"dinheiro", "", "DINHEIRO"},
+                {"BOLETO", null, BOLETO},
+                {"PIX", null, PIX},
+                {"DINHEIRO", null, DINHEIRO},
+                {"boleto", "", BOLETO},
+                {"pix", "", PIX},
+                {"dinheiro", "", DINHEIRO},
                 {"gado", "50", null},
                 {"", null, null},
                 {null, null,null}
