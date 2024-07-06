@@ -71,6 +71,21 @@ public class OperacoesFinanceiras {
     }
 
     public static double calculaImposto(String tipo, String estado, double valor) {
-        return -1;
+
+        if (estado.equals("DF")) {
+            if (tipo.equals("MUNICIPAL"))
+                return 0;
+            return 0.18 * valor;
+        }
+
+        if (tipo.equals("ICMS"))
+            return 0.12 * valor;
+
+        assert tipo.equals("MUNICIPAL");
+        return 0.04 * valor;
+
     }
+
+
+
 }

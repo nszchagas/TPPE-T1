@@ -51,9 +51,9 @@
 
 #### Impostos
 
-- [] Calcular ICMS e imposto municipal para cliente fora do DF
+- [x] Calcular ICMS e imposto municipal para cliente fora do DF
     - 12% de ICMS e 4% de imposto municipal
-- [] Calcular ICMS para cliente no DF
+- [x] Calcular ICMS para cliente no DF
     - 18% de ICMS e 0% de imposto municipal
 
 #### Uso de cashback
