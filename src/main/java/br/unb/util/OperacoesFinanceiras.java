@@ -70,4 +70,7 @@ public class OperacoesFinanceiras {
 
     }
 
+    public static double calculaImposto(String tipo, String estado, double valor) {
+        return -1;
+    }
 }
