@@ -12,10 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
@@ -24,23 +22,20 @@ import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class ValorGastoTest {
 
     List<Produto> produtos;
+    List<Double> precos, listaICMS, listaMunicipal;
     Cliente cliente;
-    List<Double> precos;
-    List<Double> listaICMS;
-    List<Double> listaMunicipal;
     String conteudoDaNotaFiscal;
     NotaFiscal notaFiscal;
-    double frete;
+    double frete, valorTotal, valorFinal, descontos = 0;
     Venda venda;
     MetodoDePagamento metodoDePagamento;
     LocalDate data;
+
 
     public ValorGastoTest(
             String estado,
@@ -54,15 +49,21 @@ public class ValorGastoTest {
 
         List<String> codigos = List.of("18191", "41857", "158151");
         List<String> unidades = List.of("METRO", "KG", "LITRO");
+        valorTotal = 0;
 
         for (int i = 0; i < codigos.size(); i++) {
             produtos.add(new Produto("Produto",
                     precos.get(i),
                     unidades.get(i),
                     codigos.get(i)));
-
-
+            valorTotal += precos.get(i) + listaICMS.get(i) + listaMunicipal.get(i);
+            // Valor Total: Soma de tudo + frete
+            // Valor Final: Tirando os descontos
         }
+        valorTotal += frete;
+
+        valorFinal = valorTotal - descontos;
+
         // Cliente padrão não tem nenhum tipo de desconto.
         CategoriaDeCliente categoriaDeCliente = PADRAO;
 
@@ -70,7 +71,7 @@ public class ValorGastoTest {
 
         String email = "email@gmail.com";
 
-        cliente = new Cliente("Nome", categoriaDeCliente, estado, regiaoDoEstado, email);
+        cliente = new Cliente("João", categoriaDeCliente, estado, regiaoDoEstado, email);
 
 
         this.precos = precos;
@@ -83,10 +84,7 @@ public class ValorGastoTest {
         venda = new Venda(cliente, produtos, metodoDePagamento, data);
         notaFiscal = new NotaFiscal(venda);
 
-        // Setup Nota
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        conteudoDaNotaFiscal = outContent.toString();
+        conteudoDaNotaFiscal = notaFiscal.emiteNotaFiscal();
 
 
     }
@@ -126,12 +124,7 @@ public class ValorGastoTest {
 
     @Test
     public void testCalcularValorGasto() {
-
-        double valorGasto = 0;
-        for (Double v : precos)
-            valorGasto += v;
-
-        assertEquals(valorGasto, venda.getValorGasto(), 0.001);
+        assertEquals(valorTotal - frete, venda.getValorGasto(), 0.001);
     }
 
     // Imposto só depende do estado
@@ -142,7 +135,7 @@ public class ValorGastoTest {
             total += precos.get(i) + listaICMS.get(i) + listaMunicipal.get(i);
         }
         total += frete;
-        assertEquals(total, notaFiscal.getTotal(), 0.01);
+        assertEquals(total, notaFiscal.getValorTotal(), 0.01);
 
     }
 
@@ -159,25 +152,67 @@ public class ValorGastoTest {
 
 
     @Test
-    public void testFreteNaNotaFiscal() {
+    public void testValorFreteNaNotaFiscal() {
         assertEquals(frete, notaFiscal.getFrete(), 0.01);
+    }
+
+    @Test
+    public void testDataNaNotaFiscal() {
+        String texto = "Data: " + data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
+    }
+
+    @Test
+    public void testFreteNaNotaFiscal() {
+        String texto = "Frete: " + frete;
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
+    }
+
+    @Test
+    public void testMetododePagamentoNaNotaFiscal() {
+        String texto = "Método de Pagamento: " + metodoDePagamento;
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
+    }
+
+    @Test
+    public void testValorTotalNaNotaFiscal() {
+        String texto = "Total: R$" + valorTotal;
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
+    }
+
+    @Test
+    public void testValorFinalNaNotaFiscal() {
+        String texto = "Valor Final: R$" + valorFinal;
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
+    }
+
+    @Test
+    public void testDescontosNaNotaFiscal() {
+        String texto = "Descontos: - R$" + descontos;
+        assertTrue(conteudoDaNotaFiscal.contains(texto));
+
     }
 
 
     @Test
     @Ignore
     public void testEmiteNotaFiscal() {
-        NotaFiscal.emiteNotaFiscal();
+
 
         // Verificar se a saída contém as informações corretas
         assertTrue(conteudoDaNotaFiscal.contains("Data: 31/05/2024"));
-        assertTrue(conteudoDaNotaFiscal.contains("Descrição: Produto"));
         assertTrue(conteudoDaNotaFiscal.contains(String.format("Frete: %f", frete)));
         assertTrue(conteudoDaNotaFiscal.contains("Método de Pagamento: CARTAO_LOJA"));
         assertTrue(conteudoDaNotaFiscal.contains("Valor Final: R$20.9"));
         assertTrue(conteudoDaNotaFiscal.contains("Descontos: R$7.5"));
         assertTrue(conteudoDaNotaFiscal.contains("Valor Total: R$18.4"));
         for (int i = 0; i < precos.size(); i++) {
+            assertTrue(conteudoDaNotaFiscal.contains("Descrição: Produto"));
             assertTrue(conteudoDaNotaFiscal.contains("Valor: R$100.0"));
             assertTrue(conteudoDaNotaFiscal.contains("Imposto: R$1.59"));
             assertTrue(conteudoDaNotaFiscal.contains("Unidade: UNIDADE"));
