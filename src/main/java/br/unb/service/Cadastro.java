@@ -4,18 +4,19 @@ import br.unb.model.*;
 import br.unb.model.categorias.Endereco;
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class Cadastro {
-
     private Cadastro() {
 
     }
 
-    public static Cliente cadastraCliente(String nome, String regiao, String estado, String categoria, String email) {
+
+    public static Cliente criaCliente(String nome, String regiao, String estado, String categoria, String email) {
         List<String> categoriasValidas = Cliente.getCategoriasValidas();
         List<String> estadosValidos = Endereco.getUfsValidas();
         List<String> regioesValidas = Endereco.getRegioesValidas();
@@ -44,15 +45,8 @@ public class Cadastro {
         return new Cliente(nome, categoria, estado, regiao, email);
     }
 
-    public static void insereClienteNoBanco(Cliente cliente) {
-        try {
-            Database.getInstance().insereCliente(cliente);
-        } catch (Exception e) {
-            System.out.printf("Cliente já inserido no banco de dados. %s\n", cliente.toString());
-        }
-    }
 
-    public static Produto cadastraProduto(String descricao, String valorDeVenda, String unidade, String codigo) {
+    public static Produto criaProduto(String descricao, String valorDeVenda, String unidade, String codigo) {
         double valor;
 
         // Validação de Descrição
@@ -85,7 +79,6 @@ public class Cadastro {
             if (unidadeNormalizada == null)
                 throw new NullPointerException();
 
-
         } catch (NullPointerException e) {
             throw new IllegalArgumentException("Unidade não pode estar vazia.");
         } catch (IllegalArgumentException e) {
@@ -102,14 +95,6 @@ public class Cadastro {
             throw new IllegalArgumentException(msg);
         }
         return entrada.trim();
-    }
-
-    public static void insereProdutoNoBanco(Produto produto) {
-        try {
-            Database.getInstance().insereProduto(produto);
-        } catch (Exception e) {
-            System.out.printf("Produto já inserido no banco de dados. %s", produto.toString());
-        }
     }
 
     public static Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String dataInserida) {
@@ -165,4 +150,21 @@ public class Cadastro {
         }
         return criaVenda(emailCliente, produtosId, metodoDePagamento, dataInserida);
     }
+
+    public static void insereNoBanco(Object entidade) {
+        Database db = Database.getInstance();
+        try {
+            if (entidade instanceof Cliente)
+                db.insereCliente((Cliente) entidade);
+            else if (entidade instanceof Produto)
+                db.insereProduto((Produto) entidade);
+            else if (entidade instanceof Venda)
+                db.insereVenda((Venda) entidade);
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
 }

@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.cadastraCliente;
+import static br.unb.service.Cadastro.criaCliente;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -39,11 +39,11 @@ public class EstadoTest {
     @Test
     public void testaValores() {
         if (excecaoEsperada == null) {
-            Cliente a = cadastraCliente("José", "interior", entrada, "padrao", "jose@gmail.com");
+            Cliente a = criaCliente("José", "interior", entrada, "padrao", "jose@gmail.com");
             assertEquals(a.getEstado(), saidaEsperada);
         } else {
             Throwable e = assertThrows(excecaoEsperada,
-                    () -> cadastraCliente("José", "interior", entrada, "padrao", "jose@gmail.com")
+                    () -> criaCliente("José", "interior", entrada, "padrao", "jose@gmail.com")
             );
             assertEquals(e.getMessage(), saidaEsperada);
         }

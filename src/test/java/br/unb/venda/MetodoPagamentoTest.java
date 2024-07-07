@@ -5,7 +5,6 @@ import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
 import br.unb.model.categorias.MetodoDePagamento;
-import br.unb.service.Cadastro;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

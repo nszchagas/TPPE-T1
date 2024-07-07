@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.cadastraCliente;
+import static br.unb.service.Cadastro.criaCliente;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
@@ -67,12 +67,12 @@ public class EmailTest {
     @Test
     public void testaValores(){
         if (excecaoEsperada == null ){
-            Cliente j = cadastraCliente("José", "Capital", "SP", "PADRAO", entrada);
+            Cliente j = criaCliente("José", "Capital", "SP", "PADRAO", entrada);
             assertEquals(j.email, entrada);
 
         } else {
             Throwable e = assertThrows(excecaoEsperada,
-                    () -> cadastraCliente("José", "Capital", "SP","PADRAO", entrada));
+                    () -> criaCliente("José", "Capital", "SP","PADRAO", entrada));
             assertTrue(e.getMessage().contains(entrada));
         }
     }

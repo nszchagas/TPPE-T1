@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.cadastraProduto;
+import static br.unb.service.Cadastro.criaProduto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -39,10 +39,10 @@ public class DescricaoTest {
 
         if (excecaoEsperada != null) {
             Throwable a = assertThrows(excecaoEsperada, () ->
-                    cadastraProduto(entrada, "100.20", "UNIDADE", "123456"));
+                    criaProduto(entrada, "100.20", "UNIDADE", "123456"));
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
-            Produto p = cadastraProduto(entrada, "100.20", "UNIDADE",  "123456");
+            Produto p = criaProduto(entrada, "100.20", "UNIDADE",  "123456");
             assertEquals(p.descricao, saidaEsperada);
         }
 

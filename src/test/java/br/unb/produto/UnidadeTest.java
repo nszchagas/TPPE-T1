@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.cadastraProduto;
+import static br.unb.service.Cadastro.criaProduto;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
@@ -45,12 +45,12 @@ public class UnidadeTest {
     public void testeValores(){
         if (excecaoEsperada != null ){
             Throwable a = assertThrows(excecaoEsperada, () ->
-                cadastraProduto("Caderno 96 Folhas", "10", entrada,"123456")
+                criaProduto("Caderno 96 Folhas", "10", entrada,"123456")
             );
             assertEquals(a.getMessage(), saidaEsperada);
         } else
         {
-            Produto p = cadastraProduto("Caderno 96 Folhas", "10", entrada, "123456");
+            Produto p = criaProduto("Caderno 96 Folhas", "10", entrada, "123456");
             assertEquals(p.unidade, saidaEsperada);
         }
 

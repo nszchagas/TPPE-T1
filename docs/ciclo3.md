@@ -77,4 +77,4 @@
 
 ## Agrupamento dos testes em Suíte
 
-* Suíte de testes do Requisito 3: [Requisito3Suite](../trab1/src/test/java/br/unb/Requisito3Suite.java).
+* Suíte de testes do Requisito 3: [Requisito3Suite](../src/test/java/br/unb/Requisito3Suite.java).

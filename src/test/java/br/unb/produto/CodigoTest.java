@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.cadastraProduto;
+import static br.unb.service.Cadastro.criaProduto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -41,10 +41,10 @@ public class CodigoTest {
     public void testeValores() {
 
         if (excecaoEsperada != null) {
-            Throwable a = assertThrows(excecaoEsperada, () -> cadastraProduto("Caderno das Princesas Disney", "100.20", "UNIDADE", entrada));
+            Throwable a = assertThrows(excecaoEsperada, () -> criaProduto("Caderno das Princesas Disney", "100.20", "UNIDADE", entrada));
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
-            Produto p = cadastraProduto("Caderno das Princesas Disney", "100.20", "UNIDADE", entrada);
+            Produto p = criaProduto("Caderno das Princesas Disney", "100.20", "UNIDADE", entrada);
             assertEquals(p.codigo, saidaEsperada);
         }
 
