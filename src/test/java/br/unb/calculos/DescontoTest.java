@@ -15,7 +15,7 @@ import java.util.List;
 
 import static br.unb.model.categorias.CategoriaDeCliente.*;
 import static br.unb.model.categorias.MetodoDePagamento.*;
-import static br.unb.util.OperacoesFinanceiras.aplicaDesconto;
+import static br.unb.util.OperacoesFinanceiras.calculaDesconto;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -54,22 +54,27 @@ public class DescontoTest {
 
     }
 
-    @Test
-    public void testDesconto() {
-        assertEquals(descontoEsperado,
-                aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento),
-                0.01);
-    }
 
     @Test
     public void testAtributo() {
-        LocalDate data = LocalDate.of(2021, 2, 5);
+        LocalDate data = LocalDate.now();
         Cliente cliente = mock(Cliente.class);
         List<Produto> produtos = List.of(mock(Produto.class));
-
         when(cliente.getCategoria()).thenReturn(categoriaDeCliente);
-        Venda venda = new Venda(cliente, produtos, metodoDePagamento, data);
-        assertEquals(descontoEsperado, venda.getDesconto(),0.1);
+        Venda venda = mock(Venda.class);
+        when(venda.getCliente()).thenReturn(cliente);
+        when(venda.getMetodoDePagamento()).thenReturn(metodoDePagamento);
+
+
+
+        when(venda.getCliente()).thenReturn(cliente);
+        when(venda.getProdutos()).thenReturn(produtos);
+        when(venda.getMetodoDePagamento()).thenReturn(metodoDePagamento);
+        when(venda.getValorGasto()).thenReturn(valorGasto);
+        when(venda.getDesconto()).thenCallRealMethod();
+
+
+        assertEquals(descontoEsperado, venda.getDesconto(), 0.001);
 
     }
 

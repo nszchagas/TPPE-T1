@@ -7,11 +7,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
+import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
+import static br.unb.util.OperacoesFinanceiras.calculaDesconto;
+import static br.unb.util.OperacoesFinanceiras.calculaFrete;
+
 public class Venda {
-    public final LocalDate data;
-    public final Cliente cliente;
-    public final List<Produto> produtos;
-    public final MetodoDePagamento metodoDePagamento;
+    private final LocalDate data;
+    private final Cliente cliente;
+    private final List<Produto> produtos;
+    private final MetodoDePagamento metodoDePagamento;
 
     public Venda(Cliente cliente, List<Produto> produtos, MetodoDePagamento metodoDePagamento, LocalDate data) {
         this.data = data;
@@ -21,12 +26,17 @@ public class Venda {
     }
 
     public double getFrete() {
-        return OperacoesFinanceiras.calculaFrete(cliente.getEstado(), cliente.getRegiao(), cliente.getCategoria());
+        return calculaFrete(getCliente().getEstado(), getCliente().getRegiao(), getCliente().getCategoria());
     }
 
     public double getDesconto() {
+        return calculaDesconto(getValorGasto(), getFrete(), getCliente().getCategoria(), getMetodoDePagamento());
+    }
+
+    public double getValorGasto() {
         return -1;
     }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -41,5 +51,14 @@ public class Venda {
             codsProdutos.add(produto.codigo);
         }
         return codsProdutos;
+    }
+
+    public MetodoDePagamento getMetodoDePagamento() {
+        return metodoDePagamento;
+    }
+
+    public LocalDate getData() {
+        return data;
+
     }
 }

@@ -49,7 +49,7 @@ public class OperacoesFinanceiras {
         }
     }
 
-    public static double aplicaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, MetodoDePagamento metodoDePagamento) {
+    public static double calculaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, MetodoDePagamento metodoDePagamento) {
         if (categoriaDeCliente != ESPECIAL)
             return 0;
         if (!metodoDePagamento.equals(CARTAO_LOJA))

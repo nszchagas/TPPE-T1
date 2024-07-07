@@ -67,7 +67,7 @@ public class DataTest {
             } else {
 
                 Venda v = criaVenda("email1@domain.com", itens, "PIX", entrada);
-                assertEquals(v.data, saidaEsperada);
+                assertEquals(v.getData(), saidaEsperada);
             }
         }
     }

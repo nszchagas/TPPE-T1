@@ -85,7 +85,7 @@ public class ClienteTest {
                             criaVenda(entrada, itens, "BOLETO", "2024-07-01")
             );
         } else {
-            assertEquals(vendaCriada.cliente.email, entrada);
+            assertEquals(vendaCriada.getCliente().email, entrada);
         }
     }
 

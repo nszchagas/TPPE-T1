@@ -85,7 +85,7 @@ public class MetodoPagamentoTest {
     @Test
     public void testaValores() {
         if (saidaEsperada != null) {
-            assertEquals(saidaEsperada, vendaCadastrada.metodoDePagamento);
+            assertEquals(saidaEsperada, vendaCadastrada.getMetodoDePagamento());
         } else {
             assertThrows(IllegalArgumentException.class, () ->
                     criaVenda(emailValido, idProdutosValidos, entrada, numero, dataValida)
