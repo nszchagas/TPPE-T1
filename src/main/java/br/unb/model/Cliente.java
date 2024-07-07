@@ -10,23 +10,17 @@ import java.util.Objects;
 
 public class Cliente {
     public final String nome;
-    public final String categoria;
+    public final CategoriaDeCliente categoria;
     public final String email;
     public final Endereco endereco;
 
-    public Cliente(String nome, String categoria, String estado, String regiao, String email) {
+    public Cliente(String nome, CategoriaDeCliente categoria, String estado, RegiaoDoEstado regiao, String email) {
         this.nome = nome;
         this.categoria = categoria;
         this.email = email;
         this.endereco = new Endereco(estado, regiao);
     }
 
-    public static List<String> getCategoriasValidas() {
-        List<String> categorias = new ArrayList<>();
-        for (CategoriaDeCliente c : CategoriaDeCliente.values())
-            categorias.add(c.toString());
-        return categorias;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -53,7 +47,7 @@ public class Cliente {
     }
 
     public CategoriaDeCliente getCategoria() {
-        return CategoriaDeCliente.valueOf(categoria);
+        return categoria;
     }
 
 }

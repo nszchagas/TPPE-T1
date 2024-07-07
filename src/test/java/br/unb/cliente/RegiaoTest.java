@@ -14,7 +14,6 @@ import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static br.unb.service.Cadastro.criaCliente;
 import static org.junit.Assert.*;
 
-//@TODO: assert que não existe região com DF.
 @RunWith(Parameterized.class)
 public class RegiaoTest {
     final String entrada;
@@ -40,9 +39,9 @@ public class RegiaoTest {
     public void testaValores() {
         if (saidaEsperada != null) {
             Cliente cliente = criaCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
-            assertEquals(cliente.getRegiao(), saidaEsperada);
+            assertEquals(saidaEsperada, cliente.endereco.regiaoDoEstado);
         } else {
-            Throwable e = assertThrows(IllegalArgumentException.class, () -> criaCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
+            Throwable e = assertThrows(IllegalArgumentException.class, () -> criaCliente("José", entrada, "BA", "PADRAO", "jose@gmail.com"));
             assertTrue(e.getMessage().contains(entrada));
         }
     }

@@ -1,8 +1,10 @@
 package br.unb.service;
 
 import br.unb.model.*;
+import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.Endereco;
 import br.unb.model.categorias.MetodoDePagamento;
+import br.unb.model.categorias.RegiaoDoEstado;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -21,35 +23,22 @@ public class Cadastro {
     }
 
 
-    public static Cliente criaCliente(String nome, String regiao, String estado, String categoria, String email) {
-        List<String> categoriasValidas = Cliente.getCategoriasValidas();
-        List<String> estadosValidos = Endereco.getUfsValidas();
-        List<String> regioesValidas = Endereco.getRegioesValidas();
+    public static Cliente criaCliente(String nome, String regiaoInserida, String estado, String categoriaInserida, String email) {
 
-        String regiao_inserida = regiao;
-        String categoria_inserida = categoria;
-        categoria = categoria.toUpperCase().trim();
-        estado = estado.trim().toUpperCase();
-        regiao = regiao.trim().toUpperCase();
 
-        if (!categoriasValidas.contains(categoria)) {
-            throw new IllegalArgumentException(String.format("Categoria inválida: \"%s\".", categoria_inserida));
-        }
-        if (estado.length() != 2) {
-            throw new IllegalArgumentException("Insira a sigla do estado.");
-        }
-        if (!estadosValidos.contains(estado)) {
+        CategoriaDeCliente categoria = (CategoriaDeCliente) validaEnum(categoriaInserida, "Categoria");
+        RegiaoDoEstado regiao = (RegiaoDoEstado) validaEnum(regiaoInserida, "Regiao");
+
+        if (!Endereco.isUfValida(estado)) {
             throw new IllegalArgumentException(String.format("Estado inválido: %s.", estado));
         }
-        if (!regioesValidas.contains(regiao)) {
-            throw new IllegalArgumentException(String.format("Região inválida: \"%s\".", regiao_inserida));
-        }
+
         // Validação de email
         if (!EmailValidator.getInstance().isValid(email))
             throw new IllegalArgumentException(String.format("Email inválido: \"%s\"", email));
-        return new Cliente(nome, categoria, estado, regiao, email);
-    }
 
+        return new Cliente(nome, categoria, estado.trim().toUpperCase(), regiao, email);
+    }
 
     public static Produto criaProduto(String descricao, String valorDeVenda, String unidade, String codigo) {
         double valor;
@@ -196,6 +185,21 @@ public class Cadastro {
         }
         return -1;
 
+    }
+
+    private static Object validaEnum(String valor, String nome) {
+        try {
+            switch (nome) {
+                case "Categoria":
+                    return CategoriaDeCliente.valueOf(valor.trim().toUpperCase());
+                case "Regiao":
+                    return RegiaoDoEstado.valueOf(valor.trim().toUpperCase());
+
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException(String.format("%s inválida: \"%s\".", nome, valor));
+        }
+        return null;
     }
 
 }

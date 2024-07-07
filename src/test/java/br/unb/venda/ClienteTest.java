@@ -12,6 +12,8 @@ import org.mockito.MockedStatic;
 
 import java.util.*;
 
+import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
+import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -32,7 +34,7 @@ public class ClienteTest {
         this.entrada = entrada;
         this.isValid = isValid;
 
-        clientesByEmail.put("email1@domain.com", new Cliente("Nome", "Padrao", "BA", "Capital", "email1@domain.com"));
+        clientesByEmail.put("email1@domain.com", new Cliente("Nome", PADRAO, "BA", CAPITAL, "email1@domain.com"));
 
         produtosByCodigo.put("123", mock(Produto.class));
 

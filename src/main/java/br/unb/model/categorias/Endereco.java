@@ -1,6 +1,5 @@
 package br.unb.model.categorias;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,12 +9,12 @@ public class Endereco {
     public final RegiaoDoEstado regiaoDoEstado;
     public final RegiaoDoPais regiaoDoPais;
 
-    public Endereco(String uf, String regiaoDoEstado) {
+    public Endereco(String uf, RegiaoDoEstado regiaoDoEstado) {
         this.uf = uf;
         if (uf.equals("DF"))
             this.regiaoDoEstado = null;
         else
-            this.regiaoDoEstado = RegiaoDoEstado.valueOf(regiaoDoEstado.toUpperCase());
+            this.regiaoDoEstado = regiaoDoEstado;
         this.regiaoDoPais = getRegiaoDoPais();
     }
 
@@ -36,21 +35,17 @@ public class Endereco {
         return null;
     }
 
+    public static boolean isUfValida(String uf) {
+        if (uf.trim().length() != 2) {
+            throw new IllegalArgumentException("Insira a sigla do estado.");
+        }
+        List<String> ufs = List.of("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+        return ufs.contains(uf.toUpperCase().trim());
+    }
+
     public RegiaoDoPais getRegiaoDoPais() {
         return getRegiaoDoPais(this.uf);
 
-    }
-
-    public static List<String> getUfsValidas() {
-        return List.of("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
-    }
-
-    public static List<String> getRegioesValidas() {
-        List<String> regioes = new ArrayList<>();
-        for (RegiaoDoEstado regiaoDoEstado : RegiaoDoEstado.values()) {
-            regioes.add(regiaoDoEstado.toString());
-        }
-        return regioes;
     }
 
 }
