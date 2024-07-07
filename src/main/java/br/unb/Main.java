@@ -1,30 +1,37 @@
 package br.unb;
 
 import br.unb.model.Cliente;
+import br.unb.model.Produto;
 import br.unb.service.Cadastro;
 
 import java.util.Scanner;
 
+import static br.unb.service.Cadastro.criaProduto;
+
 public class Main {
+    public static String COD_CADASTRO_CLIENTE = "1", COD_CADASTRO_PRODUTO = "2", COD_SAIR = "0";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
         while (!sair) {
             System.out.println("Menu:");
-            System.out.println("1. Cadastrar Cliente");
-            System.out.println("q. Sair");
+            System.out.printf("%s. Cadastrar Cliente", COD_CADASTRO_CLIENTE);
+            System.out.printf("%s. Cadastrar Produto", COD_CADASTRO_PRODUTO);
+            System.out.printf("%s. Sair", COD_SAIR);
             System.out.print("Escolha uma opção: ");
 
-            char opcao = scanner.next().charAt(0);
-            scanner.nextLine();
+            String opcao = scanner.nextLine();
 
             switch (opcao) {
-                case '1':
+                case "1":
                     cadastrarCliente(scanner);
                     break;
-
-                case 'q':
+                case "2":
+                    cadastrarProduto(scanner);
+                    break;
+                case "0":
                     sair = true;
                     break;
                 default:
@@ -51,5 +58,18 @@ public class Main {
         System.out.println("Cliente cadastrado: " + cliente);
     }
 
+    private static void cadastrarProduto(Scanner scanner) {
+        System.out.print("Descrição: ");
+        String descricao = scanner.nextLine();
+        System.out.print("Valor de Venda: ");
+        String valorDeVenda = scanner.nextLine();
+        System.out.print("Unidade: ");
+        String unidade = scanner.nextLine();
+        System.out.print("Código: ");
+        String codigo = scanner.nextLine();
+
+        Produto produto = criaProduto(descricao, valorDeVenda, unidade, codigo);
+        System.out.println("Produto cadastrado: " + produto);
+    }
 
 }
