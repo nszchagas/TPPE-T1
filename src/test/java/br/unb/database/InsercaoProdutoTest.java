@@ -32,7 +32,7 @@ public class InsercaoProdutoTest {
 
     @Test
     public void assertAtributos(){
-        String codigo = "123456", unidade = "UN", descricao = "BOLA DE FUTEBOL";
+        String codigo = "18161", unidade = "UN", descricao = "BOLA DE FUTEBOL";
         double valorDeVenda = 12.6;
 
         insereNoBanco(new Produto(descricao,valorDeVenda, unidade, codigo));
@@ -45,7 +45,7 @@ public class InsercaoProdutoTest {
     }
     @Test
     public void assertNaoInsereDuplicado(){
-        String codigoRepetido = "123456";
+        String codigoRepetido = "921478";
         String[] descricoes = {"BOLA DE FUTEBOL", "OLEO DE COZINHA"};
         String[] unidades = {"UN", "L"};
         double[] valores = {12.6,7.69};
@@ -53,7 +53,7 @@ public class InsercaoProdutoTest {
         insereNoBanco(new Produto(descricoes[0] ,valores[0], unidades[0], codigoRepetido));
         insereNoBanco(new Produto(descricoes[1], valores[1], unidades[1], codigoRepetido));
 
-        Produto produtoInserido = db.getProdutoByCodigo("123456");
+        Produto produtoInserido = db.getProdutoByCodigo(codigoRepetido);
         assertNotNull(produtoInserido);
         assertEquals(codigoRepetido, produtoInserido.codigo);
         assertEquals(descricoes[0], produtoInserido.descricao);

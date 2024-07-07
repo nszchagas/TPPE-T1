@@ -39,17 +39,17 @@ public class Cadastro {
             throw new IllegalArgumentException(String.format("Email inválido: \"%s\"", email));
 
         Cliente cliente = new Cliente(nome, categoria, estado.trim().toUpperCase(), regiao, email);
-        int id = insereNoBanco(cliente);
+        insereNoBanco(cliente);
         return cliente;
     }
 
     public static Produto criaProduto(String descricao, String valorDeVenda, String unidade, String codigo) {
 
         // Validação de Descrição
-        descricao = Validator.validaCampoTextual(descricao, "descrição");
+        String descricaoValidada = Validator.validaCampoTextual(descricao, "descrição");
 
         // Validação do Código
-        codigo = Validator.validaCampoTextual(codigo, "código");
+        String codigoValidado = Validator.validaCampoTextual(codigo, "código");
 
         // Validação de valor
         double valor = Validator.validaDouble(valorDeVenda);
@@ -57,8 +57,9 @@ public class Cadastro {
         // Validação de Unidade
         String unidadeNormalizada = Validator.validaUnidadeDeMedida(unidade);
 
-
-        return new Produto(descricao, valor, unidadeNormalizada, codigo);
+        Produto produto = new Produto(descricaoValidada, valor, unidadeNormalizada, codigoValidado);
+        insereNoBanco(produto);
+        return produto;
     }
 
     public static Venda criaVenda(String emailCliente, List<String> produtosId, Object metodoDePagamento, String dataInserida) {
@@ -108,8 +109,9 @@ public class Cadastro {
         else
             throw new IllegalArgumentException("Método de pagamento inválido.");
 
-
-        return new Venda(cliente, produtos, metodo, data);
+        Venda venda = new Venda(cliente, produtos, metodo, data);
+        insereNoBanco(venda);
+        return venda;
     }
 
     public static Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String numeroCartao, String dataInserida) {

@@ -4,8 +4,6 @@ import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.Endereco;
 import br.unb.model.categorias.RegiaoDoEstado;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Cliente {
