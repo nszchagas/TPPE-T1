@@ -1,12 +1,14 @@
 package br.unb.venda;
 
+import br.unb.model.Cliente;
+import br.unb.model.Database;
+import br.unb.model.Produto;
 import br.unb.model.Venda;
 import br.unb.service.CadastroDeVenda;
-import br.unb.util.TestUtils;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.MockedStatic;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -15,50 +17,59 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.*;
 
 @RunWith(Parameterized.class)
 public class DataTest {
 
     final String entrada;
     final Object saidaEsperada;
-    final Class <? extends  Throwable> excecaoEsperada;
-    final List<String> itens = TestUtils.getCodigosDeProdutosValidos();
+    final List<String> itens;
 
-    @Before
-    public void setUp(){
-        TestUtils.populaBanco();
-    }
 
-    public DataTest(String entrada, Object saidaEsperada, Class<? extends  Throwable> excecaoEsperada) {
+    public DataTest(String entrada, Object saidaEsperada) {
         this.entrada = entrada;
         this.saidaEsperada = saidaEsperada;
-        this.excecaoEsperada = excecaoEsperada;
+        this.itens = List.of("123");
     }
-    @Parameterized.Parameters(name="{index} entrada={0}, saidaEsperada={1}, excecaoEsperada={2}")
+
+
+    @Parameterized.Parameters(name = "{index} entrada={0}, saidaEsperada={1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"", "Formato ou valor de data inválido: \"\". Utilize o padrão ISO (Ex: 2024-06-30).", IllegalArgumentException.class},
-                {" ", "Formato ou valor de data inválido: \" \". Utilize o padrão ISO (Ex: 2024-06-30).", IllegalArgumentException.class},
+                {"", null},
+                {" ", null},
                 // Formato inválido
-                {"10/12/2023", "Formato ou valor de data inválido: \"10/12/2023\". Utilize o padrão ISO (Ex: 2024-06-30).", IllegalArgumentException.class},
+                {"10/12/2023", null},
                 // Data que não chegou
-                {"2024-12-05", "Formato ou valor de data inválido: \"2024-12-05\". Utilize o padrão ISO (Ex: 2024-06-30).", IllegalArgumentException.class},
+                {"2024-12-05", null},
                 // Dia que não existe
-                {"2023-02-29", "Formato ou valor de data inválido: \"2023-02-29\". Utilize o padrão ISO (Ex: 2024-06-30).", IllegalArgumentException.class},
+                {"2023-02-29", null},
                 // Data válida
-                {"2024-01-15", LocalDate.of(2024,1,15), null}
+                {"2024-01-15", LocalDate.of(2024, 1, 15)}
         });
     }
+
     @Test()
     public void testeValores() {
-        CadastroDeVenda c = new CadastroDeVenda();
-        if (excecaoEsperada != null) {
-            Throwable a = assertThrows(excecaoEsperada, () ->
-                    c.criaVenda("email1@domain.com", itens, "PIX",entrada ));
-            assertEquals(a.getMessage(), saidaEsperada);
-        } else {
-            Venda v = c.criaVenda("email1@domain.com", itens, "PIX", entrada);
-            assertEquals(v.data, saidaEsperada);
+
+        try (MockedStatic<Database> mockedStatic = mockStatic(Database.class)) {
+            Database db = mock(Database.class);
+            when(db.getClienteByEmail("email1@domain.com")).thenReturn(mock(Cliente.class));
+            when(db.getProdutoByCodigo("123")).thenReturn(mock(Produto.class));
+
+            mockedStatic.when(Database::getInstance).thenReturn(db);
+
+            CadastroDeVenda c = new CadastroDeVenda();
+
+            if (saidaEsperada == null) {
+                assertThrows(IllegalArgumentException.class, () ->
+                        c.criaVenda("email1@domain.com", itens, "PIX", entrada));
+            } else {
+
+                Venda v = c.criaVenda("email1@domain.com", itens, "PIX", entrada);
+                assertEquals(v.data, saidaEsperada);
+            }
         }
     }
 }

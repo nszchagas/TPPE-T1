@@ -12,7 +12,10 @@ public class Endereco {
 
     public Endereco(String uf, String regiaoDoEstado) {
         this.uf = uf;
-        this.regiaoDoEstado = RegiaoDoEstado.valueOf(regiaoDoEstado.toUpperCase());
+        if (uf.equals("DF"))
+            this.regiaoDoEstado = null;
+        else
+            this.regiaoDoEstado = RegiaoDoEstado.valueOf(regiaoDoEstado.toUpperCase());
         this.regiaoDoPais = getRegiaoDoPais();
     }
 

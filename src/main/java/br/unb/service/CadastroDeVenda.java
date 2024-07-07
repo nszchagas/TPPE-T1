@@ -23,7 +23,7 @@ public class CadastroDeVenda {
         }
 
         // Valida cliente
-        if ( Database.getInstance().getClienteByEmail(emailCliente) == null)
+        if (db.getClienteByEmail(emailCliente) == null)
             throw new IllegalArgumentException(String.format("Nenhum cliente com email \"%s\" encontrado.", emailCliente));
 
         // Valida produtos

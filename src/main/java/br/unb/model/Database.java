@@ -3,7 +3,7 @@ package br.unb.model;
 
 import java.util.ArrayList;
 
-public final class Database {
+public class Database {
     private static Database db;
     private final ArrayList<Cliente> clientes;
     private final ArrayList<Produto> produtos;
