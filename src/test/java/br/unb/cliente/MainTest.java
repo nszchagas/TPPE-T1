@@ -12,16 +12,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static br.unb.Main.COD_CADASTRO_CLIENTE;
+import static br.unb.Main.COD_SAIR;
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.*;
 
 public class MainTest {
 
-    char opcaoCadastroCliente = '1';
-    char opcaoSair = 'q';
 
     @Test
     public void testCadastrarCliente() {
@@ -29,7 +27,7 @@ public class MainTest {
         RegiaoDoEstado regiaoCliente = INTERIOR;
         CategoriaDeCliente categoriaCliente = PADRAO;
 
-        String entrada = String.format("%c\n%s\n%s\n%s\n%s\n%s\n%c\n", opcaoCadastroCliente, nomeCliente, regiaoCliente, estadoCliente, categoriaCliente, emailCliente, opcaoSair);
+        String entrada = String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", COD_CADASTRO_CLIENTE, nomeCliente, regiaoCliente, estadoCliente, categoriaCliente, emailCliente, COD_SAIR);
 
         ByteArrayInputStream in = new ByteArrayInputStream(entrada.getBytes());
         System.setIn(in);
@@ -50,6 +48,23 @@ public class MainTest {
         assertEquals(regiaoCliente, clienteCadastrado.getRegiao());
         assertEquals(categoriaCliente, clienteCadastrado.categoria);
 
+    }
+
+
+    @Test
+    public void testCadastrarProduto() {
+        String input = "2\nProduto Teste\n10.00\nUnidade\n12345\n3\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        Main.main(new String[0]);
+
+        String output = new String(out.toByteArray());
+        assertTrue(output.contains("Produto cadastrado: Produto{descricao='Produto Teste'"));
+        assertTrue(output.contains("Saindo do programa..."));
     }
 
 }
