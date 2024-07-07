@@ -4,17 +4,21 @@ import br.unb.model.categorias.*;
 
 import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
 import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
+import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
+import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
+import static br.unb.model.categorias.RegiaoDoPais.DF;
 
 public class OperacoesFinanceiras {
 
-    public static double calculaFrete(String estado, String regiao) {
+    public static double calculaFrete(String estado, RegiaoDoEstado regiaoDoEstado) {
         RegiaoDoPais regiaoDoPais = Endereco.getRegiaoDoPais(estado);
-        boolean isCapital = regiao.equalsIgnoreCase("CAPITAL");
-        if (regiaoDoPais == null || !isCapital && !regiao.equalsIgnoreCase("INTERIOR"))
+        if (regiaoDoPais == DF)
+            return 5;
+
+        boolean isCapital = regiaoDoEstado == CAPITAL;
+        if (regiaoDoPais == null || (!isCapital && !regiaoDoEstado.equals(INTERIOR)))
             return -1;
         switch (regiaoDoPais) {
-            case DF:
-                return 5;
             case CENTRO_OESTE:
             case SUL:
                 if (isCapital)
@@ -41,9 +45,9 @@ public class OperacoesFinanceiras {
             case PRIME:
                 return 0;
             case ESPECIAL:
-                return 0.7F * calculaFrete(estado, regiao.toString());
+                return 0.7F * calculaFrete(estado, regiao);
             case PADRAO:
-                return calculaFrete(estado, regiao.toString());
+                return calculaFrete(estado, regiao);
             default:
                 return -1F;
         }

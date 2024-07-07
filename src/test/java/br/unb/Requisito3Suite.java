@@ -22,7 +22,8 @@ import org.junit.runners.Suite;
         TabelaDeCashbackTest.class,
         ImpostoTest.class,
         InsercaoVendaTest.class,
-        MainTest.class
+        MainTest.class,
+        ValorGastoTest.class
 
 })
 public class Requisito3Suite {

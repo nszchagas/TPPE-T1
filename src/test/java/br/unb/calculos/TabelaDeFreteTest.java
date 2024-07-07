@@ -1,5 +1,6 @@
 package br.unb.calculos;
 
+import br.unb.model.categorias.RegiaoDoEstado;
 import br.unb.util.OperacoesFinanceiras;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,14 +9,17 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
+import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
+
 @RunWith(Parameterized.class)
 public class TabelaDeFreteTest {
 
     final String estado;
-    final String regiao;
+    final RegiaoDoEstado regiao;
     final double valorEsperado;
 
-    public TabelaDeFreteTest(String estado, String regiao, double valorEsperado) {
+    public TabelaDeFreteTest(String estado, RegiaoDoEstado regiao, double valorEsperado) {
         this.estado = estado;
         this.regiao = regiao;
         this.valorEsperado = valorEsperado;
@@ -24,61 +28,61 @@ public class TabelaDeFreteTest {
     @Parameterized.Parameters(name = "{index} estado={0},regiao={1},valorEsperado={2}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"DF", "Capital", 5},
-                {"GO", "Capital", 10},
-                {"GO", "Interior", 13},
-                {"MT", "Capital", 10},
-                {"MT", "Interior", 13},
-                {"MS", "Capital", 10},
-                {"MS", "Interior", 13},
-                {"AL", "Capital", 15},
-                {"AL", "Interior", 18},
-                {"BA", "Capital", 15},
-                {"BA", "Interior", 18},
-                {"CE", "Capital", 15},
-                {"CE", "Interior", 18},
-                {"MA", "Capital", 15},
-                {"MA", "Interior", 18},
-                {"PB", "Capital", 15},
-                {"PB", "Interior", 18},
-                {"PE", "Capital", 15},
-                {"PE", "Interior", 18},
-                {"PI", "Capital", 15},
-                {"PI", "Interior", 18},
-                {"RN", "Capital", 15},
-                {"RN", "Interior", 18},
-                {"SE", "Capital", 15},
-                {"SE", "Interior", 18},
-                {"AC", "Capital", 20},
-                {"AC", "Interior", 25},
-                {"AP", "Capital", 20},
-                {"AP", "Interior", 25},
-                {"AM", "Capital", 20},
-                {"AM", "Interior", 25},
-                {"PA", "Capital", 20},
-                {"PA", "Interior", 25},
-                {"RO", "Capital", 20},
-                {"RO", "Interior", 25},
-                {"RR", "Capital", 20},
-                {"RR", "Interior", 25},
-                {"TO", "Capital", 20},
-                {"TO", "Interior", 25},
-                {"ES", "Capital", 7},
-                {"ES", "Interior", 10},
-                {"MG", "Capital", 7},
-                {"MG", "Interior", 10},
-                {"RJ", "Capital", 7},
-                {"RJ", "Interior", 10},
-                {"SP", "Capital", 7},
-                {"SP", "Interior", 10},
-                {"PR", "Capital", 10},
-                {"PR", "Interior", 13},
-                {"RS", "Capital", 10},
-                {"RS", "Interior", 13},
-                {"SC", "Capital", 10},
-                {"SC", "Interior", 13},
-                {"XX", "Capital", -1},
-                {"XX", "Interior", -1}
+                {"DF", CAPITAL, 5},
+                {"GO", CAPITAL, 10},
+                {"GO", INTERIOR, 13},
+                {"MT", CAPITAL, 10},
+                {"MT", INTERIOR, 13},
+                {"MS", CAPITAL, 10},
+                {"MS", INTERIOR, 13},
+                {"AL", CAPITAL, 15},
+                {"AL", INTERIOR, 18},
+                {"BA", CAPITAL, 15},
+                {"BA", INTERIOR, 18},
+                {"CE", CAPITAL, 15},
+                {"CE", INTERIOR, 18},
+                {"MA", CAPITAL, 15},
+                {"MA", INTERIOR, 18},
+                {"PB", CAPITAL, 15},
+                {"PB", INTERIOR, 18},
+                {"PE", CAPITAL, 15},
+                {"PE", INTERIOR, 18},
+                {"PI", CAPITAL, 15},
+                {"PI", INTERIOR, 18},
+                {"RN", CAPITAL, 15},
+                {"RN", INTERIOR, 18},
+                {"SE", CAPITAL, 15},
+                {"SE", INTERIOR, 18},
+                {"AC", CAPITAL, 20},
+                {"AC", INTERIOR, 25},
+                {"AP", CAPITAL, 20},
+                {"AP", INTERIOR, 25},
+                {"AM", CAPITAL, 20},
+                {"AM", INTERIOR, 25},
+                {"PA", CAPITAL, 20},
+                {"PA", INTERIOR, 25},
+                {"RO", CAPITAL, 20},
+                {"RO", INTERIOR, 25},
+                {"RR", CAPITAL, 20},
+                {"RR", INTERIOR, 25},
+                {"TO", CAPITAL, 20},
+                {"TO", INTERIOR, 25},
+                {"ES", CAPITAL, 7},
+                {"ES", INTERIOR, 10},
+                {"MG", CAPITAL, 7},
+                {"MG", INTERIOR, 10},
+                {"RJ", CAPITAL, 7},
+                {"RJ", INTERIOR, 10},
+                {"SP", CAPITAL, 7},
+                {"SP", INTERIOR, 10},
+                {"PR", CAPITAL, 10},
+                {"PR", INTERIOR, 13},
+                {"RS", CAPITAL, 10},
+                {"RS", INTERIOR, 13},
+                {"SC", CAPITAL, 10},
+                {"SC", INTERIOR, 13},
+                {"XX", CAPITAL, -1},
+                {"XX", INTERIOR, -1}
         });
     }
 
