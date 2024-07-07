@@ -45,4 +45,8 @@ public class Produto {
     public String getCodigo() {
         return codigo;
     }
+
+    public String getUnidade() {
+        return unidade;
+    }
 }

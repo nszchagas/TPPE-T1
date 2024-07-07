@@ -61,8 +61,16 @@ public class NotaFiscal {
         nota.append("Email: ").append(venda.getCliente().getEmail()).append('\n');
         nota.append("----------------------------").append('\n');
         nota.append("Produtos:").append('\n');
-        for (Produto produto : produtos) {
-            nota.append(produto.getCodigo()).append("   ").append(produto.getDescricao()).append(" - R$").append(produto.getValorDeVenda()).append('\n');
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            nota.append(produto.getCodigo())
+                    .append("   ")
+                    .append(produto.getDescricao())
+                    .append(" - R$")
+                    .append(produto.getValorDeVenda())
+                    .append(" Impostos: (ICMS: ").append(icms.get(i))
+                    .append(", Municipal: ").append(municipais.get(i))
+                    .append(")\n");
         }
         nota.append("----------------------------").append('\n');
         nota.append("Frete: R$").append(frete).append('\n');
@@ -73,6 +81,7 @@ public class NotaFiscal {
         System.out.println(nota);
         return nota.toString();
     }
+
     public double getFrete() {
         return frete;
     }
