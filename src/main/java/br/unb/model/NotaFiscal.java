@@ -8,18 +8,32 @@ import java.util.List;
 import static br.unb.util.OperacoesFinanceiras.calculaImposto;
 
 public class NotaFiscal {
-    List<Double> icms;
-    List<Double> municipais;
-    List<Produto> produtos;
-    double valorGasto, valorTotal, frete, desconto, valorFinal;
+    // Venda e Dados do cliente
     Venda venda;
     String data;
 
+    // Atributos relacionados aos impostos e produtos
+    private List<Double> icms;
+    private List<Double> municipais;
+    private List<Produto> produtos;
+    // Atributos relacionados ao valor da nota fiscal
+    private double valorGasto;
+    private double valorTotal;
+    private double frete;
+    private double desconto;
+    private double valorFinal;
+
 
     public NotaFiscal(Venda venda) {
-        icms = new ArrayList<>();
-        municipais = new ArrayList<>();
-        produtos = venda.getProdutos();
+        this.venda = venda;
+        this.produtos = venda.getProdutos();
+        this.icms = new ArrayList<>();
+        this.municipais = new ArrayList<>();
+        calcularValores();
+
+    }
+
+    private void calcularValores() {
         valorGasto = 0;
         for (Produto produto : produtos) {
             double valor = produto.getValorDeVenda();
@@ -34,12 +48,9 @@ public class NotaFiscal {
         }
         frete = venda.getFrete();
         valorTotal = valorGasto + frete;
-
-        this.venda = venda;
-        this.data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.desconto = venda.getDesconto();
-
+        desconto = venda.getDesconto();
         valorFinal = valorTotal - desconto;
+        data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public String emiteNotaFiscal() {
@@ -50,8 +61,11 @@ public class NotaFiscal {
         nota.append("Email: ").append(venda.getCliente().getEmail()).append('\n');
         nota.append("----------------------------").append('\n');
         nota.append("Produtos:").append('\n');
-
-        nota.append("Frete: ").append(frete).append('\n');
+        for (Produto produto : produtos) {
+            nota.append(produto.getCodigo()).append("   ").append(produto.getDescricao()).append(" - R$").append(produto.getValorDeVenda()).append('\n');
+        }
+        nota.append("----------------------------").append('\n');
+        nota.append("Frete: R$").append(frete).append('\n');
         nota.append("Total: R$").append(valorTotal).append('\n');
         nota.append("Descontos: - R$").append(desconto).append('\n');
         nota.append("Valor Final: R$").append(valorFinal).append('\n');
@@ -59,7 +73,6 @@ public class NotaFiscal {
         System.out.println(nota);
         return nota.toString();
     }
-
     public double getFrete() {
         return frete;
     }

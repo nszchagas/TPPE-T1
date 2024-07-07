@@ -37,4 +37,12 @@ public class Produto {
     public double getValorDeVenda() {
         return valorDeVenda;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
 }
