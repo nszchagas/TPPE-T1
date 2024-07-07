@@ -52,9 +52,11 @@ public class OperacoesFinanceiras {
     public static double calculaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, MetodoDePagamento metodoDePagamento) {
         if (categoriaDeCliente != ESPECIAL)
             return 0;
+        double base = 0.1 * valorGasto;
         if (!metodoDePagamento.equals(CARTAO_LOJA))
-            return 0.1 * (valorGasto);
-        return 0.1 * valorGasto + 0.1 * (0.9 * valorGasto + frete);
+            return base;
+        double extra = 0.1 * (valorGasto + frete);
+        return base + extra;
 
     }
 

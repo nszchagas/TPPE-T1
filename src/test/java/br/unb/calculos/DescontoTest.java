@@ -9,13 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 import static br.unb.model.categorias.CategoriaDeCliente.*;
 import static br.unb.model.categorias.MetodoDePagamento.*;
-import static br.unb.util.OperacoesFinanceiras.calculaDesconto;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -45,7 +43,9 @@ public class DescontoTest {
         return Arrays.asList
                 (new Object[][]{
                         {101.00, 5.00, ESPECIAL, BOLETO, 10.1},
-                        {100.00, 5.00, ESPECIAL, CARTAO_LOJA, 19.5},
+                        // 10% de desconto no valor da compra = 10
+                        // 10% do total = 0.1 (100 + 5) = 10% de 105 => 10.5
+                        {100.00, 5.00, ESPECIAL, CARTAO_LOJA, 20.5},
                         {200.00, 15.00, PADRAO, BOLETO, 0.0},
                         {200.00, 20.00, PADRAO, CARTAO_LOJA, 0.0},
                         {200.00, 0.0, PRIME, CARTAO_EXTERNO, 0.0},
@@ -53,7 +53,6 @@ public class DescontoTest {
                 });
 
     }
-
 
     @Test
     public void testAtributo() {
@@ -68,6 +67,7 @@ public class DescontoTest {
         when(venda.getProdutos()).thenReturn(produtos);
         when(venda.getMetodoDePagamento()).thenReturn(metodoDePagamento);
         when(venda.getValorGasto()).thenReturn(valorGasto);
+        when(venda.getFrete()).thenReturn(frete);
         when(venda.getDesconto()).thenCallRealMethod();
 
 

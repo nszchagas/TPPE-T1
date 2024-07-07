@@ -7,7 +7,7 @@ public class Produto {
     public final String descricao;
     public final String codigo;
     public final String unidade;
-    public double valorDeVenda;
+    private double valorDeVenda;
 
     public Produto(String descricao, double valorDeVenda, String unidade, String codigo) {
         this.descricao = descricao;

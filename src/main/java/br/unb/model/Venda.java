@@ -1,14 +1,11 @@
 package br.unb.model;
 
 import br.unb.model.categorias.MetodoDePagamento;
-import br.unb.util.OperacoesFinanceiras;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
-import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
 import static br.unb.util.OperacoesFinanceiras.calculaDesconto;
 import static br.unb.util.OperacoesFinanceiras.calculaFrete;
 
@@ -34,7 +31,11 @@ public class Venda {
     }
 
     public double getValorGasto() {
-        return -1;
+        double total = 0;
+        for (Produto produto : getProdutos()) {
+            total += produto.getValorDeVenda();
+        }
+        return total;
     }
 
     public Cliente getCliente() {
