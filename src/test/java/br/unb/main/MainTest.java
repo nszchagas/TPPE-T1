@@ -96,7 +96,7 @@ public class MainTest {
         Produto produto = Database.getInstance().getProdutoByCodigo(codigoProduto);
 
         assertEquals(descricaoProduto, produto.descricao);
-        assertEquals(Double.parseDouble(valorDeVendaProduto), produto.valorDeVenda, 0.1);
+        assertEquals(Double.parseDouble(valorDeVendaProduto), produto.getValorDeVenda(), 0.1);
         assertEquals(unidadeProduto.toUpperCase(), produto.unidade);
         assertEquals(codigoProduto, produto.codigo);
 

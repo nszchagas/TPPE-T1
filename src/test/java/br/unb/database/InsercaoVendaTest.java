@@ -55,7 +55,7 @@ public class InsercaoVendaTest {
             for (String codigo : precosPorProduto.keySet()) {
                 when(db.getProdutoByCodigo(codigo)).thenAnswer((Answer<Produto>) invocationOnMock -> {
                     Produto mockProduto = mock(Produto.class);
-                    mockProduto.valorDeVenda = precosPorProduto.get(codigo);
+                    when(mockProduto.getValorDeVenda()).thenReturn(precosPorProduto.get(codigo));
                     return mockProduto;
                 });
             }

@@ -57,14 +57,11 @@ public class DescontoTest {
 
     @Test
     public void testAtributo() {
-        LocalDate data = LocalDate.now();
         Cliente cliente = mock(Cliente.class);
         List<Produto> produtos = List.of(mock(Produto.class));
         when(cliente.getCategoria()).thenReturn(categoriaDeCliente);
-        Venda venda = mock(Venda.class);
-        when(venda.getCliente()).thenReturn(cliente);
-        when(venda.getMetodoDePagamento()).thenReturn(metodoDePagamento);
 
+        Venda venda = mock(Venda.class);
 
 
         when(venda.getCliente()).thenReturn(cliente);

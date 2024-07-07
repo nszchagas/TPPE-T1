@@ -41,7 +41,7 @@ public class InsercaoProdutoTest {
         assertEquals(inserido.descricao,descricao);
         assertEquals(inserido.unidade,unidade);
         assertEquals(inserido.codigo,codigo);
-        assert inserido.valorDeVenda == valorDeVenda;
+        assert inserido.getValorDeVenda() == valorDeVenda;
     }
     @Test
     public void assertNaoInsereDuplicado(){
@@ -58,7 +58,7 @@ public class InsercaoProdutoTest {
         assertEquals(codigoRepetido, produtoInserido.codigo);
         assertEquals(descricoes[0], produtoInserido.descricao);
         assertEquals(unidades[0], produtoInserido.unidade);
-        assertEquals(valores[0], produtoInserido.valorDeVenda, 0.05);
+        assertEquals(valores[0], produtoInserido.getValorDeVenda(), 0.05);
 
 
     }

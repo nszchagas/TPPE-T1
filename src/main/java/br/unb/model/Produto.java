@@ -6,8 +6,8 @@ public class Produto {
 
     public final String descricao;
     public final String codigo;
-    public double valorDeVenda;
     public final String unidade;
+    public double valorDeVenda;
 
     public Produto(String descricao, double valorDeVenda, String unidade, String codigo) {
         this.descricao = descricao;
@@ -32,5 +32,9 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{descricao='" + descricao + "'}";
+    }
+
+    public double getValorDeVenda() {
+        return valorDeVenda;
     }
 }

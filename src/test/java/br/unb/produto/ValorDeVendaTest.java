@@ -47,7 +47,7 @@ public class ValorDeVendaTest {
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
             Produto p = criaProduto("Caderno 96 Folhas", entrada, "UNIDADE", "123456");
-            assert p.valorDeVenda == Double.parseDouble(saidaEsperada);
+            assert p.getValorDeVenda() == Double.parseDouble(saidaEsperada);
         }
 
     }
