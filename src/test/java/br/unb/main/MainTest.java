@@ -102,22 +102,6 @@ public class MainTest {
 
     }
 
-    @Test
-    @Ignore
-    public void testaCadastrarVendaComCashback() {
-        List<String> produtosIds = produtos.stream().map((produto) -> produto.codigo).collect(Collectors.toList());
-        CategoriaDeCliente categoriaCliente = PRIME;
-        MetodoDePagamento metodoDePagamento = BOLETO;
-        String usarCashback = "sim";
-
-        Cliente cliente = new Cliente(nomeCliente, categoriaCliente, estadoCliente, regiaoCliente, emailCliente);
-
-        Cadastro.insereNoBanco(cliente);
-        for (Produto p : produtos)
-            Cadastro.insereNoBanco(p);
-
-
-    }
 
 }
 

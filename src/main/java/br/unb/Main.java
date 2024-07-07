@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static br.unb.service.Cadastro.criaProduto;
 
 public class Main {
-    public static String COD_CADASTRO_CLIENTE = "1", COD_CADASTRO_PRODUTO = "2", COD_SAIR = "0";
+    public static String COD_CADASTRO_CLIENTE = "1", COD_CADASTRO_PRODUTO = "2", COD_CADASTRO_VENDA = "3", COD_SAIR = "0";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -19,6 +19,8 @@ public class Main {
             System.out.println("Menu:");
             System.out.printf("%s. Cadastrar Cliente", COD_CADASTRO_CLIENTE);
             System.out.printf("%s. Cadastrar Produto", COD_CADASTRO_PRODUTO);
+            System.out.printf("%s. Cadastrar Venda", COD_CADASTRO_VENDA);
+
             System.out.printf("%s. Sair", COD_SAIR);
             System.out.print("Escolha uma opção: ");
 
@@ -73,5 +75,5 @@ public class Main {
     }
 
 
-
 }
+
