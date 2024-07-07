@@ -31,16 +31,17 @@ public class DescontoTest {
         return Arrays.asList
                 (new Object[][]{
                         // Especial sem cartão loja = (100) * 0.1 = 10
-                        {100.00,  5.00, ESPECIAL, "BOLETO"     , 10.0},
+                        {100.00, 5.00, ESPECIAL, "BOLETO", 10.0},
                         // Especial com cartão =  105 - (((100 * 0.9) + 5 ) * 0.9)
-                        {100.00, 5.00, ESPECIAL, "CARTAO_LOJA" , 19.5},
-                        {200.00, 15.00, PADRAO, "BOLETO"      ,0},
-                        {200.00, 20.00, PADRAO, "CARTAO_LOJA" ,0},
-                        {200.00, 0, PRIME,    "CARTAO_EXTERNO"  ,0},
-                        {200.00, 0, PRIME,    "CARTAO_LOJA"     ,0}
+                        {100.00, 5.00, ESPECIAL, "CARTAO_LOJA", 19.5},
+                        {200.00, 15.00, PADRAO, "BOLETO", 0},
+                        {200.00, 20.00, PADRAO, "CARTAO_LOJA", 0},
+                        {200.00, 0, PRIME, "CARTAO_EXTERNO", 0},
+                        {200.00, 0, PRIME, "CARTAO_LOJA", 0}
                 });
 
     }
+
     @Test
     public void testDesconto() {
         assertEquals(descontoEsperado, OperacoesFinanceiras.aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento), 0.01);

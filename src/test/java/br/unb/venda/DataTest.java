@@ -4,7 +4,7 @@ import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
-import br.unb.service.CadastroDeVenda;
+import br.unb.service.Cadastro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
@@ -60,14 +61,13 @@ public class DataTest {
 
             mockedStatic.when(Database::getInstance).thenReturn(db);
 
-            CadastroDeVenda c = new CadastroDeVenda();
 
             if (saidaEsperada == null) {
                 assertThrows(IllegalArgumentException.class, () ->
-                        c.criaVenda("email1@domain.com", itens, "PIX", entrada));
+                        criaVenda("email1@domain.com", itens, "PIX", entrada));
             } else {
 
-                Venda v = c.criaVenda("email1@domain.com", itens, "PIX", entrada);
+                Venda v = criaVenda("email1@domain.com", itens, "PIX", entrada);
                 assertEquals(v.data, saidaEsperada);
             }
         }

@@ -4,7 +4,7 @@ import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
-import br.unb.service.CadastroDeVenda;
+import br.unb.service.Cadastro;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -25,7 +26,6 @@ public class ClienteTest {
     final boolean isValid;
 
     final List<String> itens = List.of("123");
-    CadastroDeVenda cadastroDeVenda;
     Venda vendaCriada;
     Cliente clienteCriado;
 
@@ -52,9 +52,9 @@ public class ClienteTest {
             for (String codigoValido : itens)
                 when(db.getProdutoByCodigo(codigoValido)).thenReturn(mock(Produto.class));
             mockedStatic.when(Database::getInstance).thenReturn(db);
-            cadastroDeVenda = new CadastroDeVenda();
+
             if (isValid){
-                vendaCriada = cadastroDeVenda.criaVenda(entrada, itens, "BOLETO", "2024-07-01");
+                vendaCriada = criaVenda(entrada, itens, "BOLETO", "2024-07-01");
                 clienteCriado = vendaCriada.getCliente();
                 assertNotNull(clienteCriado);
             }
@@ -69,7 +69,7 @@ public class ClienteTest {
         if (!isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            cadastroDeVenda.criaVenda(entrada, itens, "BOLETO", "2024-07-01")
+                            criaVenda(entrada, itens, "BOLETO", "2024-07-01")
             );
         } else {
             assertEquals(vendaCriada.email, entrada);
@@ -81,7 +81,7 @@ public class ClienteTest {
         if (!isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            cadastroDeVenda.criaVenda(entrada, itens, "BOLETO", "2024-07-01")
+                            criaVenda(entrada, itens, "BOLETO", "2024-07-01")
             );
         } else {
             assertEquals(clienteCriado.email, entrada);

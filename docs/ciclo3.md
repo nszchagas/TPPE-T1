@@ -73,7 +73,7 @@
 
 ### Nota Fiscal
 
-- [] Verificar que os valores de impostos, frete e desconto estão corretos nos cenários:
+- [] Verificar que os valores de impostos, frete e desconto estão corretos.
 
 ## Agrupamento dos testes em Suíte
 

@@ -2,7 +2,6 @@ package br.unb.cliente;
 
 import br.unb.model.Cliente;
 import br.unb.model.categorias.RegiaoDoEstado;
-import br.unb.service.CadastroDeCliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,6 +11,7 @@ import java.util.Collection;
 
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
+import static br.unb.service.Cadastro.cadastraCliente;
 import static org.junit.Assert.*;
 
 //@TODO: assert que não existe região com DF.
@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 public class RegiaoTest {
     final String entrada;
     final RegiaoDoEstado saidaEsperada;
-    final CadastroDeCliente cadastroDeCliente = new CadastroDeCliente();
 
     public RegiaoTest(String entrada, RegiaoDoEstado saidaEsperada) {
         this.entrada = entrada;
@@ -40,10 +39,10 @@ public class RegiaoTest {
     @Test
     public void testaValores() {
         if (saidaEsperada != null) {
-            Cliente cliente = cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
+            Cliente cliente = cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
             assertEquals(cliente.getRegiao(), saidaEsperada);
         } else {
-            Throwable e = assertThrows(IllegalArgumentException.class, () -> cadastroDeCliente.cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
+            Throwable e = assertThrows(IllegalArgumentException.class, () -> cadastraCliente("José", entrada, "BA", "padrao", "jose@gmail.com"));
             assertTrue(e.getMessage().contains(entrada));
         }
     }

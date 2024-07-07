@@ -4,7 +4,7 @@ import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
-import br.unb.service.CadastroDeVenda;
+import br.unb.service.Cadastro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
@@ -24,7 +25,6 @@ public class ProdutosTest {
 
     final List<String> entrada;
     final boolean isValid;
-    CadastroDeVenda cadastroDeVenda;
     String emailValido = "email1@domain.com", metodoDePagamento = "BOLETO", data = "2024-07-01";
     List<String> idsValidos = List.of("123", "456", "789", "101", "202");
 
@@ -56,14 +56,13 @@ public class ProdutosTest {
 
             }
             mockedStatic.when(Database::getInstance).thenReturn(db);
-            cadastroDeVenda = new CadastroDeVenda();
             if (!isValid) {
                 assertThrows(IllegalArgumentException.class,
                         () ->
-                                cadastroDeVenda.criaVenda(emailValido, entrada, metodoDePagamento, data)
+                                criaVenda(emailValido, entrada, metodoDePagamento, data)
                 );
             } else {
-                Venda vendaRegistrada = cadastroDeVenda.criaVenda(emailValido, entrada, metodoDePagamento, data);
+                Venda vendaRegistrada = criaVenda(emailValido, entrada, metodoDePagamento, data);
                 List<Produto> produtosRegistrados = vendaRegistrada.getProdutos();
                 HashSet<String> idsEntrada = new HashSet<>(entrada);
                 HashSet<String> idsFromProdutos = new HashSet<>();

@@ -5,7 +5,7 @@ import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
 import br.unb.model.categorias.MetodoDePagamento;
-import br.unb.service.CadastroDeVenda;
+import br.unb.service.Cadastro;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +15,7 @@ import org.mockito.MockedStatic;
 import java.util.*;
 
 import static br.unb.model.categorias.MetodoDePagamento.*;
+import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
@@ -33,12 +34,12 @@ public class MetodoPagamentoTest {
     final String entrada;
     final String numero;
     final MetodoDePagamento saidaEsperada;
-    CadastroDeVenda cadastroDeVenda;
     Venda vendaCadastrada;
 
     String emailValido = "email1@domain.com";
     String dataValida = "2023-04-12";
-    List<String> idProdutosValidos  = List.of("123");
+    List<String> idProdutosValidos = List.of("123");
+
     public MetodoPagamentoTest(String entrada, String numero, MetodoDePagamento saidaEsperada) {
         this.entrada = entrada;
         this.numero = numero;
@@ -76,24 +77,22 @@ public class MetodoPagamentoTest {
             when(db.getClienteByEmail(emailValido)).thenReturn(mock(Cliente.class));
             when(db.getProdutoByCodigo(idProdutosValidos.get(0))).thenReturn(mock(Produto.class));
             mockedStatic.when(Database::getInstance).thenReturn(db);
-            cadastroDeVenda = new CadastroDeVenda();
+            if (saidaEsperada != null)
+                vendaCadastrada = criaVenda(emailValido,
+                        idProdutosValidos, entrada, numero, dataValida);
         }
     }
 
     @Test
     public void testaValores() {
         if (saidaEsperada != null) {
-            vendaCadastrada = cadastroDeVenda.criaVenda(emailValido,
-                    idProdutosValidos, entrada, numero, dataValida);
             assertEquals(saidaEsperada, vendaCadastrada.metodoDePagamento);
         } else {
             assertThrows(IllegalArgumentException.class, () ->
-                    cadastroDeVenda.criaVenda(emailValido, idProdutosValidos, entrada, numero, dataValida)
+                    criaVenda(emailValido, idProdutosValidos, entrada, numero, dataValida)
             );
         }
     }
-
-
 
 
 }

@@ -2,13 +2,12 @@ package br.unb.database;
 
 import br.unb.model.Produto;
 import br.unb.model.Database;
-import br.unb.service.CadastroDeProduto;
+import br.unb.service.Cadastro;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class InsercaoProdutoTest {
-    final CadastroDeProduto cadastro = new CadastroDeProduto();
     final Database db = Database.getInstance();
 
 
@@ -22,7 +21,7 @@ public class InsercaoProdutoTest {
         new Produto("OLEO DE COZINHA", 6.5, "LITRO", "345678")
         };
         for (Produto produto : produtos) {
-            cadastro.insereProdutoNoBanco(produto);
+            Cadastro.insereProdutoNoBanco(produto);
         }
         for (Produto produto : produtos ){
             Produto produtoCadastrado = db.getProdutoByCodigo(produto.codigo);
@@ -36,7 +35,7 @@ public class InsercaoProdutoTest {
         String codigo = "123456", unidade = "UN", descricao = "BOLA DE FUTEBOL";
         double valorDeVenda = 12.6;
 
-        cadastro.insereProdutoNoBanco(new Produto(descricao,valorDeVenda, unidade, codigo));
+        Cadastro.insereProdutoNoBanco(new Produto(descricao,valorDeVenda, unidade, codigo));
         Produto inserido = db.getProdutoByCodigo(codigo);
         assertNotNull(inserido);
         assertEquals(inserido.descricao,descricao);
@@ -51,8 +50,8 @@ public class InsercaoProdutoTest {
         String[] unidades = {"UN", "L"};
         double[] valores = {12.6,7.69};
 
-        cadastro.insereProdutoNoBanco(new Produto(descricoes[0] ,valores[0], unidades[0], codigoRepetido));
-        cadastro.insereProdutoNoBanco(new Produto(descricoes[1], valores[1], unidades[1], codigoRepetido));
+        Cadastro.insereProdutoNoBanco(new Produto(descricoes[0] ,valores[0], unidades[0], codigoRepetido));
+        Cadastro.insereProdutoNoBanco(new Produto(descricoes[1], valores[1], unidades[1], codigoRepetido));
 
         Produto produtoInserido = db.getProdutoByCodigo("123456");
         assertNotNull(produtoInserido);

@@ -1,7 +1,6 @@
 package br.unb.cliente;
 
 import br.unb.model.Cliente;
-import br.unb.service.CadastroDeCliente;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,6 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static br.unb.service.Cadastro.cadastraCliente;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
@@ -16,7 +16,6 @@ public class EmailTest {
 
     private final String entrada;
     private final Class <?extends Throwable> excecaoEsperada;
-    final CadastroDeCliente c = new CadastroDeCliente();
     public EmailTest(String entrada, Class <?extends Throwable> excecaoEsperada){
         this.entrada = entrada;
         this.excecaoEsperada = excecaoEsperada;
@@ -68,12 +67,12 @@ public class EmailTest {
     @Test
     public void testaValores(){
         if (excecaoEsperada == null ){
-            Cliente j = c.cadastraCliente("José", "Capital", "SP", "PADRAO", entrada);
+            Cliente j = cadastraCliente("José", "Capital", "SP", "PADRAO", entrada);
             assertEquals(j.email, entrada);
 
         } else {
             Throwable e = assertThrows(excecaoEsperada,
-                    () -> c.cadastraCliente("José", "Capital", "SP","PADRAO", entrada));
+                    () -> cadastraCliente("José", "Capital", "SP","PADRAO", entrada));
             assertTrue(e.getMessage().contains(entrada));
         }
     }
