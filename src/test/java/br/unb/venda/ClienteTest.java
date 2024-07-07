@@ -10,9 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.MockedStatic;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static br.unb.service.Cadastro.criaVenda;
 import static org.junit.Assert.*;
@@ -27,10 +25,18 @@ public class ClienteTest {
     final List<String> itens = List.of("123");
     Venda vendaCriada;
     Cliente clienteCriado;
+    HashMap<String, Cliente> clientesByEmail = new HashMap<>();
+    HashMap<String, Produto> produtosByCodigo = new HashMap<>();
 
     public ClienteTest(String entrada, boolean isValid) {
         this.entrada = entrada;
         this.isValid = isValid;
+
+        clientesByEmail.put("email1@domain.com", new Cliente("Nome", "Padrao", "BA", "Capital", "email1@domain.com"));
+
+        produtosByCodigo.put("123", mock(Produto.class));
+
+
     }
 
     @Parameterized.Parameters
@@ -46,10 +52,18 @@ public class ClienteTest {
 
         try (MockedStatic<Database> mockedStatic = mockStatic(Database.class)) {
             Database db = mock(Database.class);
-            String emailValido = "email1@domain.com";
-            when(db.getClienteByEmail(emailValido)).thenReturn(new Cliente("Nome", "Padrao", "BA", "Capital", emailValido));
-            for (String codigoValido : itens)
-                when(db.getProdutoByCodigo(codigoValido)).thenReturn(mock(Produto.class));
+
+            when(db.getClienteByEmail(anyString()))
+                    .thenAnswer(
+                            (context) ->
+                                    clientesByEmail.get((String) context.getArgument(0))
+                    );
+
+            when(db.getProdutoByCodigo(anyString()))
+                    .thenAnswer(
+                            (context) ->
+                                    produtosByCodigo.get((String) context.getArgument(0)));
+
             mockedStatic.when(Database::getInstance).thenReturn(db);
 
             if (isValid) {
@@ -58,9 +72,7 @@ public class ClienteTest {
                 assertNotNull(clienteCriado);
             }
 
-
         }
-
     }
 
     @Test

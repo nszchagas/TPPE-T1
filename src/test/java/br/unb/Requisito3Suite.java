@@ -4,6 +4,7 @@ import br.unb.calculos.DescontoTest;
 import br.unb.calculos.ImpostoTest;
 import br.unb.calculos.TabelaDeCashbackTest;
 import br.unb.calculos.TabelaDeFreteTest;
+import br.unb.database.InsercaoVendaTest;
 import br.unb.venda.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -18,7 +19,8 @@ import org.junit.runners.Suite;
         FreteTest.class,
         DescontoTest.class,
         TabelaDeCashbackTest.class,
-        ImpostoTest.class
+        ImpostoTest.class,
+        InsercaoVendaTest.class
 
 })
 public class Requisito3Suite {

@@ -1,5 +1,7 @@
 package br.unb.model;
 
+import java.util.Objects;
+
 public class Produto {
 
     public final String descricao;
@@ -12,5 +14,18 @@ public class Produto {
         this.codigo = codigo;
         this.valorDeVenda = valorDeVenda;
         this.unidade = unidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto)) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(codigo, produto.codigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(codigo);
     }
 }
