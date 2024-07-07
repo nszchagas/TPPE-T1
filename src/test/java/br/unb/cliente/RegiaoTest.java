@@ -39,7 +39,7 @@ public class RegiaoTest {
     public void testaValores() {
         if (saidaEsperada != null) {
             Cliente cliente = criaCliente("José", entrada, "BA", "padrao", "jose@gmail.com");
-            assertEquals(saidaEsperada, cliente.endereco.regiaoDoEstado);
+            assertEquals(saidaEsperada, cliente.getEndereco().regiaoDoEstado);
         } else {
             Throwable e = assertThrows(IllegalArgumentException.class, () -> criaCliente("José", entrada, "BA", "PADRAO", "jose@gmail.com"));
             assertTrue(e.getMessage().contains(entrada));

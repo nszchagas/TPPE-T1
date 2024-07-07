@@ -42,7 +42,7 @@ public class CategoriaTest {
     public void testaValores() {
         if (saida != null) {
             Cliente j = criaCliente("José", "Capital", "SP", entrada, "jose@gmail.com");
-            assertEquals(j.categoria, saida);
+            assertEquals(j.getCategoria(), saida);
         } else {
             Throwable e = assertThrows(IllegalArgumentException.class, () -> criaCliente("José", "Capital", "SP", entrada, "jose@gmail.com"));
             assertTrue(e.getMessage().contains(entrada));

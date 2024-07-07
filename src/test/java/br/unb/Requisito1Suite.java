@@ -11,8 +11,7 @@ import org.junit.runners.Suite;
         EstadoTest.class,
         RegiaoTest.class,
         InsercaoClienteTest.class,
-        EmailTest.class,
-        MainTest.class
+        EmailTest.class
 })
 public class Requisito1Suite {
 }

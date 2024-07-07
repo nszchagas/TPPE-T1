@@ -58,8 +58,8 @@
 
 ### Operações CRUD: Inserção
 
-- [] Registrar venda no banco de dados
-- [] Verificar que a venda de fato foi registrada
+- [x] Registrar venda no banco de dados
+- [x] Verificar que a venda de fato foi registrada
 - [] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete,
   descontos, impostos)
 

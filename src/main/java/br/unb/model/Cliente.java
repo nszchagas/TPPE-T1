@@ -10,7 +10,7 @@ public class Cliente {
     public final String nome;
     public final CategoriaDeCliente categoria;
     public final String email;
-    public final Endereco endereco;
+    private final Endereco endereco;
 
     public Cliente(String nome, CategoriaDeCliente categoria, String estado, RegiaoDoEstado regiao, String email) {
         this.nome = nome;
@@ -46,6 +46,10 @@ public class Cliente {
 
     public CategoriaDeCliente getCategoria() {
         return categoria;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 
 }

@@ -24,7 +24,7 @@ public class InsercaoClienteTest {
         Cliente clienteInserido = db.getClienteByEmail("jose@email.com");
         assertNotNull(clienteInserido);
         assertEquals(clienteInserido.nome, a.nome);
-        assertEquals(clienteInserido.categoria, a.categoria);
+        assertEquals(clienteInserido.getCategoria(), a.getCategoria());
         assertEquals(clienteInserido.getEstado(), a.getEstado());
         assertEquals(clienteInserido.getRegiao(), a.getRegiao());
         assertEquals(clienteInserido.email, a.email);

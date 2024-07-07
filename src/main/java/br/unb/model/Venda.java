@@ -1,6 +1,7 @@
 package br.unb.model;
 
 import br.unb.model.categorias.MetodoDePagamento;
+import br.unb.util.OperacoesFinanceiras;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ public class Venda {
         this.cliente = cliente;
         this.produtos = produtos;
         this.metodoDePagamento = metodoDePagamento;
+    }
+
+    public double getFrete() {
+        return OperacoesFinanceiras.calculaFrete(cliente.getEstado(), cliente.getRegiao(), cliente.getCategoria());
     }
 
     public Cliente getCliente() {
