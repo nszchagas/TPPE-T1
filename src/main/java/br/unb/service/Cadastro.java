@@ -5,6 +5,7 @@ import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.Endereco;
 import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.model.categorias.RegiaoDoEstado;
+import br.unb.util.Validator;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -26,8 +27,8 @@ public class Cadastro {
     public static Cliente criaCliente(String nome, String regiaoInserida, String estado, String categoriaInserida, String email) {
 
 
-        CategoriaDeCliente categoria = (CategoriaDeCliente) validaEnum(categoriaInserida, "Categoria");
-        RegiaoDoEstado regiao = (RegiaoDoEstado) validaEnum(regiaoInserida, "Regiao");
+        CategoriaDeCliente categoria = (CategoriaDeCliente) Validator.validaEnum(categoriaInserida, "Categoria");
+        RegiaoDoEstado regiao = (RegiaoDoEstado) Validator.validaEnum(regiaoInserida, "Regiao");
 
         if (!Endereco.isUfValida(estado)) {
             throw new IllegalArgumentException(String.format("Estado inválido: %s.", estado));
@@ -37,58 +38,27 @@ public class Cadastro {
         if (!EmailValidator.getInstance().isValid(email))
             throw new IllegalArgumentException(String.format("Email inválido: \"%s\"", email));
 
-        return new Cliente(nome, categoria, estado.trim().toUpperCase(), regiao, email);
+        Cliente cliente = new Cliente(nome, categoria, estado.trim().toUpperCase(), regiao, email);
+        int id = insereNoBanco(cliente);
+        return cliente;
     }
 
     public static Produto criaProduto(String descricao, String valorDeVenda, String unidade, String codigo) {
-        double valor;
 
         // Validação de Descrição
-        descricao = validaCampoTextual(descricao, "descrição");
+        descricao = Validator.validaCampoTextual(descricao, "descrição");
 
         // Validação do Código
-        codigo = validaCampoTextual(codigo, "código");
-
+        codigo = Validator.validaCampoTextual(codigo, "código");
 
         // Validação de valor
-
-        try {
-            if (valorDeVenda.contains(",")) {
-                throw new IllegalArgumentException(String.format("Valor inválido. Utilize ponto para separar as casas decimais. Valor inserido: \"%s\".", valorDeVenda));
-            }
-            valor = Double.parseDouble(valorDeVenda);
-            assert valor > 0;
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("Valor de venda não pode estar vazio.");
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(String.format("Valor de venda deve ser numérico. Valor inserido: \"%s\".", valorDeVenda));
-        } catch (AssertionError e) {
-            throw new IllegalArgumentException(String.format("Valor de venda deve ser positivo. Valor inserido: \"%s\".", valorDeVenda));
-        }
+        double valor = Validator.validaDouble(valorDeVenda);
 
         // Validação de Unidade
-        String unidadeNormalizada;
-        try {
-            unidadeNormalizada = UnidadeValida.normaliza(unidade);
-            if (unidadeNormalizada == null)
-                throw new NullPointerException();
-
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("Unidade não pode estar vazia.");
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(String.format("Unidade inválida. Valor inserido: \"%s\".", unidade));
-        }
+        String unidadeNormalizada = Validator.validaUnidadeDeMedida(unidade);
 
 
         return new Produto(descricao, valor, unidadeNormalizada, codigo);
-    }
-
-    private static String validaCampoTextual(String entrada, String tipo) {
-        if (entrada == null || entrada.isEmpty() || entrada.trim().isEmpty()) {
-            String msg = entrada == null ? String.format("O valor de %s não pode ser vazio.", tipo) : String.format("Valor de %s inválido: \"%s\".", tipo, entrada);
-            throw new IllegalArgumentException(msg);
-        }
-        return entrada.trim();
     }
 
     public static Venda criaVenda(String emailCliente, List<String> produtosId, Object metodoDePagamento, String dataInserida) {
@@ -185,21 +155,6 @@ public class Cadastro {
         }
         return -1;
 
-    }
-
-    private static Object validaEnum(String valor, String nome) {
-        try {
-            switch (nome) {
-                case "Categoria":
-                    return CategoriaDeCliente.valueOf(valor.trim().toUpperCase());
-                case "Regiao":
-                    return RegiaoDoEstado.valueOf(valor.trim().toUpperCase());
-
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException(String.format("%s inválida: \"%s\".", nome, valor));
-        }
-        return null;
     }
 
 }

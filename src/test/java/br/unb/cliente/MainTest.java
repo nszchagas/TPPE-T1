@@ -44,14 +44,11 @@ public class MainTest {
         assertTrue(output.contains("Saindo do programa..."));
         Cliente clienteCadastrado = Database.getInstance().getClienteByEmail(emailCliente);
         assertNotNull(clienteCadastrado);
-
         assertEquals(nomeCliente, clienteCadastrado.nome);
         assertEquals(emailCliente, clienteCadastrado.email);
         assertEquals(estadoCliente, clienteCadastrado.getEstado());
         assertEquals(regiaoCliente, clienteCadastrado.getRegiao());
-
         assertEquals(categoriaCliente, clienteCadastrado.categoria);
-
 
     }
 
