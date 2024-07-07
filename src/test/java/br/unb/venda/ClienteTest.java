@@ -52,7 +52,7 @@ public class ClienteTest {
                 when(db.getProdutoByCodigo(codigoValido)).thenReturn(mock(Produto.class));
             mockedStatic.when(Database::getInstance).thenReturn(db);
 
-            if (isValid){
+            if (isValid) {
                 vendaCriada = criaVenda(entrada, itens, "BOLETO", "2024-07-01");
                 clienteCriado = vendaCriada.getCliente();
                 assertNotNull(clienteCriado);
@@ -71,7 +71,7 @@ public class ClienteTest {
                             criaVenda(entrada, itens, "BOLETO", "2024-07-01")
             );
         } else {
-            assertEquals(vendaCriada.email, entrada);
+            assertEquals(vendaCriada.cliente.email, entrada);
         }
     }
 

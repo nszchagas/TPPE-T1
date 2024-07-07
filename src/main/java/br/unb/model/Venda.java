@@ -8,22 +8,30 @@ import java.util.List;
 
 public class Venda {
     public final LocalDate data;
-    public final String email;
-    public final List<String> produtosId;
+    public final Cliente cliente;
+    public final List<Produto> produtos;
     public final MetodoDePagamento metodoDePagamento;
-    public Venda(String email, List<String> produtosId, String metodoDePagamento, LocalDate data){
+
+    public Venda(Cliente cliente, List<Produto> produtos, MetodoDePagamento metodoDePagamento, LocalDate data) {
         this.data = data;
-        this.email = email;
-        this.produtosId = produtosId;
-        this.metodoDePagamento = MetodoDePagamento.valueOf(metodoDePagamento);
+        this.cliente = cliente;
+        this.produtos = produtos;
+        this.metodoDePagamento = metodoDePagamento;
     }
+
     public Cliente getCliente() {
-        return Database.getInstance().getClienteByEmail(this.email);
+        return cliente;
     }
 
     public List<Produto> getProdutos() {
-        List<Produto> produtos = new ArrayList<>();
-        this.produtosId.forEach(codigo -> produtos.add(Database.getInstance().getProdutoByCodigo(codigo)));
         return produtos;
+    }
+
+    public List<String> getCodProdutos() {
+        List<String> codsProdutos = new ArrayList<>();
+        for (Produto produto : produtos) {
+            codsProdutos.add(produto.codigo);
+        }
+        return codsProdutos;
     }
 }

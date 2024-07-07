@@ -2,13 +2,18 @@ package br.unb.service;
 
 import br.unb.model.*;
 import br.unb.model.categorias.Endereco;
+import br.unb.model.categorias.MetodoDePagamento;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import static br.unb.model.categorias.MetodoDePagamento.CARTAO_EXTERNO;
+import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
 
 public class Cadastro {
     private Cadastro() {
@@ -97,10 +102,11 @@ public class Cadastro {
         return entrada.trim();
     }
 
-    public static Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String dataInserida) {
+    public static Venda criaVenda(String emailCliente, List<String> produtosId, Object metodoDePagamento, String dataInserida) {
         Database db = Database.getInstance();
         LocalDate data;
-
+        Cliente cliente;
+        List<Produto> produtos = new ArrayList<>();
         try {
             if (dataInserida.isEmpty()) throw new DateTimeParseException("dataInserida", dataInserida, 0);
             data = LocalDate.parse(dataInserida);
@@ -113,57 +119,82 @@ public class Cadastro {
         }
 
         // Valida cliente
-        if (db.getClienteByEmail(emailCliente) == null)
+        try {
+            cliente = db.getClienteByEmail(emailCliente);
+            assert cliente != null;
+        } catch (AssertionError e) {
+            System.err.printf("Nenhum cliente com email \"%s\" encontrado.", emailCliente);
             throw new IllegalArgumentException(String.format("Nenhum cliente com email \"%s\" encontrado.", emailCliente));
+        }
 
         // Valida produtos
         if (produtosId.isEmpty())
             throw new IllegalArgumentException("A lista de produtos não pode ser vazia.");
 
-        for (String id : produtosId)
-            if (db.getProdutoByCodigo(id) == null)
+        for (String id : produtosId) {
+            try {
+                Produto p = db.getProdutoByCodigo(id);
+                assert p != null;
+                produtos.add(p);
+            } catch (AssertionError e) {
                 throw new IllegalArgumentException(String.format("Nenhum produto com código \"%s\" encontrado.", id));
+            }
+        }
+
+        MetodoDePagamento metodo;
+        if (metodoDePagamento instanceof String)
+            metodo = MetodoDePagamento.valueOf((String) metodoDePagamento);
+        else if (metodoDePagamento instanceof MetodoDePagamento)
+            metodo = (MetodoDePagamento) metodoDePagamento;
+        else
+            throw new IllegalArgumentException("Método de pagamento inválido.");
 
 
-        return new Venda(emailCliente, produtosId, metodoDePagamento, data);
+        return new Venda(cliente, produtos, metodo, data);
     }
 
     public static Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String numeroCartao, String dataInserida) {
         // Valida método de pagamento
         if (metodoDePagamento == null || metodoDePagamento.isEmpty())
             throw new IllegalArgumentException("Método de pagamento não pode estar vazio.");
+        MetodoDePagamento metodo;
 
-        List<String> metodosValidos = List.of("BOLETO", "PIX", "CARTAO", "CARTÃO", "DINHEIRO");
-        metodoDePagamento = metodoDePagamento.toUpperCase().replace('Ã', 'A');
-        if (!metodosValidos.contains(metodoDePagamento))
-            throw new IllegalArgumentException(String.format("Método de pagamento inválido: \"%s\"", metodoDePagamento));
-        if (metodoDePagamento.equals("CARTAO")) {
+        if (metodoDePagamento.toUpperCase().replace('Ã', 'A').equals("CARTAO")) {
             if (numeroCartao == null)
                 throw new IllegalArgumentException("Número do cartão não pode estar vazio.");
             if (!Pattern.compile("^(\\d{4} ){3}\\d{4}$").matcher(numeroCartao).matches()) {
                 throw new IllegalArgumentException(String.format("Formato inválido para número de cartão: \"%s\"", numeroCartao));
             }
             if (Pattern.compile("^4296 13(\\d| ){12}$").matcher(numeroCartao).matches()) {
-                metodoDePagamento = "CARTAO_LOJA";
+                metodo = CARTAO_LOJA;
             } else
-                metodoDePagamento = "CARTAO_EXTERNO";
+                metodo = CARTAO_EXTERNO;
+        } else {
+            try {
+                metodo = MetodoDePagamento.valueOf(metodoDePagamento.toUpperCase().replace('Ã', 'A'));
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Método de pagamento inválido: \"%s\"%n", metodoDePagamento);
+                throw e;
+
+            }
         }
-        return criaVenda(emailCliente, produtosId, metodoDePagamento, dataInserida);
+        return criaVenda(emailCliente, produtosId, metodo, dataInserida);
     }
 
-    public static void insereNoBanco(Object entidade) {
+    public static int insereNoBanco(Object entidade) {
         Database db = Database.getInstance();
         try {
             if (entidade instanceof Cliente)
-                db.insereCliente((Cliente) entidade);
+                return db.insereCliente((Cliente) entidade);
             else if (entidade instanceof Produto)
-                db.insereProduto((Produto) entidade);
+                return db.insereProduto((Produto) entidade);
             else if (entidade instanceof Venda)
-                db.insereVenda((Venda) entidade);
+                return db.insereVenda((Venda) entidade);
 
         } catch (SQLIntegrityConstraintViolationException e) {
             System.err.println(e.getMessage());
         }
+        return -1;
 
     }
 

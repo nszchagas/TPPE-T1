@@ -69,7 +69,7 @@ public class ProdutosTest {
                     idsFromProdutos.add(produto.codigo);
                 }
 
-                assertEquals(idsEntrada, new HashSet<>(vendaRegistrada.produtosId));
+                assertEquals(idsEntrada, new HashSet<>(vendaRegistrada.getCodProdutos()));
                 assertEquals(entrada.size(), produtosRegistrados.size());
                 assertEquals(idsEntrada, idsFromProdutos);
             }

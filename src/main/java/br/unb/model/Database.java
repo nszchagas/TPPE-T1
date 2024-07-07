@@ -3,43 +3,48 @@ package br.unb.model;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     private static Database db;
-    private final ArrayList<Cliente> clientes;
-    private final ArrayList<Produto> produtos;
-
-    private final ArrayList<Venda> vendas;
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<Produto> produtos = new ArrayList<>();
+    private static ArrayList<Venda> vendas = new ArrayList<>();
 
     private Database() {
-        clientes = new ArrayList<>();
-        produtos = new ArrayList<>();
-        vendas = new ArrayList<>();
     }
 
     public static Database getInstance() {
+
         if (db == null) {
             db = new Database();
         }
         return db;
     }
 
-    public void insereCliente(Cliente cliente) throws SQLIntegrityConstraintViolationException {
+    public Venda getVendaById(int id) {
+        return new Venda(null, List.of(), null, null);
+    }
+
+    public int insereCliente(Cliente cliente) throws SQLIntegrityConstraintViolationException {
         if (clientes.contains(cliente))
             throw new SQLIntegrityConstraintViolationException(String.format("Cliente já inserido no banco de dados. %s\n", cliente.toString()));
         clientes.add(cliente);
+        return clientes.size() - 1;
     }
 
-    public void insereProduto(Produto produto) throws SQLIntegrityConstraintViolationException {
+    public int insereProduto(Produto produto) throws SQLIntegrityConstraintViolationException {
         if (produtos.contains(produto))
             throw new SQLIntegrityConstraintViolationException(String.format("Produto já inserido no banco de dados. %s\n", produto.toString()));
         produtos.add(produto);
+        return produtos.size() - 1;
     }
 
-    public void insereVenda(Venda venda) throws SQLIntegrityConstraintViolationException {
+    public int insereVenda(Venda venda) throws SQLIntegrityConstraintViolationException {
         if (vendas.contains(venda))
             throw new SQLIntegrityConstraintViolationException(String.format("Venda já inserida no banco de dados. %s\n", venda.toString()));
         vendas.add(venda);
+        return vendas.size() - 1;
     }
 
     public Produto getProdutoByCodigo(String codigo) {
@@ -57,5 +62,4 @@ public class Database {
         }
         return null;
     }
-
 }

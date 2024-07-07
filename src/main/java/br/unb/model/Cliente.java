@@ -21,6 +21,13 @@ public class Cliente {
         this.endereco = new Endereco(estado, regiao);
     }
 
+    public static List<String> getCategoriasValidas() {
+        List<String> categorias = new ArrayList<>();
+        for (CategoriaDeCliente c : CategoriaDeCliente.values())
+            categorias.add(c.toString());
+        return categorias;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,7 +35,6 @@ public class Cliente {
         Cliente cliente = (Cliente) o;
         return Objects.equals(email, cliente.email);
     }
-
 
     @Override
     public String toString() {
@@ -38,13 +44,6 @@ public class Cliente {
                 '}';
     }
 
-    public static List<String> getCategoriasValidas() {
-        List<String> categorias = new ArrayList<>();
-        for (CategoriaDeCliente c : CategoriaDeCliente.values())
-            categorias.add(c.toString());
-        return categorias;
-    }
-
     public String getEstado() {
         return endereco.uf;
     }
@@ -52,4 +51,9 @@ public class Cliente {
     public RegiaoDoEstado getRegiao() {
         return endereco.regiaoDoEstado;
     }
+
+    public CategoriaDeCliente getCategoria() {
+        return CategoriaDeCliente.valueOf(categoria);
+    }
+
 }
