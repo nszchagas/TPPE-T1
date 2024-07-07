@@ -14,7 +14,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static br.unb.service.Cadastro.criaVenda;
+import static br.unb.model.categorias.MetodoDePagamento.PIX;
+import static br.unb.service.VendaService.criaVenda;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
@@ -63,10 +64,10 @@ public class DataTest {
 
             if (saidaEsperada == null) {
                 assertThrows(IllegalArgumentException.class, () ->
-                        criaVenda("email1@domain.com", itens, "PIX", entrada));
+                        criaVenda("email1@domain.com", itens, PIX, entrada));
             } else {
 
-                Venda v = criaVenda("email1@domain.com", itens, "PIX", entrada);
+                Venda v = criaVenda("email1@domain.com", itens, PIX, entrada);
                 assertEquals(v.getData(), saidaEsperada);
             }
         }

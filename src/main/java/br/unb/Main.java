@@ -7,6 +7,8 @@ import br.unb.model.Venda;
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.service.Cadastro;
+import br.unb.service.VendaService;
+import br.unb.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,14 +122,14 @@ public class Main {
             String numeroCartao = scanner.nextLine();
             System.out.print("Data da Venda (yyyy-MM-dd): ");
             String dataInserida = scanner.nextLine();
-
-            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, numeroCartao, dataInserida, usarCashback);
+            MetodoDePagamento metodo = Validator.getMetodoDePagamento(metodoDePagamento, numeroCartao);
+            Venda venda = VendaService.criaVenda(emailCliente, produtosId, metodo, dataInserida);
             System.out.println("Venda cadastrada: " + venda);
         } else {
             System.out.print("Data da Venda (yyyy-MM-dd): ");
             String dataInserida = scanner.nextLine();
-
-            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, dataInserida);
+            MetodoDePagamento metodo = Validator.getMetodoDePagamento(metodoDePagamento);
+            Venda venda = VendaService.criaVenda(emailCliente, produtosId, metodo, dataInserida);
             System.out.println("Venda cadastrada: " + venda);
         }
     }

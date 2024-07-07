@@ -8,7 +8,6 @@ import br.unb.model.Venda;
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.model.categorias.RegiaoDoEstado;
-import br.unb.service.Cadastro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -23,6 +22,8 @@ import java.util.List;
 
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
 import static br.unb.model.categorias.CategoriaDeCliente.PRIME;
+import static br.unb.model.categorias.MetodoDePagamento.BOLETO;
+import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static org.junit.Assert.*;
@@ -62,9 +63,9 @@ public class CadastroVendasTest {
     @Parameterized.Parameters(name = "Cliente: {0}, Email: {1}, Estado: {2}, Região: {3}, Categoria: {4}, Pagamento: {5}, Número: {6}, Data: {7}, Cashback: {8}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"João da Silva", "joao.silva@gmail.com", "RS", INTERIOR, PADRAO, "cartao", "4296 1370 0000 0000", "2024-07-07", MetodoDePagamento.CARTAO_LOJA, false},
-                {"Maria da Silva", "maria.silva@gmail.com", "RS", CAPITAL, PADRAO, "boleto", "", "2024-07-07", MetodoDePagamento.BOLETO, false},
-                {"José da Silva", "jose.silva@gmail.com", "RS", INTERIOR, PRIME, "cartao", "4296 1370 0000 0000", "2024-07-07", MetodoDePagamento.CARTAO_LOJA, true},
+                {"João da Silva", "joao.silva@gmail.com", "RS", INTERIOR, PADRAO, "cartao", "4296 1370 0000 0000", "2024-07-07", CARTAO_LOJA, false},
+                {"Maria da Silva", "maria.silva@gmail.com", "RS", CAPITAL, PADRAO, "boleto", "", "2024-07-07", BOLETO, false},
+                {"José da Silva", "jose.silva@gmail.com", "RS", INTERIOR, PRIME, "cartao", "4296 1370 0000 0000", "2024-07-07", CARTAO_LOJA, true},
         });
     }
 
@@ -79,8 +80,8 @@ public class CadastroVendasTest {
                 new Produto("Produto 1", 10.00, "UNIDADE", "11111"),
                 new Produto("Produto 2", 15.00, "UNIDADE", "22222")
         );
-        produtos.forEach(Cadastro::insereNoBanco);
-        Cadastro.insereNoBanco(cliente);
+        produtos.forEach(Database::insereNoBanco);
+        Database.insereNoBanco(cliente);
 
         StringBuilder entrada = new StringBuilder();
         entrada.append(Main.COD_CADASTRO_VENDA).append('\n')
@@ -89,14 +90,14 @@ public class CadastroVendasTest {
         for (Produto produto : produtos) {
             entrada.append(produto.getCodigo()).append('\n');
         }
+        if (usarCashback) {
+            entrada.append("S").append('\n'); // Usar cashback
+        }
         entrada.append(metodoDePagamento).append('\n');
         if ("cartao".equals(metodoDePagamento)) {
             entrada.append(numeroCartao).append('\n');
         }
         entrada.append(dataVenda).append('\n');
-        if (usarCashback) {
-            entrada.append("S").append('\n'); // Usar cashback
-        }
         entrada.append(Main.COD_SAIR).append('\n');
 
         ByteArrayInputStream in = new ByteArrayInputStream(entrada.toString().getBytes());

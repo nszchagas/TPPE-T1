@@ -9,13 +9,12 @@ import static br.unb.util.OperacoesFinanceiras.calculaImposto;
 
 public class NotaFiscal {
     // Venda e Dados do cliente
-    Venda venda;
-    String data;
-
+    final Venda venda;
     // Atributos relacionados aos impostos e produtos
-    private List<Double> icms;
-    private List<Double> municipais;
-    private List<Produto> produtos;
+    private final List<Double> icms;
+    private final List<Double> municipais;
+    private final List<Produto> produtos;
+    String data;
     // Atributos relacionados ao valor da nota fiscal
     private double valorGasto;
     private double valorTotal;
@@ -86,10 +85,6 @@ public class NotaFiscal {
         return frete;
     }
 
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
     public List<Double> getImpostosICMS() {
         return icms;
     }
@@ -100,10 +95,6 @@ public class NotaFiscal {
 
     public double getValorGasto() {
         return valorGasto;
-    }
-
-    public double getDesconto() {
-        return desconto;
     }
 
     public double getValorFinal() {

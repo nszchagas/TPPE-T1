@@ -8,7 +8,7 @@ import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
 import static br.unb.model.categorias.CategoriaDeCliente.PRIME;
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
-import static br.unb.service.Cadastro.insereNoBanco;
+import static br.unb.model.Database.insereNoBanco;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

@@ -19,7 +19,6 @@ import org.junit.runners.Suite;
         DescontoTest.class,
         TabelaDeCashbackTest.class,
         ImpostoTest.class,
-        CadastroVendasTest.class,
         ValorGastoTest.class
 
 })

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Database {
     private static Database db;
-    private static ArrayList<Cliente> clientes = new ArrayList<>();
-    private static ArrayList<Produto> produtos = new ArrayList<>();
-    private static ArrayList<Venda> vendas = new ArrayList<>();
+    private static final ArrayList<Cliente> clientes = new ArrayList<>();
+    private static final ArrayList<Produto> produtos = new ArrayList<>();
+    private static final ArrayList<Venda> vendas = new ArrayList<>();
 
     private Database() {
     }
@@ -23,7 +23,24 @@ public class Database {
         return db;
     }
 
-    public Venda getVendaById(int id) {
+    public static int insereNoBanco(Object entidade) {
+        Database db = getInstance();
+        try {
+            if (entidade instanceof Cliente)
+                return db.insereCliente((Cliente) entidade);
+            else if (entidade instanceof Produto)
+                return db.insereProduto((Produto) entidade);
+            else if (entidade instanceof Venda)
+                return db.insereVenda((Venda) entidade);
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println(e.getMessage());
+        }
+        return -1;
+
+    }
+
+    public Venda getVendaById() {
         return new Venda(null, List.of(), null, null);
     }
 

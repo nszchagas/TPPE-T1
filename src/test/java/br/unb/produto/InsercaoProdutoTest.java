@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.service.Cadastro.insereNoBanco;
+import static br.unb.model.Database.insereNoBanco;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

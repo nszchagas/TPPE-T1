@@ -1,31 +1,21 @@
 package br.unb.venda;
 
-import br.unb.Main;
 import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
-import br.unb.model.categorias.CategoriaDeCliente;
-import br.unb.model.categorias.MetodoDePagamento;
-import br.unb.model.categorias.RegiaoDoEstado;
-import br.unb.service.Cadastro;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.MockedStatic;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.time.LocalDate;
 import java.util.*;
 
-import static br.unb.Main.COD_CADASTRO_VENDA;
-import static br.unb.Main.COD_SAIR;
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
+import static br.unb.model.categorias.MetodoDePagamento.BOLETO;
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
-import static br.unb.service.Cadastro.criaVenda;
+import static br.unb.service.VendaService.criaVenda;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -80,7 +70,7 @@ public class ClienteTest {
             mockedStatic.when(Database::getInstance).thenReturn(db);
 
             if (isValid) {
-                vendaCriada = criaVenda(entrada, itens, "BOLETO", "2024-07-01");
+                vendaCriada = criaVenda(entrada, itens, BOLETO, "2024-07-01");
                 clienteCriado = vendaCriada.getCliente();
                 assertNotNull(clienteCriado);
             }
@@ -93,7 +83,7 @@ public class ClienteTest {
         if (!isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            criaVenda(entrada, itens, "BOLETO", "2024-07-01")
+                            criaVenda(entrada, itens, BOLETO, "2024-07-01")
             );
         } else {
             assertEquals(vendaCriada.getCliente().email, entrada);
@@ -105,7 +95,7 @@ public class ClienteTest {
         if (!isValid) {
             assertThrows(IllegalArgumentException.class,
                     () ->
-                            criaVenda(entrada, itens, "BOLETO", "2024-07-01")
+                            criaVenda(entrada, itens, BOLETO, "2024-07-01")
             );
         } else {
             assertEquals(clienteCriado.email, entrada);

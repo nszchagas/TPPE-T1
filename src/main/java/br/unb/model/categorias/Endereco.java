@@ -7,7 +7,6 @@ public class Endereco {
 
     public final String uf;
     public final RegiaoDoEstado regiaoDoEstado;
-    public final RegiaoDoPais regiaoDoPais;
 
     public Endereco(String uf, RegiaoDoEstado regiaoDoEstado) {
         this.uf = uf;
@@ -15,7 +14,6 @@ public class Endereco {
             this.regiaoDoEstado = null;
         else
             this.regiaoDoEstado = regiaoDoEstado;
-        this.regiaoDoPais = getRegiaoDoPais();
     }
 
     public static RegiaoDoPais getRegiaoDoPais(String uf) {

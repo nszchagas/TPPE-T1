@@ -4,6 +4,7 @@ import br.unb.model.Cliente;
 import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
+import br.unb.model.categorias.MetodoDePagamento;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -14,7 +15,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import static br.unb.service.Cadastro.criaVenda;
+import static br.unb.model.categorias.MetodoDePagamento.BOLETO;
+import static br.unb.service.VendaService.criaVenda;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
@@ -24,7 +26,8 @@ public class ProdutosTest {
 
     final List<String> entrada;
     final boolean isValid;
-    String emailValido = "email1@domain.com", metodoDePagamento = "BOLETO", data = "2024-07-01";
+    String emailValido = "email1@domain.com", data = "2024-07-01";
+    MetodoDePagamento metodoDePagamento = BOLETO;
     List<String> idsValidos = List.of("123", "456", "789", "101", "202");
 
     public ProdutosTest(List<String> entrada, boolean isValid) {

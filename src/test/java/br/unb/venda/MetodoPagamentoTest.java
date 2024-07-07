@@ -14,7 +14,7 @@ import org.mockito.MockedStatic;
 import java.util.*;
 
 import static br.unb.model.categorias.MetodoDePagamento.*;
-import static br.unb.service.Cadastro.criaVenda;
+import static br.unb.service.VendaService.criaVenda;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
