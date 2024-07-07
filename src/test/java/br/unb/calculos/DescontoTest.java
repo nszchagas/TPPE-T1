@@ -1,24 +1,38 @@
 package br.unb.calculos;
 
+import br.unb.model.Cliente;
+import br.unb.model.Produto;
+import br.unb.model.Venda;
 import br.unb.model.categorias.CategoriaDeCliente;
-import br.unb.util.OperacoesFinanceiras;
+import br.unb.model.categorias.MetodoDePagamento;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import static br.unb.model.categorias.CategoriaDeCliente.*;
+import static br.unb.model.categorias.MetodoDePagamento.*;
+import static br.unb.util.OperacoesFinanceiras.aplicaDesconto;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class DescontoTest {
 
     double valorGasto, frete, descontoEsperado;
     CategoriaDeCliente categoriaDeCliente;
-    String metodoDePagamento;
+    MetodoDePagamento metodoDePagamento;
 
-    public DescontoTest(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, String metodoDePagamento, double descontoEsperado) {
+    public DescontoTest(
+            double valorGasto,
+            double frete,
+            CategoriaDeCliente categoriaDeCliente,
+            MetodoDePagamento metodoDePagamento,
+            double descontoEsperado) {
         this.valorGasto = valorGasto;
         this.categoriaDeCliente = categoriaDeCliente;
         this.metodoDePagamento = metodoDePagamento;
@@ -30,21 +44,33 @@ public class DescontoTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList
                 (new Object[][]{
-                        // Especial sem cartão loja = (100) * 0.1 = 10
-                        {100.00, 5.00, ESPECIAL, "BOLETO", 10.0},
-                        // Especial com cartão =  105 - (((100 * 0.9) + 5 ) * 0.9)
-                        {100.00, 5.00, ESPECIAL, "CARTAO_LOJA", 19.5},
-                        {200.00, 15.00, PADRAO, "BOLETO", 0},
-                        {200.00, 20.00, PADRAO, "CARTAO_LOJA", 0},
-                        {200.00, 0, PRIME, "CARTAO_EXTERNO", 0},
-                        {200.00, 0, PRIME, "CARTAO_LOJA", 0}
+                        {101.00, 5.00, ESPECIAL, BOLETO, 10.1},
+                        {100.00, 5.00, ESPECIAL, CARTAO_LOJA, 19.5},
+                        {200.00, 15.00, PADRAO, BOLETO, 0.0},
+                        {200.00, 20.00, PADRAO, CARTAO_LOJA, 0.0},
+                        {200.00, 0.0, PRIME, CARTAO_EXTERNO, 0.0},
+                        {200.00, 0.0, PRIME, CARTAO_LOJA, 0.0}
                 });
 
     }
 
     @Test
     public void testDesconto() {
-        assertEquals(descontoEsperado, OperacoesFinanceiras.aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento), 0.01);
+        assertEquals(descontoEsperado,
+                aplicaDesconto(valorGasto, frete, categoriaDeCliente, metodoDePagamento),
+                0.01);
+    }
+
+    @Test
+    public void testAtributo() {
+        LocalDate data = LocalDate.of(2021, 2, 5);
+        Cliente cliente = mock(Cliente.class);
+        List<Produto> produtos = List.of(mock(Produto.class));
+
+        when(cliente.getCategoria()).thenReturn(categoriaDeCliente);
+        Venda venda = new Venda(cliente, produtos, metodoDePagamento, data);
+        assertEquals(descontoEsperado, venda.getDesconto(),0.1);
+
     }
 
 }

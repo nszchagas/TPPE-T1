@@ -3,6 +3,7 @@ package br.unb.util;
 import br.unb.model.categorias.*;
 
 import static br.unb.model.categorias.CategoriaDeCliente.ESPECIAL;
+import static br.unb.model.categorias.MetodoDePagamento.CARTAO_LOJA;
 
 public class OperacoesFinanceiras {
 
@@ -34,8 +35,9 @@ public class OperacoesFinanceiras {
         }
         return -1;
     }
+
     public static double calculaFrete(String estado, RegiaoDoEstado regiao, CategoriaDeCliente categoriaDeCliente) {
-        switch (categoriaDeCliente){
+        switch (categoriaDeCliente) {
             case PRIME:
                 return 0;
             case ESPECIAL:
@@ -43,26 +45,26 @@ public class OperacoesFinanceiras {
             case PADRAO:
                 return calculaFrete(estado, regiao.toString());
             default:
-                return  -1F;
+                return -1F;
         }
     }
 
-     public static double aplicaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, String metodoDePagamento){
+    public static double aplicaDesconto(double valorGasto, double frete, CategoriaDeCliente categoriaDeCliente, MetodoDePagamento metodoDePagamento) {
         if (categoriaDeCliente != ESPECIAL)
             return 0;
-        if (! metodoDePagamento.equals("CARTAO_LOJA"))
+        if (!metodoDePagamento.equals(CARTAO_LOJA))
             return 0.1 * (valorGasto);
         return 0.1 * valorGasto + 0.1 * (0.9 * valorGasto + frete);
 
     }
 
-    public static double calculaCashback(CategoriaDeCliente cliente, MetodoDePagamento pagamento,double valorTotal){
-        switch (cliente){
+    public static double calculaCashback(CategoriaDeCliente cliente, MetodoDePagamento pagamento, double valorTotal) {
+        switch (cliente) {
             case ESPECIAL:
             case PADRAO:
                 return 0;
             case PRIME:
-                if (pagamento==MetodoDePagamento.CARTAO_LOJA)
+                if (pagamento == CARTAO_LOJA)
                     return 0.05 * valorTotal;
                 return 0.03 * valorTotal;
         }
@@ -85,7 +87,6 @@ public class OperacoesFinanceiras {
         return 0.04 * valor;
 
     }
-
 
 
 }

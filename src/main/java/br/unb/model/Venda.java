@@ -24,6 +24,9 @@ public class Venda {
         return OperacoesFinanceiras.calculaFrete(cliente.getEstado(), cliente.getRegiao(), cliente.getCategoria());
     }
 
+    public double getDesconto() {
+        return -1;
+    }
     public Cliente getCliente() {
         return cliente;
     }
