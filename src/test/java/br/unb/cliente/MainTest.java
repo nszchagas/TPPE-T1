@@ -6,14 +6,18 @@ import br.unb.model.Database;
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.RegiaoDoEstado;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
 
-import static br.unb.Main.COD_CADASTRO_CLIENTE;
-import static br.unb.Main.COD_SAIR;
+import static br.unb.Main.*;
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static org.junit.Assert.*;
@@ -53,8 +57,13 @@ public class MainTest {
 
     @Test
     public void testCadastrarProduto() {
-        String input = "2\nProduto Teste\n10.00\nUnidade\n12345\n3\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        StringBuilder sb = new StringBuilder();
+        String[] params = {COD_CADASTRO_PRODUTO, "Produto Teste", "10.00", "Unidade", "123486", COD_SAIR};
+        for (String param : params) {
+            sb.append(param).append('\n');
+        }
+
+        ByteArrayInputStream in = new ByteArrayInputStream(sb.toString().getBytes());
         System.setIn(in);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

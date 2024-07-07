@@ -28,4 +28,9 @@ public class Produto {
     public int hashCode() {
         return Objects.hashCode(codigo);
     }
+
+    @Override
+    public String toString() {
+        return "Produto{descricao='" + descricao + "'}";
+    }
 }
