@@ -2,6 +2,7 @@ package br.unb.model;
 
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,15 @@ public class Database {
         for (Cliente cliente : clientes) {
             if (cliente.email.equals(email))
                 return cliente;
+        }
+        return null;
+    }
+
+    public Venda getVendaByDataCliente(LocalDate dataVenda, String emailCliente) {
+        for (Venda venda : vendas) {
+            if (venda.getData().equals(dataVenda) && venda.getCliente().getEmail().equals(emailCliente)) {
+                return venda;
+            }
         }
         return null;
     }

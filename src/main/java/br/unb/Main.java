@@ -2,14 +2,17 @@ package br.unb;
 
 import br.unb.model.Cliente;
 import br.unb.model.Produto;
+import br.unb.model.Venda;
 import br.unb.service.Cadastro;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static br.unb.service.Cadastro.criaProduto;
 
 public class Main {
-    public static String COD_CADASTRO_CLIENTE = "1", COD_CADASTRO_PRODUTO = "2", COD_CADASTRO_VENDA = "3", COD_SAIR = "0";
+    public final static String COD_CADASTRO_CLIENTE = "1", COD_CADASTRO_PRODUTO = "2", COD_CADASTRO_VENDA = "3", COD_SAIR = "0";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -27,13 +30,16 @@ public class Main {
             String opcao = scanner.nextLine();
 
             switch (opcao) {
-                case "1":
+                case COD_CADASTRO_CLIENTE:
                     cadastrarCliente(scanner);
                     break;
-                case "2":
+                case COD_CADASTRO_PRODUTO:
                     cadastrarProduto(scanner);
                     break;
-                case "0":
+                case COD_CADASTRO_VENDA:
+                    cadastrarVenda(scanner);
+                    break;
+                case COD_SAIR:
                     sair = true;
                     break;
                 default:
@@ -74,6 +80,37 @@ public class Main {
         System.out.println("Produto cadastrado: " + produto);
     }
 
+    private static void cadastrarVenda(Scanner scanner) {
+        System.out.print("Email do Cliente: ");
+        String emailCliente = scanner.nextLine();
 
+        System.out.print("Quantidade de Produtos: ");
+        int quantidadeProdutos = Integer.parseInt(scanner.nextLine());
+        List<String> produtosId = new ArrayList<>();
+        for (int i = 0; i < quantidadeProdutos; i++) {
+            System.out.print("Código do Produto " + (i + 1) + ": ");
+            String produtoId = scanner.nextLine();
+            produtosId.add(produtoId);
+        }
+
+        System.out.print("Método de Pagamento: ");
+        String metodoDePagamento = scanner.nextLine();
+
+        if ("cartao".equalsIgnoreCase(metodoDePagamento)) {
+            System.out.print("Número do Cartão: ");
+            String numeroCartao = scanner.nextLine();
+            System.out.print("Data da Venda (yyyy-MM-dd): ");
+            String dataInserida = scanner.nextLine();
+
+            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, numeroCartao, dataInserida);
+            System.out.println("Venda cadastrada: " + venda);
+        } else {
+            System.out.print("Data da Venda (yyyy-MM-dd): ");
+            String dataInserida = scanner.nextLine();
+
+            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, dataInserida);
+            System.out.println("Venda cadastrada: " + venda);
+        }
+    }
 }
 

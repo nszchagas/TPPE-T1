@@ -103,7 +103,7 @@ public class Cadastro {
 
         MetodoDePagamento metodo;
         if (metodoDePagamento instanceof String)
-            metodo = MetodoDePagamento.valueOf((String) metodoDePagamento);
+            metodo = MetodoDePagamento.valueOf(((String) metodoDePagamento).toUpperCase());
         else if (metodoDePagamento instanceof MetodoDePagamento)
             metodo = (MetodoDePagamento) metodoDePagamento;
         else
