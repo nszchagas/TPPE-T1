@@ -60,21 +60,21 @@ Instruções gerais:
 Utilizando as técnicas de TDD, crie um programa que seja capaz de realizar as
 seguintes ações:
 
-- Cadastrar clientes dos três diferentes tipos (padrão, especial e prime), com
+1. Cadastrar clientes dos três diferentes tipos (padrão, especial e prime), com
   seus endereços de entrega em diferentes regiões do pais. Por simplicidade,
   considere apenas o estado e informe se o endereço é na capital ou no interior.
-- Cadastrar diferentes tipos de produtos. Para cada produto deverá ser
+2. Cadastrar diferentes tipos de produtos. Para cada produto deverá ser
   informado:
     - Codigo do item
     - Descricao
     - Valor de venda
     - Unidade (peça, unidade, metro, cm3, etc...)
-- Realizar a venda de itens para os clientes. A venda consiste em uma data,
+3. Realizar a venda de itens para os clientes. A venda consiste em uma data,
   cliente, itens vendidos e método de pagamento. Além disso serão calculados,
   para cada venda em específico, o valor do frente e os descontos (caso haja),
   além dos impostos ICMS e municipal. Se for uma venda para um cliente prime, este
   poderá utilizar seu saldo de cashback para abater na compra.
-- Calcular o valor das vendas do ultimo mês para cada cliente e verificar se ele
+4. Calcular o valor das vendas do ultimo mês para cada cliente e verificar se ele
   é elegível para ser considerado como um cliente especial.
 - Calcular o saldo de cashback para clientes-prime.
 

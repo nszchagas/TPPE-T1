@@ -60,7 +60,7 @@
 
 - [x] Registrar venda no banco de dados
 - [x] Verificar que a venda de fato foi registrada
-- [] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete,
+- [x] Verificar que a venda contém todos os detalhes corretos (data, cliente, itens vendidos, método de pagamento, frete,
   descontos, impostos)
 
 
@@ -74,7 +74,7 @@
 ### Nota Fiscal
 
 - [x] Verificar que os valores de impostos, frete e desconto estão corretos.
-- [] Emitir nota fiscal
+- [x] Emitir nota fiscal
 
 ## Agrupamento dos testes em Suíte
 
