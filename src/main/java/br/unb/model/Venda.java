@@ -14,13 +14,20 @@ public class Venda {
     private final Cliente cliente;
     private final List<Produto> produtos;
     private final MetodoDePagamento metodoDePagamento;
+    private final boolean usaCashback;
 
-    public Venda(Cliente cliente, List<Produto> produtos, MetodoDePagamento metodoDePagamento, LocalDate data) {
+    public Venda(Cliente cliente, List<Produto> produtos, MetodoDePagamento metodoDePagamento, LocalDate data, boolean usaCashback) {
         this.data = data;
         this.cliente = cliente;
         this.produtos = produtos;
         this.metodoDePagamento = metodoDePagamento;
+        this.usaCashback = usaCashback;
     }
+
+    public Venda(Cliente cliente, List<Produto> produtos, MetodoDePagamento metodoDePagamento, LocalDate data) {
+        this(cliente, produtos, metodoDePagamento, data, false);
+    }
+
 
     public double getFrete() {
         return calculaFrete(getCliente().getEstado(), getCliente().getRegiao(), getCliente().getCategoria());

@@ -1,14 +1,18 @@
 package br.unb;
 
 import br.unb.model.Cliente;
+import br.unb.model.Database;
 import br.unb.model.Produto;
 import br.unb.model.Venda;
+import br.unb.model.categorias.CategoriaDeCliente;
+import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.service.Cadastro;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static br.unb.model.categorias.CategoriaDeCliente.PRIME;
 import static br.unb.service.Cadastro.criaProduto;
 
 public class Main {
@@ -83,6 +87,15 @@ public class Main {
     private static void cadastrarVenda(Scanner scanner) {
         System.out.print("Email do Cliente: ");
         String emailCliente = scanner.nextLine();
+        CategoriaDeCliente categoria;
+
+        try {
+            categoria = Database.getInstance().getClienteByEmail(emailCliente).getCategoria();
+
+        } catch (NullPointerException e) {
+            System.err.printf("Nenhum cliente com email %s foi encontrado.", emailCliente);
+            return;
+        }
 
         System.out.print("Quantidade de Produtos: ");
         int quantidadeProdutos = Integer.parseInt(scanner.nextLine());
@@ -92,7 +105,13 @@ public class Main {
             String produtoId = scanner.nextLine();
             produtosId.add(produtoId);
         }
-
+        boolean usarCashback = false;
+        // PRIME
+        if (categoria.equals(PRIME)) {
+            System.out.println("Usar cashback no pagamento? (S/N)");
+            String l = scanner.nextLine();
+            usarCashback = l.equalsIgnoreCase("S");
+        }
         System.out.print("Método de Pagamento: ");
         String metodoDePagamento = scanner.nextLine();
 
@@ -102,7 +121,7 @@ public class Main {
             System.out.print("Data da Venda (yyyy-MM-dd): ");
             String dataInserida = scanner.nextLine();
 
-            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, numeroCartao, dataInserida);
+            Venda venda = Cadastro.criaVenda(emailCliente, produtosId, metodoDePagamento, numeroCartao, dataInserida, usarCashback);
             System.out.println("Venda cadastrada: " + venda);
         } else {
             System.out.print("Data da Venda (yyyy-MM-dd): ");

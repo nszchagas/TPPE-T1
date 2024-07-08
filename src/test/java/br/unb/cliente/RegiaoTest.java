@@ -1,14 +1,23 @@
 package br.unb.cliente;
 
+import br.unb.Main;
 import br.unb.model.Cliente;
+import br.unb.model.Database;
+import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.RegiaoDoEstado;
+import br.unb.util.Validator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static br.unb.Main.COD_CADASTRO_CLIENTE;
+import static br.unb.Main.COD_SAIR;
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static br.unb.service.Cadastro.criaCliente;
@@ -45,5 +54,6 @@ public class RegiaoTest {
             assertTrue(e.getMessage().contains(entrada));
         }
     }
+
 
 }

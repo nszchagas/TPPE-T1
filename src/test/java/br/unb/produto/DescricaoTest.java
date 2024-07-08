@@ -9,14 +9,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static br.unb.service.Cadastro.criaProduto;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class DescricaoTest {
+    final Class<? extends Throwable> excecaoEsperada;
     private final String entrada;
     private final String saidaEsperada;
-    final Class<? extends Throwable> excecaoEsperada;
 
     public DescricaoTest(String entrada, String saidaEsperada, Class<? extends Throwable> excecaoEsperada) {
         this.entrada = entrada;
@@ -42,7 +41,7 @@ public class DescricaoTest {
                     criaProduto(entrada, "100.20", "UNIDADE", "123456"));
             assertEquals(a.getMessage(), saidaEsperada);
         } else {
-            Produto p = criaProduto(entrada, "100.20", "UNIDADE",  "123456");
+            Produto p = criaProduto(entrada, "100.20", "UNIDADE", "123456");
             assertEquals(p.descricao, saidaEsperada);
         }
 

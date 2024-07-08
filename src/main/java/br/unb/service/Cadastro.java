@@ -142,6 +142,10 @@ public class Cadastro {
         return criaVenda(emailCliente, produtosId, metodo, dataInserida);
     }
 
+    public static Venda criaVenda(String emailCliente, List<String> produtosId, String metodoDePagamento, String numeroCartao, String dataInserida, Boolean usaCashback) {
+        return criaVenda(emailCliente, produtosId, metodoDePagamento, numeroCartao, dataInserida, usaCashback);
+    }
+
     public static int insereNoBanco(Object entidade) {
         Database db = Database.getInstance();
         try {
@@ -158,8 +162,6 @@ public class Cadastro {
         return -1;
 
     }
-
-
 
 
 }

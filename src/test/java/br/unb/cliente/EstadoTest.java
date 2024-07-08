@@ -1,6 +1,7 @@
 package br.unb.cliente;
 
 import br.unb.model.Cliente;
+import br.unb.model.Database;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -8,9 +9,13 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
+import static br.unb.model.categorias.CategoriaDeCliente.PRIME;
+import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
+import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static br.unb.service.Cadastro.criaCliente;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static br.unb.service.Cadastro.insereNoBanco;
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class EstadoTest {
@@ -48,5 +53,6 @@ public class EstadoTest {
             assertEquals(e.getMessage(), saidaEsperada);
         }
     }
+
 
 }

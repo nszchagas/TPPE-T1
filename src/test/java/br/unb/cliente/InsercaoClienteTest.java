@@ -1,4 +1,4 @@
-package br.unb.database;
+package br.unb.cliente;
 
 import br.unb.model.Cliente;
 import br.unb.model.Database;
@@ -32,4 +32,3 @@ public class InsercaoClienteTest {
 
 
 }
-

@@ -7,7 +7,6 @@ import br.unb.model.Venda;
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.model.categorias.RegiaoDoEstado;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,7 +14,6 @@ import org.junit.runners.Parameterized;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
 
 import static br.unb.model.categorias.CategoriaDeCliente.PADRAO;
 import static br.unb.model.categorias.MetodoDePagamento.DINHEIRO;

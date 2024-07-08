@@ -15,10 +15,10 @@ public class Validator {
 
     public static Object validaEnum(String valor, String nome) {
         try {
-            switch (nome) {
-                case "Categoria":
-                    return CategoriaDeCliente.valueOf(valor.trim().toUpperCase());
-                case "Regiao":
+            switch (nome.toUpperCase()) {
+                case "CATEGORIA":
+                    return CategoriaDeCliente.valueOf(valor.trim().toUpperCase().replace('Ã', 'A'));
+                case "REGIAO":
                     return RegiaoDoEstado.valueOf(valor.trim().toUpperCase());
 
             }
