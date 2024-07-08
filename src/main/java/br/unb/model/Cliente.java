@@ -11,12 +11,14 @@ public class Cliente {
     public final CategoriaDeCliente categoria;
     public final String email;
     private final Endereco endereco;
+    private double saldoCashback;
 
     public Cliente(String nome, CategoriaDeCliente categoria, String estado, RegiaoDoEstado regiao, String email) {
         this.nome = nome;
         this.categoria = categoria;
         this.email = email;
         this.endereco = new Endereco(estado, regiao);
+        saldoCashback = 0;
     }
 
 
@@ -60,4 +62,11 @@ public class Cliente {
         return email;
     }
 
+    public void adicionarCashback(double v) {
+        saldoCashback += v;
+    }
+
+    public double getCashback() {
+        return saldoCashback;
+    }
 }

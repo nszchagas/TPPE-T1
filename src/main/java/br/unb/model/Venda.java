@@ -63,7 +63,8 @@ public class Venda {
 
     }
 
-    public double getTotal() {
+
+    public double getValorFinal() {
         return -1;
     }
 }
