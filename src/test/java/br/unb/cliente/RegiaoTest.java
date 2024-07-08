@@ -10,14 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static br.unb.Main.COD_CADASTRO_CLIENTE;
-import static br.unb.Main.COD_SAIR;
 import static br.unb.model.categorias.RegiaoDoEstado.CAPITAL;
 import static br.unb.model.categorias.RegiaoDoEstado.INTERIOR;
 import static br.unb.service.Cadastro.criaCliente;

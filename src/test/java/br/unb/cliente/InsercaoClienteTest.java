@@ -17,11 +17,12 @@ public class InsercaoClienteTest {
 
     @Test
     public void assertNaoInsereDuplicado() {
-        Cliente a = new Cliente("JOSÉ SILVA", PADRAO, "SP", INTERIOR, "jose@email.com");
-        Cliente b = new Cliente("MARIA SILVA", PRIME, "BA", CAPITAL, "jose@email.com");
+        String emailRepetido = "email123456@email.com";
+        Cliente a = new Cliente("JOSÉ SILVA", PADRAO, "SP", INTERIOR, emailRepetido);
+        Cliente b = new Cliente("MARIA SILVA", PRIME, "BA", CAPITAL, emailRepetido);
         insereNoBanco(a);
         insereNoBanco(b);
-        Cliente clienteInserido = db.getClienteByEmail("jose@email.com");
+        Cliente clienteInserido = db.getClienteByEmail(emailRepetido);
         assertNotNull(clienteInserido);
         assertEquals(clienteInserido.nome, a.nome);
         assertEquals(clienteInserido.getCategoria(), a.getCategoria());
