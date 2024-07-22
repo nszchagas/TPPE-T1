@@ -32,6 +32,14 @@ public class NotaFiscal {
 
     }
 
+    private static String montaCabecalhoNF(String data, String nome, String email) {
+        return "------- Nota Fiscal -------" + '\n' +
+                "Data: " + data + '\n' +
+                "Cliente: " + nome + '\n' +
+                "Email: " + email + '\n' +
+                "----------------------------" + '\n';
+    }
+
     private void calcularValores() {
         valorGasto = 0;
         for (Produto produto : produtos) {
@@ -52,13 +60,12 @@ public class NotaFiscal {
         data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
+    // Extrair método
+    // Smelly Code: método longo demais.
     public String emiteNotaFiscal() {
         StringBuilder nota = new StringBuilder();
-        nota.append("------- Nota Fiscal -------").append('\n');
-        nota.append("Data: ").append(data).append('\n');
-        nota.append("Cliente: ").append(venda.getCliente().getNome()).append('\n');
-        nota.append("Email: ").append(venda.getCliente().getEmail()).append('\n');
-        nota.append("----------------------------").append('\n');
+        // Método especializado para imprimir o cabeçalho da nota com os dados do cliente.
+        nota.append(montaCabecalhoNF(data, venda.getCliente().getNome(), venda.getCliente().getEmail()));
         nota.append("Produtos:").append('\n');
         for (int i = 0; i < produtos.size(); i++) {
             Produto produto = produtos.get(i);
