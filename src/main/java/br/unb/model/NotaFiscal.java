@@ -40,6 +40,26 @@ public class NotaFiscal {
                 "----------------------------" + '\n';
     }
 
+    private static String montaProdutosNF(List<Produto> produtos, List<Double> icms, List<Double> municipais) {
+        StringBuilder nota = new StringBuilder("Produtos:\n");
+        double total = 0.0;
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            total += produto.getValorDeVenda();
+            nota.append(
+                    String.format("%s   %s   - R$%.2f Impostos: (ICMS: %.2f, Municipal: %.2f)",
+                            produto.getCodigo(),
+                            produto.getDescricao(),
+                            produto.getValorDeVenda(),
+                            icms.get(i),
+                            municipais.get(i)
+                    ));
+        }
+        nota.append("----------------------------").append('\n');
+        nota.append(String.format("Produtos: R$%.2f\n", total));
+        return nota.toString();
+    }
+
     private void calcularValores() {
         valorGasto = 0;
         for (Produto produto : produtos) {
@@ -60,25 +80,19 @@ public class NotaFiscal {
         data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    // Extrair método
-    // Smelly Code: método longo demais.
+    //          OPERAÇÃO: EXTRAIR MÉTODO (montaCabecalhoNF e montaProdutosNF)
+    // Smelly Code: o método estava muito longo e com diversas atribuições.
+    // Como foi feito: os trechos de código relativos à montar o cabeçalho da nota e montar a listagem de produtos foram
+    // retirados desse método e inseridos em novos métodos. Após a inserção, as variáveis que não estavam definidas no escopo
+    // foram transformadas em argumentos da função.
+
     public String emiteNotaFiscal() {
         StringBuilder nota = new StringBuilder();
         // Método especializado para imprimir o cabeçalho da nota com os dados do cliente.
         nota.append(montaCabecalhoNF(data, venda.getCliente().getNome(), venda.getCliente().getEmail()));
-        nota.append("Produtos:").append('\n');
-        for (int i = 0; i < produtos.size(); i++) {
-            Produto produto = produtos.get(i);
-            nota.append(produto.getCodigo())
-                    .append("   ")
-                    .append(produto.getDescricao())
-                    .append(" - R$")
-                    .append(produto.getValorDeVenda())
-                    .append(" Impostos: (ICMS: ").append(icms.get(i))
-                    .append(", Municipal: ").append(municipais.get(i))
-                    .append(")\n");
-        }
-        nota.append("----------------------------").append('\n');
+        // Método especializado em listar os produtos e seus impostos
+        nota.append(montaProdutosNF(produtos, icms, municipais));
+
         nota.append("Frete: R$").append(frete).append('\n');
         nota.append("Total: R$").append(valorTotal).append('\n');
         nota.append("Descontos: - R$").append(desconto).append('\n');
