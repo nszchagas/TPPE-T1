@@ -1,6 +1,8 @@
 package br.unb.model;
 
 
+import br.unb.util.CalculadorDeValoresNF;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -18,20 +20,14 @@ public class NotaFiscal {
     // que são relacionadas à nota fiscal. As operações que restaram foram inseridas no construtor.
     private final ListaDeProdutos listaDeProdutos;
     String data;
-    // Atributos relacionados ao valor da nota fiscal
-    private double valorGasto;
-    private double valorTotal;
-    private double frete;
-    private double desconto;
-    private double valorFinal;
 
 
     public NotaFiscal(Venda venda) {
         String estado = venda.getCliente().getEstado();
         List<Produto> produtos = venda.getProdutos();
         this.venda = venda;
+        this.data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.listaDeProdutos = new ListaDeProdutos(produtos, estado);
-        calcularValores();
 
     }
 
@@ -67,22 +63,11 @@ public class NotaFiscal {
     }
 
 
-    private void calcularValores() {
-        valorGasto = 0;
-
-        valorGasto = listaDeProdutos.getValorGasto();
-        frete = venda.getFrete();
-        valorTotal = valorGasto + frete;
-        desconto = venda.getDesconto();
-        valorFinal = valorTotal - desconto;
-        data = venda.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
     //          OPERAÇÃO: EXTRAIR MÉTODO (montaCabecalhoNF e montaProdutosNF)
     // Smelly Code: o método estava muito longo e com diversas atribuições.
     // Como foi feito: os trechos de código relativos à montar o cabeçalho da nota e montar a listagem de produtos foram
-    // retirados desse método e inseridos em novos métodos. Após a inserção, as variáveis que não estavam definidas no escopo
-    // foram transformadas em argumentos da função.
+    //  retirados desse método e inseridos em novos métodos. Após a inserção, as variáveis que não estavam definidas no escopo
+    //  foram transformadas em argumentos da função.
 
     public String emiteNotaFiscal() {
         StringBuilder nota = new StringBuilder();
@@ -91,29 +76,26 @@ public class NotaFiscal {
         // Método especializado em listar os produtos e seus impostos
         nota.append(montaProdutosNF(listaDeProdutos));
 
-        nota.append("Frete: R$").append(frete).append('\n');
-        nota.append("Total: R$").append(valorTotal).append('\n');
-        nota.append("Descontos: - R$").append(desconto).append('\n');
-        nota.append("Valor Final: R$").append(valorFinal).append('\n');
+        //      OPERAÇÃO: SUBSTITUIR MÉTODO POR OBJETO-MÉTODO
+        // Smelly Code: o método calcularValores estava muito complexo, diminuindo também a especialidade da classe NotaFiscal,
+        //   que era utilizada para armazenar os valores intermediários dos cálculos (para viabilizar os testes unitários).
+        // Como foi feito: o método calcularValores foi movido para a nova classe CalculadoraDeValoresNF, e então as variáveis
+        //   envolvidas foram transformadas em atributos da classe, e os argumentos que não estavam relacionados aos cálculos
+        //   foram retirados do método (data). Em seguida, os testes precisaram ser refatorados, para utilizar os valores
+        //   calculados a partir da classe, tornando-os mais simples e reduzindo o tamanho da classe NotaFiscal.
+        //
+
+        CalculadorDeValoresNF calculadora = new CalculadorDeValoresNF();
+        calculadora.calcular(venda);
+
+        nota.append("Frete: R$").append(calculadora.getFrete()).append('\n');
+        nota.append("Total: R$").append(calculadora.getValorTotal()).append('\n');
+        nota.append("Descontos: - R$").append(calculadora.getDesconto()).append('\n');
+        nota.append("Valor Final: R$").append(calculadora.getValorFinal()).append('\n');
         nota.append("Método de Pagamento: ").append(venda.getMetodoDePagamento()).append('\n');
         System.out.println(nota);
         return nota.toString();
     }
 
-    public double getFrete() {
-        return frete;
-    }
-
-    public List<Double> getImpostosICMS() {
-        return listaDeProdutos.getIcms();
-    }
-
-    public List<Double> getImpostosMunicipal() {
-        return listaDeProdutos.getMunicipais();
-    }
-
-    public double getValorGasto() {
-        return valorGasto;
-    }
 
 }

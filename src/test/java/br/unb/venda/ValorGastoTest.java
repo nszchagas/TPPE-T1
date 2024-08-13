@@ -1,12 +1,10 @@
 package br.unb.venda;
 
-import br.unb.model.Cliente;
-import br.unb.model.NotaFiscal;
-import br.unb.model.Produto;
-import br.unb.model.Venda;
+import br.unb.model.*;
 import br.unb.model.categorias.CategoriaDeCliente;
 import br.unb.model.categorias.MetodoDePagamento;
 import br.unb.model.categorias.RegiaoDoEstado;
+import br.unb.util.CalculadorDeValoresNF;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -38,6 +36,8 @@ public class ValorGastoTest {
     private final double descontos;
     private final Venda venda;
     private final MetodoDePagamento metodoDePagamento;
+    private final ListaDeProdutos listaDeProdutos;
+    private final CalculadorDeValoresNF calculadora;
     private final LocalDate data;
     private double valorTotal;
 
@@ -82,7 +82,9 @@ public class ValorGastoTest {
 
         valorTotal += frete;
         valorFinal = valorTotal - descontos;
-
+        listaDeProdutos = new ListaDeProdutos(produtos, estado);
+        calculadora = new CalculadorDeValoresNF();
+        calculadora.calcular(venda);
 
     }
 
@@ -119,7 +121,7 @@ public class ValorGastoTest {
 
     @Test
     public void testCalcularValorGasto() {
-        assertEquals(valorTotal - frete, notaFiscal.getValorGasto(), 0.001);
+        assertEquals(valorTotal - frete, calculadora.getValorGasto(), 0.001);
     }
 
     @Test
@@ -134,17 +136,17 @@ public class ValorGastoTest {
 
     @Test
     public void testListasDeImpostoICMS() {
-        assertEquals(listaICMS, notaFiscal.getImpostosICMS());
+        assertEquals(listaICMS, listaDeProdutos.getIcms());
     }
 
     @Test
     public void testListasDeImpostoMunicipal() {
-        assertEquals(listaMunicipal, notaFiscal.getImpostosMunicipal());
+        assertEquals(listaMunicipal, listaDeProdutos.getMunicipais());
     }
 
     @Test
     public void testValorFreteNaNotaFiscal() {
-        assertEquals(frete, notaFiscal.getFrete(), 0.01);
+        assertEquals(frete, calculadora.getFrete(), 0.01);
     }
 
     @Test
