@@ -1,3 +1,43 @@
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 10px; 
+}
+
+h1, h2, h3 {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+code {
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: Consolas, "Courier New", monospace;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 5px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+blockquote {
+    border-left: 5px solid #ddd;
+    padding-left: 5px;
+    color: #555;
+    font-style: italic;
+}
+</style>
+
+
 # Relatório de Análise de Código
 
 ## Boas Práticas de Código vs Maus-Cheiros
@@ -64,11 +104,144 @@ Um projeto portável pode ser executado em diferentes ambientes e plataformas se
 
 ## Análise do Trabalho Prático 2
 
-**1. Identificação de Maus-Cheiros**
+Após o estudo sobre boas práticas de código, e as suas relações com os maus-cheiros em código, foi realizada a análise do código entregue no TP2, após a refatoração. Em uma análise inicial foram identificados alguns problemas, elencados a seguir, com suas possíveis soluções.
 
-**2. Princípios Violados**
+```Java
+// br.unb.Main
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    boolean sair = false;
 
-**3. Operações de Refatoração Aplicáveis**
+    while (!sair) {
+        System.out.println("Menu:");
+        System.out.printf("%s. Cadastrar Cliente", COD_CADASTRO_CLIENTE);
+        System.out.printf("%s. Cadastrar Produto", COD_CADASTRO_PRODUTO);
+        System.out.printf("%s. Cadastrar Venda", COD_CADASTRO_VENDA);
+
+        System.out.printf("%s. Sair", COD_SAIR);
+        System.out.print("Escolha uma opção: ");
+
+        String opcao = scanner.nextLine();
+
+        switch (opcao) {
+            case COD_CADASTRO_CLIENTE:
+                cadastrarCliente(scanner);
+                break;
+            case COD_CADASTRO_PRODUTO:
+                cadastrarProduto(scanner);
+                break;
+            case COD_CADASTRO_VENDA:
+                cadastrarVenda(scanner);
+                break;
+            case COD_SAIR:
+                sair = true;
+                break;
+            default:
+                System.out.println("Opção inválida. Tente novamente.");
+        }
+    }
+
+    System.out.println("Saindo do programa...");
+}
+```
+
+- Mau-cheiro: Método longo
+- Operação de refatoração: Extrair Método
+  - Como: a parte de exibir o menu e coletar a resposta do usuário poderia ser extraída para outro método.
+
+---
+
+```Java
+// br.unb.Main
+
+private static void cadastrarCliente(Scanner scanner) {
+    System.out.print("Nome: ");
+    String nome = scanner.nextLine();
+    System.out.print("Região: ");
+    String regiao = scanner.nextLine();
+    System.out.print("Estado: ");
+    String estado = scanner.nextLine();
+    System.out.print("Categoria: ");
+    String categoria = scanner.nextLine();
+    System.out.print("Email: ");
+    String email = scanner.nextLine();
+
+    Cliente cliente = Cadastro.criaCliente(nome, regiao, estado, categoria, email);
+    System.out.println("Cliente cadastrado: " + cliente);
+}
+private static void cadastrarProduto(Scanner scanner) {
+    System.out.print("Descrição: ");
+    String descricao = scanner.nextLine();
+    System.out.print("Valor de Venda: ");
+    String valorDeVenda = scanner.nextLine();
+    System.out.print("Unidade: ");
+    String unidade = scanner.nextLine();
+    System.out.print("Código: ");
+    String codigo = scanner.nextLine();
+
+    Produto produto = criaProduto(descricao, valorDeVenda, unidade, codigo);
+    System.out.println("Produto cadastrado: " + produto);
+}
+```
+
+- Mau-Cheiro: Código duplicado
+- Operação de refatoração: Extrair Método
+  - Como: Um método para exibir uma mensagem para o usuário e fazer a leitura da entrada inserida pode ser extraído.
+
+--- 
+
+```Java
+
+// br.unb.model.categorias.Endereco
+public static RegiaoDoPais getRegiaoDoPais(String uf) {
+
+    HashMap<RegiaoDoPais, List<String>> regioes = new HashMap<>();
+    regioes.put(RegiaoDoPais.DF, List.of("DF"));
+    regioes.put(RegiaoDoPais.CENTRO_OESTE, List.of("GO", "MT", "MS"));
+    regioes.put(RegiaoDoPais.NORDESTE, List.of("AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE"));
+    regioes.put(RegiaoDoPais.NORTE, List.of("AC", "AP", "AM", "PA", "RO", "RR", "TO"));
+    regioes.put(RegiaoDoPais.SUDESTE, List.of("ES", "MG", "RJ", "SP"));
+    regioes.put(RegiaoDoPais.SUL, List.of("PR", "RS", "SC"));
+
+    for (RegiaoDoPais regiao : regioes.keySet()) {
+        if (regioes.get(regiao).contains(uf))
+            return regiao;
+    }
+    return null;
+}
+
+public static boolean isUfValida(String uf) {
+    if (uf.trim().length() != 2) {
+        throw new IllegalArgumentException("Insira a sigla do estado.");
+    }
+    List<String> ufs = List.of("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+    return ufs.contains(uf.toUpperCase().trim());
+}
+```
+
+- Mau-cheiro: Obsessão por tipos primitivos
+- Operação de refatoração: Substituir tipos primitivos com objetos
+  - Como: os estados poderiam ser representados por objetos do tipo `enum`.
+
+--- 
+
+```Java
+// br.unb.util.OperacoesFinanceiras.java
+switch (categoriaDeCliente) {
+    case PRIME:
+        return 0;
+    case ESPECIAL:
+        return 0.7F * calculaFrete(estado, regiao);
+    case PADRAO:
+        return calculaFrete(estado, regiao);
+    default:
+        return -1F;
+}
+```
+
+- Mau-Cheiro: Switches longos
+- Operação de refatoração: Substituir condicional por polimorfismo
+  - Como: Seria possível criar uma classe-pai de cliente, e suas filhas: ClientePrime, ClienteEspecial e ClientePadrao, cada uma com seus cálculos particulares.
 
 ### Referências
 
